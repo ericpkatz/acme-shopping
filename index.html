@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>My App</title>
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  form > * {
+    margin: 1rem;
+  }
+</style>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <div id='root'></div>
+    <script type='text/babel'>
+      class Login extends React.Component {
+        constructor(){
+          super();
+          this.state = {
+           username: '',
+           password: '',
+           error: ''
+          };
+          this.login = this.login.bind(this);
+        }
+        async login(ev){
+          ev.preventDefault();
+          try {
+            await this.props.login({ username: this.state.username, password: this.state.password});
+          }
+          catch(ex){
+            console.log(ex);
+            this.setState({ error: ex });
+          }
+        }
+        render(){
+          const { username, password, error } = this.state;
+          const { login } = this;
+          return (
+            <form onSubmit={ login }>
+              <pre>{ JSON.stringify(error || {}, null, 2) }</pre>
+              <input placeholder='username' value={ username } onChange={ ev => this.setState({ username: ev.target.value })}/>
+              <input placeholder='password' value={ password } onChange={ ev => this.setState({ password: ev.target.value })}/>
+              <button>Login</button>
+            </form>
+          );
+        }
+      }
+      class App extends React.Component{
+        constructor(){
+          super();
+          this.state = {
+            auth: {}
+          };
+          this.login = this.login.bind(this);
+        }
+        async loginWithToken(){
+          const token = window.localStorage.getItem('token');
+          if(!token){
+            return;
+          }
+          const response = await axios.get('/api/sessions/', {
+            headers: {
+              authorization: token
+            }
+          });
+          this.setState({ auth: response.data });
+        }
+        async componentDidMount(){
+          this.loginWithToken();
+        }
+        async login(credentials){
+          let response = await axios.post('/api/sessions', credentials);
+          const token = response.data.token;
+          window.localStorage.setItem('token', token);
+          this.loginWithToken();
+        }
+        render(){
+          const { auth } =  this.state;
+          const { login } = this;
+          return (
+            <div>
+              <h1>Acme Auth</h1>
+              {
+              auth.id ? <h2 onClick={ ()=> {
+                  window.localStorage.removeItem('token');
+                  this.setState({ auth: {}});
+                }}>Welcome {auth.username}</h2>:<Login login={ login }/>
+                
+              }
+            </div>
+          );
+        }
+      }
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
