@@ -1,5 +1,12 @@
 const Sequelize = require('sequelize');
-const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_db');
+
+const config = {};
+
+if(process.env.QUIET){
+  config.logging = false;
+}
+
+const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_db', config);
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -13,7 +20,10 @@ const Order = conn.define('order', {
 const LineItem = conn.define('lineItem', {
   quantity: {
     type: Sequelize.INTEGER,
-    defaultValue: 1 
+    defaultValue: 1,
+    validate: {
+      min: 1
+    }
   }
 });
 
@@ -40,6 +50,12 @@ User.addHook('beforeSave', async(user)=> {
   user.password = await bcrypt.hash(user.password, 5);
 });
 
+User.prototype.createOrderFromCart = async function(){
+  const cart = await this.getCart();
+  cart.isCart = false;
+  return cart.save();
+}
+
 User.prototype.addToCart = async function({ product, quantity}){
   const cart = await this.getCart();
   let lineItem = await LineItem.findOne({
@@ -49,8 +65,13 @@ User.prototype.addToCart = async function({ product, quantity}){
     }
   });
   if(lineItem){
-    lineItem.quantity += quantity;
-    await lineItem.save();
+    lineItem.quantity = quantity;
+    if(lineItem.quantity){
+      await lineItem.save();
+    }
+    else {
+      await lineItem.destroy();
+    }
   }
   else {
     await LineItem.create({ productId: product.id, quantity, orderId: cart.id });

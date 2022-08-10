@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha spec.js",
-    "test:dev": "JWT=shh DATABASE_URL=postgres://localhost/acme_db_test npm test -- --watch",
+    "test:dev": "QUIET=true JWT=shh DATABASE_URL=postgres://localhost/acme_db_test npm test -- --watch",
     "start:dev": "JWT=shhh nodemon server"
   },
   "keywords": [],

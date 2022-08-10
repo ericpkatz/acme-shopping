@@ -17,7 +17,17 @@ const isLoggedIn = async(req, res, next)=> {
 
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 
-app.post('/api/orders/cart', isLoggedIn, async(req, res, next)=> {
+app.post('/api/orders', isLoggedIn, async(req, res, next)=> {
+  try {
+    res.send(await req.user.createOrderFromCart());
+  }
+  catch(ex){
+    next(ex);
+  }
+
+});
+
+app.put('/api/orders/cart', isLoggedIn, async(req, res, next)=> {
   try {
     res.send(await req.user.addToCart(req.body));
   }
