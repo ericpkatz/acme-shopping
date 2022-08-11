@@ -1,4 +1,4 @@
-# acme-auth-ci
+# acme-shopping
 
 - create dev and testing databases
 - npm i
