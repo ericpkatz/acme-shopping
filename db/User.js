@@ -55,7 +55,10 @@ User.prototype.getCart = async function(){
       isCart: true
     },
     include: [
-      conn.models.lineItem
+      {
+        model: conn.models.lineItem,
+        include: [ conn.models.product ]
+      }
     ]
   });
   if(!order){
@@ -66,7 +69,6 @@ User.prototype.getCart = async function(){
   }
   return order;
 }
-
 
 User.authenticate = async function(credentials){
   const user = await this.findOne({
@@ -98,7 +100,7 @@ User.findByToken = async function findByToken(token){
     error.status = 401;
     throw error;
   }
-
 }
+
 module.exports = User;
 

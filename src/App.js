@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import SignIn from './SignIn';
 import { fetchCart, exchangeToken, logout } from './store';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
+import SignIn from './SignIn';
+import Cart from './Cart';
 
 class App extends React.Component{
   componentDidMount(){
@@ -23,7 +24,13 @@ class App extends React.Component{
         }
         {
           auth.id ? <Link to='/cart'>Cart ({cart.lineItems.length})</Link>: null
-
+        }
+        {
+          auth.id ? (
+            <Fragment>
+              <Route path='/cart' component={ Cart } />
+            </Fragment>
+          ): null 
         }
       </main>
     );

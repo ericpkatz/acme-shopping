@@ -39,8 +39,6 @@ describe('Shopping', ()=> {
       response = await app.post('/api/orders')
         .set('authorization', token);
       expect(response.status).to.equal(200);
-      console.log(response.body);
-
     });
     it('For first request, user gets an empty cart', async()=> {
       const moe = await User.findOne({
