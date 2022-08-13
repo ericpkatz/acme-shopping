@@ -1,33 +1,29 @@
-const express = require('express');
+const express = require("express");
 const app = express.Router();
-const { isLoggedIn } = require('./middleware');
+const { isLoggedIn } = require("./middleware");
 
 module.exports = app;
 
-app.post('/', isLoggedIn, async(req, res, next)=> {
+app.post("/", isLoggedIn, async (req, res, next) => {
   try {
     res.send(await req.user.createOrderFromCart());
-  }
-  catch(ex){
+  } catch (ex) {
     next(ex);
   }
-
 });
 
-app.put('/cart', isLoggedIn, async(req, res, next)=> {
+app.put("/cart", isLoggedIn, async (req, res, next) => {
   try {
     res.send(await req.user.addToCart(req.body));
-  }
-  catch(ex){
+  } catch (ex) {
     next(ex);
   }
 });
 
-app.get('/cart', isLoggedIn, async(req, res, next)=> {
+app.get("/cart", isLoggedIn, async (req, res, next) => {
   try {
     res.send(await req.user.getCart());
-  }
-  catch(ex){
+  } catch (ex) {
     next(ex);
   }
 });
