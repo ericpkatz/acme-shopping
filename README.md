@@ -10,3 +10,13 @@
   Chris
   Lorenzo 
   Thomas 
+   
+
+
+   ideas 
+   sneaker store 
+   uber eats 
+   toy store 
+   collectible store 
+   travel store 
+   
