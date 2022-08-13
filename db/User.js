@@ -1,5 +1,6 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
+
 const { STRING, INTEGER, ENUM, DATEONLY } = Sequelize;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
