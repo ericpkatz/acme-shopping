@@ -1,19 +1,79 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
 
+const { STRING, INTEGER, ENUM, DATEONLY } = Sequelize;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const User = conn.define("user", {
+  firstName: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  lastName: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
+  email: {
+    type: STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
+  },
+  phone: {
+    type: INTEGER,
+    allowNull: false,
+  },
+  shippingAddressApt: {
+    type: STRING,
+  },
+  shippingAddresStr: {
+    type: STRING,
+    allowNull: false,
+  },
+  shippingAddresCity: {
+    type: STRING,
+    allowNull: false,
+  },
+  shippingAddresState: {
+    type: STRING,
+    allowNull: false,
+  },
+  shippingAddresZipcode: {
+    type: STRING,
+    allowNull: false,
+  },
+  creditCardNumber: {
+    type: INTEGER,
+    allowNull: false,
+  },
+  creditCardExpirationDate: {
+    type: DATEONLY,
+    allowNull: false,
+  },
+  creditCardPin: {
+    type: INTEGER,
+    allowNull: false,
+  },
+  userType: {
+    type: ENUM,
+    values: ["user", "admin"],
+  },
   username: {
-    type: Sequelize.STRING,
+    type: STRING,
   },
   password: {
-    type: Sequelize.STRING,
+    type: STRING,
   },
 });
-
-//test
 
 User.addHook("beforeSave", async (user) => {
   user.password = await bcrypt.hash(user.password, 5);
