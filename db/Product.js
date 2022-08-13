@@ -4,6 +4,7 @@ const { STRING, TEXT, DECIMAL } = Sequelize;
 const Product = conn.define("product", {
   name: {
     type: STRING,
+    allowNull: false,
   },
   description: {
     type: TEXT,
