@@ -1,10 +1,11 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
 
-const Genre = conn.define("order", {
-  isCart: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: true,
+const Genre = conn.define("genre", {
+  type: Sequelize.STRING,
+  allowNull: false,
+  validate: {
+    notEmpty: true,
   },
 });
 
