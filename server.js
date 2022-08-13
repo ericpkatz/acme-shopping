@@ -13,5 +13,6 @@ const setUp = async()=> {
     console.log(ex);
   }
 };
+console.log('hi')
 
 setUp();
