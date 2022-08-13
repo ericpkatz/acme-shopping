@@ -9,4 +9,5 @@ const Category = conn.define("category", {
   },
 });
 
+
 module.exports = Category;
