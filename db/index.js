@@ -6,6 +6,7 @@ const LineItem = require("./LineItem");
 const Order = require("./Order");
 const Genre = require("./Genre");
 const Category = require("./Category");
+const Address = require("./Address");
 
 User.hasMany(Order);
 Order.hasMany(LineItem);

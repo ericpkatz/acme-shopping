@@ -1,7 +1,7 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
 
-const { STRING, INTEGER, ENUM, DATEONLY } = Sequelize;
+const { STRING, INTEGER, ENUM } = Sequelize;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -29,49 +29,22 @@ const User = conn.define("user", {
     },
   },
   phone: {
-    type: INTEGER,
-    allowNull: false,
-  },
-  shippingAddressApt: {
     type: STRING,
-  },
-  shippingAddresStr: {
-    type: STRING,
-    allowNull: false,
-  },
-  shippingAddresCity: {
-    type: STRING,
-    allowNull: false,
-  },
-  shippingAddresState: {
-    type: STRING,
-    allowNull: false,
-  },
-  shippingAddresZipcode: {
-    type: STRING,
-    allowNull: false,
-  },
-  creditCardNumber: {
-    type: INTEGER,
-    allowNull: false,
-  },
-  creditCardExpirationDate: {
-    type: DATEONLY,
-    allowNull: false,
-  },
-  creditCardPin: {
-    type: INTEGER,
     allowNull: false,
   },
   userType: {
     type: ENUM,
     values: ["user", "admin"],
+    defaultValue: "user",
   },
   username: {
     type: STRING,
+    allowNull: false,
+    unique: true,
   },
   password: {
     type: STRING,
+    allowNull: false,
   },
 });
 
