@@ -1,5 +1,4 @@
 const conn = require('./conn');
-const { Sequelize } = conn;
 const Product = require('./Product');
 const User = require('./User');
 const LineItem = require('./LineItem');

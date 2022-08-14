@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { fetchCart, exchangeToken, logout } from './store';
 import { Link, Route } from 'react-router-dom';
 import SignIn from './SignIn';
-import Cart from './Cart';
+import Cart from './Users/UserCart';
+import ProductSpecificView from './Products/ProductSpecificView';
+import ProductsView from './Products/ProductsView';
 
 class App extends React.Component{
   componentDidMount(){
@@ -26,9 +28,22 @@ class App extends React.Component{
           auth.id ? <Link to='/cart'>Cart ({cart.lineItems.length})</Link>: null
         }
         {
+         auth.id ? <Link to='/products'>Products </Link>: null
+        }
+        {
           auth.id ? (
             <Fragment>
-              <Route path='/cart' component={ Cart } />
+              <Route path='/products' component={ ProductsView } />
+            </Fragment>
+          ): null 
+        }
+        {
+         auth.id ? <Link to='/products/:id'>Product </Link>: null
+        }
+        {
+          auth.id ? (
+            <Fragment>
+              <Route path='/products/:id' component={ ProductSpecificView } />
             </Fragment>
           ): null 
         }
