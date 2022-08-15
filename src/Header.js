@@ -15,11 +15,13 @@ const Header = ({ products, auth, cart, match, logout }) => {
                 <Link to="/" className={ !view ? 'selected' : ''}>Home</Link>
                 <Link to="/products" className={ view === 'products'? 'selected' : ''}>Products</Link>
                 <Link to="/cart" className={ view === 'cart'? 'selected' : ''}>Cart ({cart.length})</Link>
+                <Link to="/profile" className={ view === 'profile'? 'selected' : ''}>Profile</Link>
+                <Link to='/wishlist' className={ view === 'wishlist'? 'selected' : ''}>Wish List</Link>
                 <button onClick={ () => logout() }>Logout { auth.username }</button>
             </nav>
-            <div>
-                {/* searchbar div */}
-            </div>
+            {/* <div>
+                searchbar div
+            </div> */}
         </section>
     )
 }

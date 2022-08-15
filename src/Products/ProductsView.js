@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { quickAddToCart } from '../store';
 const ProductsView = ({ products }) => {
     return (
         <section>
@@ -17,7 +16,6 @@ const ProductsView = ({ products }) => {
                                     <div>
                                         <Link to={`/products/${product.id}`}>{ product.name }</Link><br />
                                         ${ product.price }<br />
-                                        <button onClick={ () => quickAddToCart(product, 1)}>Quick Add</button>
                                         <button>Add to WishList</button>
                                     </div>
                                 </li>
@@ -36,9 +34,7 @@ const mapState = state => {
 };
 const mapDispatch = dispatch => {
     return {
-       quickAddToCart: (product, num) => {
-        dispatch(quickAddToCart(product, num))
-       }
+
     }
 };
 export default connect(mapState, mapDispatch)(ProductsView);

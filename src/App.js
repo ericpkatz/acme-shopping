@@ -40,10 +40,9 @@ class App extends React.Component{
 const mapDispatch = (dispatch)=> {
   return {
     exchangeToken: ()=> dispatch(exchangeToken()),
-    logout: ()=> dispatch(logout()),
     loadData: () => {
-      dispatch(fetchProducts())
-      dispatch(fetchCart())
+      dispatch(fetchProducts());
+      dispatch(fetchCart());
       
     }
   };
