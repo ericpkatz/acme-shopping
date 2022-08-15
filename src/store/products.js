@@ -17,16 +17,16 @@ const products = (state = [], action) => {
     return state;
 }
 //get all products
-export const fetchProducts = () => {
-    return async(dispatch) => {
-        const products = (await axios.get('/api/products', {
-            headers: {
-                authorization: window.localStorage.getItem('token')
-            }
-        })).data;
-        dispatch({type: 'SET_PRODUCTS', products});
+export const fetchProducts = ()=> {
+    return async(dispatch)=> {
+      const products = (await axios.get('/api/orders/products', {
+        headers: {
+          authorization: window.localStorage.getItem('token')
+        }
+      })).data;
+      dispatch({ type: 'SET_PRODUCTS', products});
     }
-};
+  };
 //create product
 export const createProduct = (product) => {
     return async(dispatch) => {
@@ -41,7 +41,7 @@ export const createProduct = (product) => {
 //update product
 export const updateProduct = (product) => {
     return async(dispatch) => {
-        product = (await axios.put(`/api/products/${product.id}`, product, {
+        product = (await axios.put(`/products/${product.id}`, product, {
             headers: {
                 authorization: window.localStorage.getItem('token')
             }
@@ -52,7 +52,7 @@ export const updateProduct = (product) => {
 //delete product
 export const deleteProduct = (product) => {
     return async(dispatch) => {
-        await axios.delete(`/api/products/${product.id}`, {
+        await axios.delete(`/products/${product.id}`, {
             headers: {
                 authorization: window.localStorage.getItem('token')
             }

@@ -70,6 +70,11 @@ User.prototype.getCart = async function(){
   return order;
 }
 
+User.prototype.getProducts = async function(){
+  let products = await conn.models.product.findAll();
+  return products;
+}
+
 User.authenticate = async function(credentials){
   const user = await this.findOne({
     where: {

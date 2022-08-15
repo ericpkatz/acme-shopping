@@ -1,4 +1,5 @@
 const express = require('express');
+const { Product } = require('../db/Product');
 const app = express.Router();
 const { isLoggedIn } = require('./middleware');
 
