@@ -1,28 +1,31 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
-
+const { STRING, TEXT, DECIMAL, ENUM, INTEGER } = Sequelize;
 const Product = conn.define("product", {
   name: {
-    type: Sequelize.STRING,
+    type:STRING,
     allowNull: false
   },
   description: {
-    type: Sequelize.STRING
-  },
-  category: {
-    type: Sequelize.ENUM,
-    values: ['philippines', 'china', 'korea', 'japan', 'mexico']
+    type: TEXT,
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2)
+    type:DECIMAL,
+    defaultValue: 0.0,
+    validate: {
+      notEmpty: true,
+    }
+  },
+  category: {
+    type:ENUM,
+    values: ['philippines', 'china', 'korea', 'japan', 'mexico']
   },
   ml: {
-    type: Sequelize.INTEGER
+    type:INTEGER
   },
   imgUrl: {
-    type: Sequelize.STRING
+    type:TEXT
   }
-=======
 });
 
 module.exports = Product;
