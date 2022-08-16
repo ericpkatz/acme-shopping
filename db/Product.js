@@ -1,7 +1,7 @@
-const conn = require('./conn');
+const conn = require("./conn");
 const { Sequelize } = conn;
 
-const Product = conn.define('product', {
+const Product = conn.define("product", {
   name: {
     type: Sequelize.STRING,
     allowNull: false
@@ -22,7 +22,7 @@ const Product = conn.define('product', {
   imgUrl: {
     type: Sequelize.STRING
   }
+=======
 });
 
 module.exports = Product;
-
