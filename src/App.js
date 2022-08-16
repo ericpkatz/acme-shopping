@@ -1,9 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchCart, exchangeToken, logout } from './store';
+import { fetchCart, exchangeToken, logout, fetchProducts } from './store';
 import { Link, Route } from 'react-router-dom';
 import SignIn from './SignIn';
-import Cart from './Cart';
+import UserCart from './Users/UserCart';
+import ProductSpecificView from './Products/ProductSpecificView';
+import ProductsView from './Products/ProductsView';
+import Header from './Header';
 
 class App extends React.Component{
   componentDidMount(){
@@ -11,37 +14,37 @@ class App extends React.Component{
   }
   componentDidUpdate(prevProps){
     if(!prevProps.auth.id && this.props.auth.id){
-      this.props.fetchCart();
+      this.props.loadData();
     }
   }
   render(){
-    const { auth, logout, cart } = this.props;
+    const { auth } = this.props;
     return (
       <main>
-        <h1>Grace Shopper</h1>
         {
-          auth.id ? <button onClick={ logout }>Logout { auth.username }</button>: <SignIn />
-        }
-        {
-          auth.id ? <Link to='/cart'>Cart ({cart.lineItems.length})</Link>: null
-        }
-        {
-          auth.id ? (
-            <Fragment>
-              <Route path='/cart' component={ Cart } />
-            </Fragment>
-          ): null 
+          auth.id ? 
+          <div>
+            <Route path='/:view?' component={ Header } />
+            <div>
+              <Route exact path='/' component={ UserCart } />
+              <Route exact path='/products' component={ ProductsView } />
+              <Route exact path='/products/:id' component={ ProductSpecificView } />
+              <Route path='/cart' component={ UserCart } />
+            </div>
+          </div> : <SignIn />
         }
       </main>
-    );
-
-  }
-}
+    )
+  };
+};
 const mapDispatch = (dispatch)=> {
   return {
     exchangeToken: ()=> dispatch(exchangeToken()),
-    logout: ()=> dispatch(logout()),
-    fetchCart: ()=> dispatch(fetchCart())
+    loadData: () => {
+      dispatch(fetchProducts());
+      dispatch(fetchCart());
+      
+    }
   };
 };
 const mapStateToProps = (state)=> {

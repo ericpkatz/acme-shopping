@@ -23,11 +23,14 @@ class SignIn extends Component{
     const { onChange, onSubmit } = this;
     const { username, password } = this.state;
     return (
+      <div>
+        <h1>Grace Shopper</h1>
       <form onSubmit={ onSubmit }>
         <input name='username' onChange={ onChange } value={ username }/>
         <input type='password' name='password' value={ password } onChange={ onChange }/>
         <button>Login</button>
       </form>
+      </div>
     );
   }
 }

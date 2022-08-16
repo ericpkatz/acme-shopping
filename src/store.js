@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import auth from './auth';
-import cart from './cart';
-import products from './products';
+import auth from './store/auth';
+import cart from './store/cart';
+import products from './store/products';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
@@ -15,6 +15,6 @@ const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 
 export default store;
-export * from './auth';
-export * from './cart';
-export * from './products';
+export * from './store/auth';
+export * from './store/cart';
+export * from './store/products';

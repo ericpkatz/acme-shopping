@@ -17,30 +17,46 @@ const products = (state = [], action) => {
     return state;
 }
 //get all products
-export const fetchProducts = () => {
-    return async(dispatch) => {
-        const products = (await axios.get('/api/products')).data;
-        dispatch({type: 'SET_PRODUCTS', products});
+export const fetchProducts = ()=> {
+    return async(dispatch)=> {
+      const products = (await axios.get('/api/products', {
+        headers: {
+          authorization: window.localStorage.getItem('token')
+        }
+      })).data;
+      dispatch({ type: 'SET_PRODUCTS', products});
     }
-};
+  };
 //create product
 export const createProduct = (product) => {
     return async(dispatch) => {
-        product = (await axios.post('/api/products', product)).data;
+        product = (await axios.post('/api/products', product, {
+            headers: {
+                authorization: window.localStorage.getItem('token')
+            }
+        })).data;
         dispatch({type: 'CREATE_PRODUCT', product});
     }
 };
 //update product
 export const updateProduct = (product) => {
     return async(dispatch) => {
-        product = (await axios.put(`/api/products/${product.id}`, product)).data;
+        product = (await axios.put(`/api/products/${product.id}`, product, {
+            headers: {
+                authorization: window.localStorage.getItem('token')
+            }
+        })).data;
         dispatch({type: 'UPDATE_PRODUCT', product});
     }
 };
 //delete product
 export const deleteProduct = (product) => {
-    return async(dspatch) => {
-        await axios.delete(`/api/products/${product.id}`);
+    return async(dispatch) => {
+        await axios.delete(`/api/products/${product.id}`, {
+            headers: {
+                authorization: window.localStorage.getItem('token')
+            }
+        });
         dispatch({type: 'DELETE_PRODUCT', product});
     }
 };
