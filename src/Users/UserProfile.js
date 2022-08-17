@@ -1,19 +1,25 @@
 import React from "react";
 import { connect } from 'react-redux';
+import UserOrdersCompleted from './UserOrdersCompleted';
 
-const UserProfile = () => {
+const UserProfile = ({auth}) => {
     return (
-        <hr />
+
+    <div>
+    <h1>
+    {auth.username}
+    </h1>
+     <p>{auth.imageUrl}</p>
+    <p>
+    Email:{auth.email}
+    </p>
+    <p>
+    Address:{auth.address}
+    </p>
+    <UserOrdersCompleted />
+    </div>
+    
     )
 };
-const mapState = state => {
-    return {
 
-    }
-};
-const mapDispatch = dispatch => {
-    return {
-
-    }
-};
-export default connect(mapState, mapDispatch)(UserProfile);
+export default connect(state => state)(UserProfile);

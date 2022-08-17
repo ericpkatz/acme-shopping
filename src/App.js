@@ -4,6 +4,7 @@ import { fetchCart, exchangeToken, logout, fetchProducts } from './store';
 import { Link, Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import UserCart from './Users/UserCart';
+import UserProfile from './Users/UserProfile';
 import ProductSpecificView from './Products/ProductSpecificView';
 import ProductsView from './Products/ProductsView';
 import Header from './Header';
@@ -30,6 +31,7 @@ class App extends React.Component{
               <Route exact path='/products' component={ ProductsView } />
               <Route exact path='/products/:id' component={ ProductSpecificView } />
               <Route path='/cart' component={ UserCart } />
+              <Route path='/profile' component={ UserProfile } />
             </div>
           </div> : <SignIn />
         }
