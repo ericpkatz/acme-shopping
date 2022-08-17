@@ -1,14 +1,15 @@
 //Alejandro
-//list out all lineItems
+//list out all lineItems x
 //be able to change quantity : decrease or increase
 //be able to remove lineItem
-//should be able to display subtotal
-//price X quantity
+//should be able to display subtotal x
+//price X quantity x
 
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
+import { updateCartItem } from "../store";
 
-const UserCart = ({ cart, subtotal }) => {
+const UserCart = ({ cart, subtotal, increment }) => {
   return (
     <Fragment>
       <ul>
@@ -17,7 +18,13 @@ const UserCart = ({ cart, subtotal }) => {
             <li key={lineItem.id}>
               <div>{lineItem.product.name}</div>
               <div>${lineItem.product.price}</div>
-              <div>{lineItem.quantity}:QTY</div>
+              <div>
+                <button onClick={() => increment(lineItem, -1)}>-</button>
+                {lineItem.quantity}
+                <button onClick={() => increment(lineItem, +1)}>+</button>
+                :QTY
+              </div>
+              <button>X</button>
             </li>
           );
         })}
@@ -28,9 +35,11 @@ const UserCart = ({ cart, subtotal }) => {
 };
 const mapState = (state) => {
   const lineItems = state.cart.lineItems;
-  const moneyArr = lineItems.map((lineItem) => lineItem.product.price * 1);
+  const subtotalArr = lineItems.map(
+    (lineItem) => lineItem.product.price * 1 * lineItem.quantity
+  );
   const calculateSum = () => {
-    return moneyArr.reduce((total, current) => {
+    return subtotalArr.reduce((total, current) => {
       return total + current;
     }, 0);
   };
@@ -41,6 +50,11 @@ const mapState = (state) => {
   };
 };
 const mapDispatch = (dispatch) => {
-  return {};
+  return {
+    increment: (lineItem, dir) => {
+      const item = { ...lineItem, quantity: lineItem.quantity + dir };
+      dispatch(updateCartItem(item));
+    },
+  };
 };
-export default connect(mapState, null)(UserCart);
+export default connect(mapState, mapDispatch)(UserCart);
