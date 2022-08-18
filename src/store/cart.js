@@ -4,7 +4,7 @@ const cart = (state = { lineItems: [] }, action)=> {
   if(action.type === 'SET_CART'){
     return action.cart;
   } else if(action.type === 'ADD_TO_CART'){
-    return [...state, action.item];
+    return action.item;
   } else if(action.type === 'UPDATE_CART_ITEM'){
     return state.map(item => item.id === action.item.id ? action.item : item);
   } else if(action.type === 'DELETE_CART_ITEM'){
@@ -24,9 +24,9 @@ export const fetchCart = ()=> {
   }
 };
 //add item to cart
-export const addToCart = ( productId, quantity) => {
+export const addToCart = ( product, quantity) => {
   return async(dispatch) => {
-    const item = (await axios.put('/api/orders/cart',{productId: productId, quantity: quantity*1}, {
+    const item = (await axios.put('/api/orders/cart',{product: product, quantity: quantity*1}, {
       headers: {
         authorization: window.localStorage.getItem('token')
       }
