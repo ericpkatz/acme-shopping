@@ -9,22 +9,30 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { updateCartItem } from "../store";
 
-const UserCart = ({ cart, subtotal, increment }) => {
+const UserCart = ({ cart, subtotal, increment, deleteLineItem }) => {
   return (
     <Fragment>
       <ul>
         {cart.lineItems.map((lineItem) => {
           return (
             <li key={lineItem.id}>
-              <div>{lineItem.product.name}</div>
-              <div>${lineItem.product.price}</div>
+              <div>
+                <img src={lineItem.product.imgUrl} />
+                {lineItem.product.name}
+                <button
+                  onClick={() => {
+                    deleteLineItem(lineItem);
+                  }}
+                >
+                  X
+                </button>
+              </div>
+              <div> Price: ${lineItem.product.price}</div>
               <div>
                 <button onClick={() => increment(lineItem, -1)}>-</button>
-                {lineItem.quantity}
+                {lineItem.quantity}:QTY
                 <button onClick={() => increment(lineItem, +1)}>+</button>
-                :QTY
               </div>
-              <button>X</button>
             </li>
           );
         })}
@@ -35,6 +43,7 @@ const UserCart = ({ cart, subtotal, increment }) => {
 };
 const mapState = (state) => {
   const lineItems = state.cart.lineItems;
+  console.log(state);
   const subtotalArr = lineItems.map(
     (lineItem) => lineItem.product.price * 1 * lineItem.quantity
   );
@@ -54,6 +63,9 @@ const mapDispatch = (dispatch) => {
     increment: (lineItem, dir) => {
       const item = { ...lineItem, quantity: lineItem.quantity + dir };
       dispatch(updateCartItem(item));
+    },
+    deleteLineItem: (lineItem) => {
+      console.log("to delete", lineItem);
     },
   };
 };

@@ -30,22 +30,10 @@ app.get("/cart", isLoggedIn, async (req, res, next) => {
   }
 });
 
-app.put("/cart/:id", isLoggedIn, async (req, res, next) => {
+app.put("/cart/lineitems/:id", isLoggedIn, async (req, res, next) => {
   try {
-    const lineItem = await LineItem.findByPk(req.params.id);
-    await lineItem.update(req.body);
-  } catch (ex) {
-    next(ex);
-  }
-});
-
-app.get("/cart/1", isLoggedIn, async (req, res, next) => {
-  try {
-    console.log("\n /cart/1\n");
-    const lineItem = await LineItem.findByPk(1);
-    // console.log(lineItem);
-    res.send(lineItem);
-    // await thing.update(req.body);
+    console.log(req.body);
+    res.send(await req.user.addToCart(req.body));
   } catch (ex) {
     next(ex);
   }

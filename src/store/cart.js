@@ -6,9 +6,11 @@ const cart = (state = { lineItems: [] }, action) => {
   } else if (action.type === "CREATE_CART_ITEM") {
     return [...state, action.item];
   } else if (action.type === "UPDATE_CART_ITEM") {
-    console.log(action.item);
-    return state.map((item) =>
-      item.id === action.item.id ? action.item : item
+    const changedItem = action.item.lineItems.find(
+      (lineitem) => lineitem.id === action.lineItemId
+    );
+    return state.lineItems.map((item) =>
+      item.id === changedItem.id ? changedItem : item
     );
   } else if (action.type === "DELETE_CART_ITEM") {
     return state.filter((item) => item.id !== action.item.id);
@@ -39,20 +41,16 @@ export const createCartItem = (currentOrder, quantity, product) => {
 //update cartItem
 export const updateCartItem = (item) => {
   //currentOrder, cartItem, quantity, product
-  console.log(item);
+  const lineItemId = item.id;
   return async (dispatch) => {
     item = (
-      await axios.put(
-        `/api/orders/cart/${item.id}`,
-        { quantity: item.quantity },
-        {
-          headers: {
-            authorization: window.localStorage.getItem("token"),
-          },
-        }
-      )
+      await axios.put(`/api/orders/cart/lineitems/${item.id}`, item, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
     ).data;
-    dispatch({ type: "UPDATE_CART_ITEM", item });
+    dispatch({ type: "UPDATE_CART_ITEM", item, lineItemId });
   };
 };
 

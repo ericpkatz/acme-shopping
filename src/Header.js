@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "./store";
 const Header = ({ products, auth, cart, match, logout }) => {
-  console.log(cart);
   const view = match.params.view;
-  console.log(view);
   return (
     <section>
       <header>
