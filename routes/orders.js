@@ -30,9 +30,16 @@ app.get("/cart", isLoggedIn, async (req, res, next) => {
   }
 });
 
-app.put("/cart/lineitems/:id", isLoggedIn, async (req, res, next) => {
+app.put("/cart/:id", isLoggedIn, async (req, res, next) => {
   try {
-    console.log(req.body);
+    res.send(await req.user.addToCart(req.body));
+  } catch (ex) {
+    next(ex);
+  }
+});
+
+app.delete("/cart/", isLoggedIn, async (req, res, next) => {
+  try {
     res.send(await req.user.addToCart(req.body));
   } catch (ex) {
     next(ex);

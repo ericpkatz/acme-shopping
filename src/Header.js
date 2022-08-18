@@ -18,7 +18,7 @@ const Header = ({ products, auth, cart, match, logout }) => {
           Products
         </Link>
         <Link to="/cart" className={view === "cart" ? "selected" : ""}>
-          Cart ({cart.length})
+          Cart ({cart.lineItems.length})
         </Link>
         <Link to="/profile" className={view === "profile" ? "selected" : ""}>
           Profile

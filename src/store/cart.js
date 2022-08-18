@@ -6,14 +6,10 @@ const cart = (state = { lineItems: [] }, action) => {
   } else if (action.type === "CREATE_CART_ITEM") {
     return [...state, action.item];
   } else if (action.type === "UPDATE_CART_ITEM") {
-    const changedItem = action.item.lineItems.find(
-      (lineitem) => lineitem.id === action.lineItemId
-    );
-    return state.lineItems.map((item) =>
-      item.id === changedItem.id ? changedItem : item
-    );
+    return { ...state, lineItems: action.item.lineItems };
   } else if (action.type === "DELETE_CART_ITEM") {
-    return state.filter((item) => item.id !== action.item.id);
+    console.log(action.item);
+    return { ...state, lineItems: action.item.lineItems };
   }
   return state;
 };
@@ -40,17 +36,29 @@ export const createCartItem = (currentOrder, quantity, product) => {
 };
 //update cartItem
 export const updateCartItem = (item) => {
-  //currentOrder, cartItem, quantity, product
   const lineItemId = item.id;
   return async (dispatch) => {
     item = (
-      await axios.put(`/api/orders/cart/lineitems/${item.id}`, item, {
+      await axios.put(`/api/orders/cart/${item.id}`, item, {
         headers: {
           authorization: window.localStorage.getItem("token"),
         },
       })
     ).data;
     dispatch({ type: "UPDATE_CART_ITEM", item, lineItemId });
+  };
+};
+
+export const deleteCartItem = (item) => {
+  return async (dispatch) => {
+    item = (
+      await axios.put(`/api/orders/cart/${item.id}`, item, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "DELETE_CART_ITEM", item });
   };
 };
 
