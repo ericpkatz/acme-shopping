@@ -3,7 +3,7 @@ import axios from 'axios';
 const cart = (state = { lineItems: [] }, action)=> {
   if(action.type === 'SET_CART'){
     return action.cart;
-  } else if(action.type === 'CREATE_CART_ITEM'){
+  } else if(action.type === 'ADD_TO_CART'){
     return [...state, action.item];
   } else if(action.type === 'UPDATE_CART_ITEM'){
     return state.map(item => item.id === action.item.id ? action.item : item);
@@ -23,11 +23,15 @@ export const fetchCart = ()=> {
     dispatch({ type: 'SET_CART', cart});
   }
 };
-//create cartItem
-export const createCartItem = ( currentOrder, quantity, product) => {
+//add item to cart
+export const addToCart = ( productId, quantity) => {
   return async(dispatch) => {
-    const item = (await axios.post('/api/orders/cart'),{productId: product.id, quantity, orderId:  currentOrder.id}).data;
-    dispatch({type: 'CREATE_CART_ITEM', item});
+    const item = (await axios.put('/api/orders/cart',{productId: productId, quantity: quantity*1}, {
+      headers: {
+        authorization: window.localStorage.getItem('token')
+      }
+    })).data;
+    dispatch({type: 'ADD_TO_CART', item});
   }
 };
 //update cartItem

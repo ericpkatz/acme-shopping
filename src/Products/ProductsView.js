@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-const ProductsView = ({ products }) => {
+import { addToCart } from '../store/cart';
+
+const ProductsView = ({ products, addToCart }) => {
+    const [quantity, setQuantity] = useState(1);
     return (
         <section>
             <div className="products-view">
@@ -16,6 +19,8 @@ const ProductsView = ({ products }) => {
                                     <div>
                                         <Link to={`/products/${product.id}`}>{ product.name }</Link><br />
                                         ${ product.price }<br />
+                                        <input type='number' name='quantity' value={ quantity } onChange={ (e) => setQuantity(e.target.value)} />
+                                        <button onClick={() => addToCart(product, quantity)}>Add to Cart</button>
                                         <button>Add to WishList</button>
                                     </div>
                                 </li>
@@ -29,12 +34,14 @@ const ProductsView = ({ products }) => {
 };
 const mapState = state => {
     return {
-        products: state.products
+        products: state.products,
     }
 };
 const mapDispatch = dispatch => {
     return {
-
+        addToCart: (product, quantity) => {
+            dispatch(addToCart(product, quantity));
+        }
     }
 };
 export default connect(mapState, mapDispatch)(ProductsView);

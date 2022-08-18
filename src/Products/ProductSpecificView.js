@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateCartItem, createCartItem } from '../store';
+import { updateCartItem, addToCart } from '../store';
 
 class ProductSpecificView extends React.Component {
     constructor(){
@@ -29,7 +29,7 @@ class ProductSpecificView extends React.Component {
         if(cartItem){
             updateCartItem(cartItem, quantity, product);
         } else {
-            createCartItem( currentOrder, quantity, product);
+            addToCart( currentOrder, quantity, product);
         }
     };
     render(){
