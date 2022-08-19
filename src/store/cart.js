@@ -23,7 +23,7 @@ export const fetchCart = ()=> {
     dispatch({ type: 'SET_CART', cart});
   }
 };
-//add item to cart
+//add item to cart and update
 export const addToCart = ( product, quantity) => {
   return async(dispatch) => {
     const item = (await axios.put('/api/orders/cart',{product: product, quantity: quantity*1}, {

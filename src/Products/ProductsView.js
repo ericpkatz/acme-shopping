@@ -2,38 +2,27 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToCart } from '../store/cart';
+import AddCartHelper from './AddCartHelper';
 
 const ProductsView = ({ products, cart, lineItems, addToCart }) => {
-    let [quantity, setQuantity] = useState([]);
-    const handleSubmit = (product, quantity) => {
-        addToCart(product, quantity);
-        quantity = setQuantity(1);
-    }
+
     return (
-        <section>
-            <div className="products-view">
-                <ul>
-                    {
-                        products.map(product => {
-                            return (
-                                <li key={ product.id }>
-                                    <div>
-                                        <img src={ product.imgUrl } width='240' height='160'/>
-                                    </div>
-                                    <div>
-                                        <Link to={`/products/${product.id}`}>{ product.name }</Link><br />
-                                        ${ product.price }<br />
-                                        <button onClick={() => setQuantity(quantity - 1)}>-</button>
-                                        <button onClick={ () => setQuantity(quantity + 1)}>+</button>
-                                        <button onClick={() => handleSubmit(product, quantity)}>Add to Cart</button>
-                                        <button>Add to WishList</button>
-                                    </div>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-            </div>
+        <section className="products-view">
+            <ul className="products-list">
+                {
+                    products.map(product => {
+                        const item = lineItems.find(_item => _item.productId === product.id) || {quantity: 1};
+                        return (
+                            <li key={ product.id }>
+                                <div>
+                                    <img src={ product.imgUrl } width='240' height='160'/>
+                                </div>
+                                <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems }/>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
         </section>
     )
 };

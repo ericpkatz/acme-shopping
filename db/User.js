@@ -68,6 +68,7 @@ User.prototype.addToCart = async function ({ product, quantity }) {
     });
   }
   return this.getCart();
+  //the active order with the array of lineItems with product info along with quantity
 };
 
 User.prototype.getCart = async function () {

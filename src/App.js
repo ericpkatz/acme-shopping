@@ -27,7 +27,7 @@ class App extends React.Component{
           <div>
             <Route path='/:view?' component={ Header } />
             <div>
-              <Route exact path='/' component={ UserCart } />
+              {/* <Route exact path='/' component={ UserCart } /> */}
               <Route exact path='/products' component={ ProductsView } />
               <Route exact path='/products/:id' component={ ProductSpecificView } />
               <Route path='/cart' component={ UserCart } />
