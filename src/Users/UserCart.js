@@ -1,7 +1,7 @@
 //Alejandro
 //list out all lineItems x
-//be able to change quantity : decrease or increase
-//be able to remove lineItem
+//be able to change quantity : decrease or increase x
+//be able to remove lineItem x
 //should be able to display subtotal x
 //price X quantity x
 

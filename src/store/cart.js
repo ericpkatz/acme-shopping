@@ -36,16 +36,15 @@ export const createCartItem = (currentOrder, quantity, product) => {
 };
 //update cartItem
 export const updateCartItem = (item) => {
-  const lineItemId = item.id;
   return async (dispatch) => {
     item = (
-      await axios.put(`/api/orders/cart/${item.id}`, item, {
+      await axios.put(`/api/orders/cart`, item, {
         headers: {
           authorization: window.localStorage.getItem("token"),
         },
       })
     ).data;
-    dispatch({ type: "UPDATE_CART_ITEM", item, lineItemId });
+    dispatch({ type: "UPDATE_CART_ITEM", item });
   };
 };
 
