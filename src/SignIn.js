@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { login } from './store';
 import { connect } from 'react-redux';
+import UserCreateForm from './Users/UserCreateForm';
 
 class SignIn extends Component{
   constructor(){
@@ -24,12 +25,16 @@ class SignIn extends Component{
     const { username, password } = this.state;
     return (
       <div>
-        <h1>Grace Shopper</h1>
-      <form onSubmit={ onSubmit }>
-        <input name='username' onChange={ onChange } value={ username }/>
-        <input type='password' name='password' value={ password } onChange={ onChange }/>
-        <button>Login</button>
-      </form>
+        <header>
+          <h1>Acme Shopping</h1>
+          <p>Exotic Drinks</p>
+        </header>
+        <form onSubmit={ onSubmit }>
+          <input name='username' onChange={ onChange } value={ username }/>
+          <input type='password' name='password' value={ password } onChange={ onChange }/>
+          <button type="submit" className="login-btn">Login</button>
+        </form>
+        <button className="createAccount-btn" onClick={() => {<UserCreateForm />}}>Create An Account</button>
       </div>
     );
   }
