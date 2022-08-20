@@ -1,6 +1,6 @@
-const app = require('./app');
-const { conn, User, Product } = require('./db');
-const { faker } = require('@faker-js/faker');
+const app = require("./app");
+const { conn, User, Product } = require("./db");
+const { faker } = require("@faker-js/faker");
 
 const setUp = async () => {
   try {
@@ -32,7 +32,6 @@ const setUp = async () => {
     await lucy.addToCart({ product: foo, quantity: 3 });
     await lucy.addToCart({ product: bar, quantity: 4 });
 
-    
     await Promise.all([
         //'philippines'
     Product.create({name: 'Gina Calamansi Juice', description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: 'https://i0.wp.com/www.filamstore.com/wp-content/uploads/2016/10/gina-calamansi-juice-drink-can-250-ml.jpg?fit=540%2C540&ssl=1', ml: 250}),
@@ -123,37 +122,68 @@ const setUp = async () => {
     Product.create({name:'Genki Forest Sparkling Water' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://www.orientalmart.co.uk/images/products/4430/small/1617453096-001762200.jpg' , ml: 250}),
      Product.create({name:'Vita Chrysanthemum Tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://fresh.hmart.com/media/catalog/product/cache/0c75b0d6b380af6dca3ec180c127a709/l/-/l-489102866486_2_1.jpg' , ml: 250}),
     // //'mexico'
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250})
+Product.create({
+        name: "Jarritos Lime",
+        description: faker.random.words(20),
+        price: 2.99,
+        category: "mexico",
+        imgUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpSftN4cZTcv70tRGfmOIIHxFcrxWBeq2rnJoQDycBn3hPk06h_NffldGXVQ4Dr1tyI8&usqp=CAU",
+        ml: 250,
+      }),
+      Product.create({
+        name: "Jarritos Tamatillo",
+        description: faker.random.words(20),
+        price: 2.99,
+        category: "mexico",
+        imgUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHofHzEsi9HmzCiYsRmXsdPnNVcQkj0rv5toLgpr-mk4rmokcNkEltslPYHdtGApEO9CE&usqp=CAU",
+        ml: 250,
+      }),
+      Product.create({
+        name: "Jumix Guava Nectar",
+        description: faker.random.words(20),
+        price: 2.99,
+        category: "mexico",
+        imgUrl: "https://www.zocalofoods.com/products/jumex-guava-nectar-16-oz",
+        ml: 250,
+      }),
+      Product.create({
+        name: "Jumix Pear Nectar",
+        description: faker.random.words(20),
+        price: 2.99,
+        category: "mexico",
+        imgUrl:
+          "https://www.cassandraonlinemarket.com/wp-content/uploads/2019/08/DSCN7712-scaled.jpg",
+        ml: 250,
+      }),
+      Product.create({
+        name: "Jumix Coco Pina",
+        description: faker.random.words(20),
+        price: 2.99,
+        category: "mexico",
+        imgUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZvZPxMefHqApUOeQop6OgBZwNbzSe3qHqGw&usqp=CAU",
+        ml: 250,
+      }),
+      Product.create({
+        name: "Jumix Mango Nectar",
+        description: faker.random.words(20),
+        price: 2.99,
+        category: "mexico",
+        imgUrl: "https://mfspecialties.com/uc/wr/img-wmedia/BVG6046.PNG",
+        ml: 250,
+      }),
     ])
     
     // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'korea', imgUrl: , ml: 250}),
-    
+
     // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl: , ml: 250}),
-    
+
     // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'japan', imgUrl: , ml: 250}),
-    
+
     // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-    
+
     // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: , ml: 250}),
 
     const port = process.env.PORT || 3000;
