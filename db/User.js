@@ -1,6 +1,6 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
-const { STRING, BOOLEAN } = Sequelize;
+const { STRING, BOOLEAN, TEXT } = Sequelize;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -25,7 +25,7 @@ const User = conn.define("user", {
     },
   },
   imageUrl: {
-    type: STRING,
+    type: TEXT,
   },
   address: {
     type: STRING,
@@ -107,7 +107,9 @@ User.authenticate = async function (credentials) {
     throw error;
   }
 };
-
+User.createAccount = async function (information){
+   return await this.create({...information, isAdmin: false});
+};
 User.findByToken = async function findByToken(token) {
   try {
     const id = jwt.verify(token, process.env.JWT).id;

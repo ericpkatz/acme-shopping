@@ -21,3 +21,17 @@ app.post('/', async(req, res, next)=> {
 app.get('/', isLoggedIn, async(req, res, next)=> {
   res.send(req.user);
 });
+
+app.post('/user', async(req, res, next) => {
+  try {
+    await User.createAccount(req.body);
+    const credentials = {
+      username: req.body.username,
+      password: req.body.password
+    }
+    res.send(credentials);
+  }
+  catch(ex){
+    next(ex)
+  }
+});

@@ -7,6 +7,7 @@ import UserCart from './Users/UserCart';
 import UserProfile from './Users/UserProfile';
 import ProductSpecificView from './Products/ProductSpecificView';
 import ProductsView from './Products/ProductsView';
+import UserCreateForm from './Users/UserCreateForm';
 import Header from './Header';
 
 class App extends React.Component {
@@ -35,7 +36,10 @@ class App extends React.Component {
             </div>
           </div>
         ) : (
-          <SignIn />
+          <div>
+            <Route exact path='/' component={ SignIn } />
+            <Route exact path='/createAccount' component={ UserCreateForm } />
+          </div>
         )}
       </main>
     );
