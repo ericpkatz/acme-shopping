@@ -2,12 +2,84 @@
   <head>
     <title>My App</title>
 <style>
+  html {
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  header {
+    padding: 20px;
+    background-color: white;
+    color: whitesmoke;
+    text-shadow: 1px 1px purple, 2px 2px black, 3px 3px orange;
+  }
   form {
     display: flex;
     flex-direction: column;
   }
   form > * {
     margin: 1rem;
+  }
+  .products-list {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    list-style: none;
+  }
+  /* li:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  } */
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  nav {
+    overflow: hidden;
+    background-color: rgb(69, 68, 68);
+  }
+  nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-shadow: 2px 2px black, 3px 3px orange;
+    border: 2px solid rgb(69, 68, 68);
+    font-size: 20px;
+    padding: 10px 20px;
+  }
+  nav .logout-btn {
+    border: none;
+    float: right;
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: rgb(69, 68, 68);
+    color: white;
+    text-shadow: 2px 2px black, 3px 3px orange;
+  }
+  .addToCart-btn, .createAccount-btn, .login-btn {
+    background-color: white;
+    margin: 1em;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 1px 3px 0 rgba(0,0,0,0.19);
+  }
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+  }
+  .table td, .table th {
+    border: 1px none black;
+    padding: 4px;
+    text-align: center;
+  }
+  .table td {
+    border-bottom: 1px solid black;;
+  }
+  .table tr:nth-child(even) {
+    background-color: rgb(235, 232, 232);
+  }
+  .table th {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: rgb(235, 188, 188);
+    color: black;
   }
 </style>
   <script defer src='/dist/main.js'></script>

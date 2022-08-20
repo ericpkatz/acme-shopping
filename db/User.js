@@ -35,7 +35,7 @@ const User = conn.define("user", {
 User.addHook("beforeSave", async (user) => {
   user.password = await bcrypt.hash(user.password, 5);
 });
-
+//when checkout, to close the order
 User.prototype.createOrderFromCart = async function () {
   const cart = await this.getCart();
   cart.isCart = false;
@@ -65,6 +65,7 @@ User.prototype.addToCart = async function ({ product, quantity }) {
     });
   }
   return this.getCart();
+  //the active order with the array of lineItems with product info along with quantity
 };
 
 User.prototype.getCart = async function () {

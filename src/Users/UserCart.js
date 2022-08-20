@@ -5,40 +5,46 @@
 //should be able to display subtotal x
 //price X quantity x
 
-import React, { Fragment } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { updateCartItem, deleteCartItem } from "../store";
 
 const UserCart = ({ cart, subtotal, increment, deleteLineItem }) => {
   return (
-    <Fragment>
-      <ul>
-        {(cart.lineItems || []).map((lineItem) => {
-          return (
-            <li key={lineItem.id}>
-              <div>
-                <img src={lineItem.product.imgUrl} />
-                {lineItem.product.name}
-                <button
-                  onClick={() => {
-                    deleteLineItem(lineItem);
-                  }}
-                >
-                  X
-                </button>
-              </div>
-              <div> Price: ${lineItem.product.price}</div>
-              <div>
-                <button onClick={() => increment(lineItem, -1)}>-</button>
-                {lineItem.quantity}:QTY
-                <button onClick={() => increment(lineItem, +1)}>+</button>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-      <div>Subtotal: ${subtotal}</div>
-    </Fragment>
+    <section>
+      <table className="table">
+        <tbody>
+          <tr>
+            <th>-</th>
+            <th>Items</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>.</th>
+          </tr>
+          {(cart.lineItems || []).map((lineItem) => {
+            let subtotal = lineItem.product.price * lineItem.quantity;
+            return (
+              <tr key={lineItem.id}>
+                  <td><img src={lineItem.product.imgUrl} width='120' height='80'/></td>
+                  <td>{lineItem.product.name}</td>
+                  <td>
+                    <button onClick={() => increment(lineItem, -1)} disabled={lineItem.quantity === 1}>-</button>
+                    {lineItem.quantity}
+                    <button onClick={() => increment(lineItem, +1)}>+</button>
+                  </td>
+                  <td>${lineItem.product.price}</td>
+                  <td>${ subtotal }</td>
+                  <td><button onClick={() => {deleteLineItem(lineItem)}}>Remove</button></td>
+              </tr>
+            );
+          })}
+          <tr>
+            <th>Subtotal: ${subtotal}</th>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   );
 };
 const mapState = (state) => {
