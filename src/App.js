@@ -9,47 +9,48 @@ import ProductSpecificView from './Products/ProductSpecificView';
 import ProductsView from './Products/ProductsView';
 import Header from './Header';
 
-class App extends React.Component{
-  componentDidMount(){
+class App extends React.Component {
+  componentDidMount() {
     this.props.exchangeToken();
   }
-  componentDidUpdate(prevProps){
-    if(!prevProps.auth.id && this.props.auth.id){
+  componentDidUpdate(prevProps) {
+    if (!prevProps.auth.id && this.props.auth.id) {
       this.props.loadData();
     }
   }
-  render(){
+  render() {
     const { auth } = this.props;
     return (
       <main>
-        {
-          auth.id ? 
+        {auth.id ? (
           <div>
-            <Route path='/:view?' component={ Header } />
+            <Route path="/:view?" component={Header} />
             <div>
-              {/* <Route exact path='/' component={ UserCart } /> */}
+              <Route exact path='/' component={ UserCart } />
               <Route exact path='/products' component={ ProductsView } />
               <Route exact path='/products/:id' component={ ProductSpecificView } />
               <Route path='/cart' component={ UserCart } />
               <Route path='/profile' component={ UserProfile } />
+
             </div>
-          </div> : <SignIn />
-        }
+          </div>
+        ) : (
+          <SignIn />
+        )}
       </main>
-    )
-  };
-};
-const mapDispatch = (dispatch)=> {
+    );
+  }
+}
+const mapDispatch = (dispatch) => {
   return {
-    exchangeToken: ()=> dispatch(exchangeToken()),
+    exchangeToken: () => dispatch(exchangeToken()),
     loadData: () => {
       dispatch(fetchProducts());
       dispatch(fetchCart());
-      
-    }
+    },
   };
 };
-const mapStateToProps = (state)=> {
+const mapStateToProps = (state) => {
   return state;
 };
 export default connect(mapStateToProps, mapDispatch)(App);

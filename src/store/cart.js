@@ -1,10 +1,10 @@
 //this is referring to the cart referring to all the lineItems added to it?
-import axios from 'axios';
-const cart = (state = { lineItems: [] }, action)=> {
-  if(action.type === 'SET_CART'){
+import axios from "axios";
+const cart = (state = { lineItems: [] }, action) => {
+  if (action.type === "SET_CART") {
     return action.cart;
-  } else if(action.type === 'ADD_TO_CART'){
-    return action.item;
+  } else if(action.type === 'CREATE_CART_ITEM'){
+    return [...state, action.item];
   } else if(action.type === 'UPDATE_CART_ITEM'){
     return state.map(item => item.id === action.item.id ? action.item : item);
   } else if(action.type === 'DELETE_CART_ITEM'){
@@ -23,31 +23,38 @@ export const fetchCart = ()=> {
     dispatch({ type: 'SET_CART', cart});
   }
 };
-//add item to cart and update
-export const addToCart = ( product, quantity) => {
+//create cartItem
+export const createCartItem = ( currentOrder, quantity, product) => {
   return async(dispatch) => {
-    const item = (await axios.put('/api/orders/cart',{product: product, quantity: quantity*1}, {
-      headers: {
-        authorization: window.localStorage.getItem('token')
-      }
-    })).data;
-    dispatch({type: 'ADD_TO_CART', item});
+    const item = (await axios.post('/api/orders/cart'),{productId: product.id, quantity, orderId:  currentOrder.id}).data;
+    dispatch({type: 'CREATE_CART_ITEM', item});
   }
 };
 //update cartItem
-export const updateCartItem = ( currentOrder, cartItem, quantity, product) => {
-  return async(dispatch) => {
-    const item = (await axios.put(`/api/orders/cart/${cartItem.id}`, {
-      quantity,
-      productId: product.id,
-      orderId:  currentOrder.id
-    }, {
-      headers: {
-        authorization: token
-      }
-    })).data;
-    dispatch({type: 'UPDATE_CART_ITEM', item})
-  }
+export const updateCartItem = (item) => {
+  return async (dispatch) => {
+    item = (
+      await axios.put(`/api/orders/cart`, item, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "UPDATE_CART_ITEM", item });
+  };
+};
+
+export const deleteCartItem = (item) => {
+  return async (dispatch) => {
+    item = (
+      await axios.put("/api/orders/cart/", item, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "DELETE_CART_ITEM", item });
+  };
 };
 
 export default cart;
