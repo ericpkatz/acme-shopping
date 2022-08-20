@@ -11,7 +11,7 @@ const ProductsView = ({ products, cart, lineItems, addToCart }) => {
             <ul className="products-list">
                 {
                     products.map(product => {
-                        const item = lineItems.find(_item => _item.productId === product.id) || {quantity: 1};
+                        // const item = lineItems.find(_item => _item.productId === product.id) || {quantity: 1};
                         return (
                             <li key={ product.id }>
                                 <div>
