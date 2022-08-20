@@ -29,11 +29,3 @@ app.get("/cart", isLoggedIn, async (req, res, next) => {
     next(ex);
   }
 });
-
-app.delete("/cart", isLoggedIn, async (req, res, next) => {
-  try {
-    res.send(await req.user.addToCart(req.body));
-  } catch (ex) {
-    next(ex);
-  }
-});

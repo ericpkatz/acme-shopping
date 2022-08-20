@@ -51,7 +51,7 @@ export const updateCartItem = (item) => {
 export const deleteCartItem = (item) => {
   return async (dispatch) => {
     item = (
-      await axios.put(`/api/orders/cart/${item.id}`, item, {
+      await axios.put("/api/orders/cart/", item, {
         headers: {
           authorization: window.localStorage.getItem("token"),
         },
