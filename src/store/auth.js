@@ -10,7 +10,6 @@ export const logout = ()=> {
   return (dispatch)=> {
     window.localStorage.removeItem('token');
     dispatch({ type: 'SET_AUTH', auth: {}});
-
   };
 };
 
@@ -42,6 +41,15 @@ export const login = (credentials)=> {
     dispatch({ auth, type: 'SET_AUTH'});
 
   };
+};
+
+export const createAccount = (information) => {
+  return async(dispatch) => {
+    let user = (await axios.post('/api/sessions/user', information)).data;
+    const {token} = user;
+    window.localStorage.setItem('token', token)
+    dispatch(login(user));
+  }
 };
 
 export default auth;

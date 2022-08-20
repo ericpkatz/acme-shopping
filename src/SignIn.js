@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { login } from './store';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import UserCreateForm from './Users/UserCreateForm';
 
 class SignIn extends Component{
@@ -33,8 +34,8 @@ class SignIn extends Component{
           <input name='username' onChange={ onChange } value={ username }/>
           <input type='password' name='password' value={ password } onChange={ onChange }/>
           <button type="submit" className="login-btn">Login</button>
+          <button className="createAccount-btn"><Link to='/createAccount'>Create An Account</Link></button>
         </form>
-        <button className="createAccount-btn" onClick={() => {<UserCreateForm />}}>Create An Account</button>
       </div>
     );
   }

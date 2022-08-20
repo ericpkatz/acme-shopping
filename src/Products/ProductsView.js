@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToCart } from '../store/cart';
+import { updateCart } from '../store/cart';
 import AddCartHelper from './AddCartHelper';
 
 const ProductsView = ({ products, cart, lineItems, addToCart }) => {
@@ -36,7 +36,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
     return {
         addToCart: (product, quantity) => {
-            dispatch(addToCart(product, quantity));
+            dispatch(updateCart(product, quantity));
         }
     }
 };

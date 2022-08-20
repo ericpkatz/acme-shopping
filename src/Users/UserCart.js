@@ -7,7 +7,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { updateCartItem, deleteCartItem } from "../store";
+import { updateCart } from "../store";
 
 const UserCart = ({ cart, subtotal, increment, deleteLineItem }) => {
   return (
@@ -15,12 +15,12 @@ const UserCart = ({ cart, subtotal, increment, deleteLineItem }) => {
       <table className="table">
         <tbody>
           <tr>
-            <th>-</th>
+            <th></th>
             <th>Items</th>
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
-            <th>.</th>
+            <th></th>
           </tr>
           {(cart.lineItems || []).map((lineItem) => {
             let subtotal = lineItem.product.price * lineItem.quantity;
@@ -40,7 +40,12 @@ const UserCart = ({ cart, subtotal, increment, deleteLineItem }) => {
             );
           })}
           <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th>Subtotal: ${subtotal}</th>
+            <th><button>Continue to Checkout</button></th>
           </tr>
         </tbody>
       </table>
@@ -49,7 +54,6 @@ const UserCart = ({ cart, subtotal, increment, deleteLineItem }) => {
 };
 const mapState = (state) => {
   const lineItems = state.cart.lineItems;
-  console.log(state);
   const subtotalArr = (lineItems || []).map(
     (lineItem) => lineItem.product.price * 1 * lineItem.quantity
   );
@@ -68,11 +72,11 @@ const mapDispatch = (dispatch) => {
   return {
     increment: (lineItem, dir) => {
       const item = { ...lineItem, quantity: lineItem.quantity + dir };
-      dispatch(updateCartItem(item));
+      dispatch(updateCart(item));
     },
     deleteLineItem: (lineItem) => {
       const item = { ...lineItem, quantity: 0 };
-      dispatch(deleteCartItem(item));
+      dispatch(updateCart(item));
     },
   };
 };

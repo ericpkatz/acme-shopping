@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateCartItem, addToCart } from '../store';
+import { updateCart } from '../store';
 
 class ProductSpecificView extends React.Component {
     constructor(){
@@ -26,11 +26,7 @@ class ProductSpecificView extends React.Component {
     handleSubmit(ev){
         ev.preventDefault();
         const { product, cartItem, currentOrder, quantity } = this.state;
-        if(cartItem){
-            updateCartItem(cartItem, quantity, product);
-        } else {
-            addToCart( currentOrder, quantity, product);
-        }
+        updateCart(product, quantity)
     };
     render(){
         const { product, quantity } = this.state;
@@ -69,10 +65,10 @@ const mapState = ( state, { match } ) => {
 const mapDispatch = dispatch => {
     return {
         updateCartItem: (cartItem, quantity, product) => {
-            dispatch(updateCartItem(cartItem, quantity, product))
+            dispatch(updateCart(cartItem, quantity, product))
         },
         createCartItem: ( currentOrder, quantity, product) => {
-            dispatch(createCartItem( currentOrder, quantity, product))
+            dispatch(updateCart( currentOrder, quantity, product))
         }
     }
 };
