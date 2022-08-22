@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import UserOrdersCompleted from './UserOrdersCompleted';
 
 const UserProfile = ({auth}) => {
@@ -16,8 +17,13 @@ const UserProfile = ({auth}) => {
     <p>
     Address:{auth.address}
     </p>
+    
     <UserOrdersCompleted />
+    
+    <button><Link to="/profile/edit"> Edit Profile</Link></button>
     </div>
+    
+    
     
     )
 };
