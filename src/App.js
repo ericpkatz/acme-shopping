@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCart, exchangeToken, logout, fetchProducts } from './store';
-import { Link, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import UserCart from './Users/UserCart';
 import UserProfile from './Users/UserProfile';
@@ -67,5 +67,3 @@ const mapStateToProps = (state) => {
   return state;
 };
 export default connect(mapStateToProps, mapDispatch)(App);
-
-//ignore this comment. Just to mark changes

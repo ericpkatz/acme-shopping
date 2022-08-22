@@ -1,10 +1,3 @@
-//Alejandro
-//list out all lineItems x
-//be able to change quantity : decrease or increase x
-//be able to remove lineItem x
-//should be able to display subtotal x
-//price X quantity x
-
 import React from "react";
 import { connect } from "react-redux";
 import { updateLineItem, updateCart } from "../store";
@@ -94,7 +87,6 @@ const mapState = (state) => {
   (state.cart.lineItems || []).sort(function (a, b) {
     return a.id - b.id;
   });
-  // console.log(state);
   return {
     lineItems: state.cart.lineItems || [],
     subtotal: calculateSum().toFixed(2),
