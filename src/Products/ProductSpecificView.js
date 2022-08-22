@@ -1,75 +1,34 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { updateCart } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import { updateCart } from '../store/cart';
+import AddCartHelper from "./AddCartHelper";
 
-class ProductSpecificView extends React.Component {
-    constructor(){
-        super();
-        this.state = {
-            cartItem: {},
-            product: {},
-            currentOrder: {},
-            quantity: 1
-        }
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-    componentDidMount(){
-        console.log('will mount');
-        this.setState({
-            product: this.props.product,
-            cartItem: this.props.cartItem,
-            quantity: this.props.cartItem.quantity,
-            currentOrder: this.props.currentOrder
-        });
-        console.log('did mount');
-    }
-    handleSubmit(ev){
-        ev.preventDefault();
-        const { product, cartItem, currentOrder, quantity } = this.state;
-        updateCart(product, quantity)
-    };
-    render(){
-        const { product, quantity } = this.state;
-        const { handleSubmit } = this;
-        return (
-            <section className="product-specific-view">
-                <div className="product-image">
-                    { product.imgUrl }
-                </div>
-                <div className="product-info">
-                    { product.name }<br />
-                    { product.description }<br />
-                    ${ product.price }<br />
-                    <input onChange={ (ev) => this.setState({quantity: ev.target.value})}>{ quantity }</input>
-                    <button type="submit" onClick={ (ev) => handleSubmit(ev)}>Add to Cart</button>
-                </div>
-                <div className="product-review">
-                    REVIEWS:
-                    No one has written a review yet! Be the first one!
-                </div>
-            </section>
-        )
-    }
-};
-const mapState = ( state, { match } ) => {
-    const user = state.auth;
-    const currentOrder = state.orders.find(order => order.isCart === true && order.userId === user.id) || {};
-    const product = state.products.find(product => product.id === match.params.id*1) || {};
-    const cartItem = state.lineItems.find(lineItem => lineItem.orderId === currentOrder.id && lineItem.productId === product.id) || {};
+const ProductSpecificView = ({ product , addToCart, lineItems }) => {
+    return (
+        <div className="product-specific-view">
+            <div className="product-specific-view-img">
+                <img src={ product.imgUrl } width='240' height='160'/>
+            </div>
+            <div>
+                <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems } />
+                { product.description }<br />
+            </div>
+        </div>
+    )
+}
+
+const mapState = (state, { match }) => {
     return {
-        product,
-        currentOrder,
-        cartItem
-    }
-};
+        product: state.products.find(product => product.id === 1 * match.params.id) || {},
+        lineItems: state.cart.lineItems,
+    } 
+}
 const mapDispatch = dispatch => {
     return {
-        updateCartItem: (cartItem, quantity, product) => {
-            dispatch(updateCart(cartItem, quantity, product))
-        },
-        createCartItem: ( currentOrder, quantity, product) => {
-            dispatch(updateCart( currentOrder, quantity, product))
+        addToCart: (product, quantity) => {
+            dispatch(updateCart(product, quantity));
         }
     }
 };
+
 export default connect(mapState, mapDispatch)(ProductSpecificView);
