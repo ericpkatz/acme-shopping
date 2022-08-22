@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { login } from './store';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import UserCreateForm from './Users/UserCreateForm';
 
 class SignIn extends Component{
   constructor(){
@@ -23,11 +25,18 @@ class SignIn extends Component{
     const { onChange, onSubmit } = this;
     const { username, password } = this.state;
     return (
-      <form onSubmit={ onSubmit }>
-        <input name='username' onChange={ onChange } value={ username }/>
-        <input type='password' name='password' value={ password } onChange={ onChange }/>
-        <button>Login</button>
-      </form>
+      <div>
+        <header>
+          <h1>Acme Shopping</h1>
+          <p>Exotic Drinks</p>
+        </header>
+        <form onSubmit={ onSubmit }>
+          <input name='username' onChange={ onChange } value={ username }/>
+          <input type='password' name='password' value={ password } onChange={ onChange }/>
+          <button type="submit" className="login-btn">Login</button>
+          <button className="createAccount-btn"><Link to='/createAccount'>Create An Account</Link></button>
+        </form>
+      </div>
     );
   }
 }
