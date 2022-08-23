@@ -46,7 +46,7 @@ class UserProfileEdit extends Component {
     <h1>
     {this.props.auth.username}
     </h1>
-     <p>{this.props.auth.imageUrl}</p>
+     <img src={this.props.auth.imageUrl} />
     <p>
     Email:{this.props.auth.email}
     </p>

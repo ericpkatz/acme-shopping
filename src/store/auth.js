@@ -1,16 +1,22 @@
 import axios from 'axios';
-
+/*
 const auth = (state = {}, action)=> {
   switch (action.type) {
     case 'SET_AUTH':
-    return action.auth;
+    return state=action.auth;
     case 'UPDATE_AUTH':
     return {...state, auth:action.auth};
     default:
     return state
   }
 };
-
+*/
+const auth = (state = {}, action)=> {
+  if(action.type === 'SET_AUTH'){
+    state = action.auth;
+  }
+  return state;
+};
 
 
 export const logout = ()=> {
@@ -66,7 +72,7 @@ export const updateUser = (information) => {
                 authorization: window.localStorage.getItem('token')
             }
         });
-    dispatch({ updated, type: 'UPDATE_AUTH'});
+    dispatch({ updated, type: 'SET_AUTH'});
   };
 };
 

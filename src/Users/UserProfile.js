@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import UserOrdersCompleted from './UserOrdersCompleted';
 
 const UserProfile = ({auth}) => {
+    
     return (
 
     <div>
     <h1>
     {auth.username}
     </h1>
-     <p>{auth.imageUrl}</p>
+     <img src={auth.imageUrl} />
     <p>
     Email:{auth.email}
     </p>
