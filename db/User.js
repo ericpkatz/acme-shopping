@@ -92,7 +92,9 @@ User.prototype.getCart = async function () {
   return order;
 };
 User.prototype.getProducts = async function () {
-  let products = await conn.models.product.findAll();
+  let products = await conn.models.product.findAll({
+    order: [['name']]
+  });
   return products;
 };
 User.authenticate = async function (credentials) {

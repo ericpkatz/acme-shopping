@@ -11,13 +11,48 @@ const setUp = async () => {
       email: faker.internet.email("moe", null, "fakeMail.dev"),
       imageUrl: faker.image.people(640, 480),
       address: faker.address.streetAddress(true),
+      isAdmin: false
     });
+
     const lucy = await User.create({
       username: "lucy",
       password: "lucy_pw",
       email: faker.internet.email("lucy", null, "fakeMail.dev"),
       imageUrl: faker.image.people(640, 480),
       address: faker.address.streetAddress(true),
+      isAdmin: false
+    });
+    const diane = await User.create({
+      username: "didi",
+      password: "didi_pw",
+      email: "didi@aim.com",
+      imageUrl: faker.image.people(640, 480),
+      address: faker.address.streetAddress(true),
+      isAdmin: true
+    });
+    const alejandro = await User.create({
+      username: "ale",
+      password: "ale_pw",
+      email: "ale@aim.com",
+      imageUrl: faker.image.people(640, 480),
+      address: faker.address.streetAddress(true),
+      isAdmin: true
+    });
+    const bob = await User.create({
+      username: "bob",
+      password: "bob_pw",
+      email: "bob@aim.com",
+      imageUrl: faker.image.people(640, 480),
+      address: faker.address.streetAddress(true),
+      isAdmin: true
+    });
+    const chloe = await User.create({
+      username: "chloe",
+      password: "chloe_pw",
+      email: "chloe@aim.com",
+      imageUrl: faker.image.people(640, 480),
+      address: faker.address.streetAddress(true),
+      isAdmin: true
     });
     const foo = await Product.create({
       name: "foo",
@@ -49,12 +84,12 @@ const setUp = async () => {
     Product.create({name: 'Zesto Grape Juice', description: faker.random.words(20), price: 1.99, category: 'philippines', imgUrl: 'https://www.homeshop.ph/image/cache/catalog/Products/Beverages/Juice/Zesto-Grape-Juice-Drink-200mL-500x500-product_popup.png', ml: 250}),
     Product.create({name: 'Zesto Mango Juice', description: faker.random.words(20), price: 1.99, category: 'philippines', imgUrl: 'https://i0.wp.com/lokale.com.ph/wp-content/uploads/2021/07/18-6.png?fit=1587%2C2245&ssl=1', ml: 250}),
     Product.create({name: 'Zesto Pineapple Juice', description: faker.random.words(20), price: 1.99, category: 'philippines', imgUrl: 'https://rockwellmart.com/wp-content/uploads/2021/03/IMG_9670.png', ml: 250}),
-    Product.create({name: 'C2 Green Apple Green Tea', description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: 'https://corinthiandistributors.com/wp-content/uploads/2020/03/25-1216-4800016052132-C2-Green-Tea-Apple-Drink-500ml-No.1.jpg', ml: 250}),
+    Product.create({name: 'C2 Green Apple Green Tea', description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: 'https://cdn.shopify.com/s/files/1/0338/0694/2253/products/C2GreenTea-Apple16.9ozfront_2048x.jpg?v=1627660080', ml: 250}),
     Product.create({name: 'C2 Lemon Green Tea', description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: 'https://www.asianfoodlovers.com/media/catalog/product/cache/8/image/750x750/9df78eab33525d08d6e5fb8d27136e95/1/1/11064.jpg', ml: 250}),
     Product.create({name: 'C2 Classic Green Tea', description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: 'https://wedodel.com/wp-content/uploads/2021/01/C2-Green-Tea-Plain-355ml.jpg', ml: 250}),
     Product.create({name: 'Nestle Chuckie Chocolate Drink', description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: 'https://www.filamstore.com/wp-content/uploads/2017/07/chuckie-nestle-chocolate-flavor-drink.jpg', ml: 250}),
     Product.create({name: 'Nestle Fresh Milk', description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: 'https://cdn.shopify.com/s/files/1/0562/5928/1092/products/NESTLEFRESHMILK250ML_700x700.jpg?v=1643182902', ml: 250}),
-    Product.create({name: 'Dutch Mill Delight Probiotic', description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: 'https://www.nicepng.com/png/detail/195-1959872_dutchmill-delight-probiotic-drink-delight-drinks.png', ml: 250}),
+    Product.create({name: 'Dutch Mill Delight Probiotic', description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: 'https://www.allday.com.ph/media/catalog/product/1/0/10278610_dutchmill_delight_400ml.jpg', ml: 250}),
     //'japan'
     Product.create({name: 'Ramune Original', description: faker.random.words(20), price: 2.99, category: 'japan', imgUrl: 'https://i5.peapod.com/c/PE/PE2H9.jpg', ml: 250}),
     Product.create({name: 'Ramune Melon', description: faker.random.words(20), price: 2.99, category: 'japan', imgUrl: 'https://nikankitchen.com/Images/Products/hata-ramune-soda-melon-soda-200-ml.png', ml: 250}),
@@ -100,91 +135,50 @@ const setUp = async () => {
     Product.create({name: 'Kooksoondang Rice Drink', description: faker.random.words(20), price: 2.99, category: 'korea', imgUrl: 'http://cdn.shopify.com/s/files/1/0436/8895/1959/products/b76480d23cf384bc415b6fff379fc4dd_1200x1200.jpg?v=1595073007', ml: 250}),
     Product.create({name: 'Kooksoondang Peach MAkgeolli', description: faker.random.words(20), price: 9.99, category: 'korea', imgUrl: 'https://www.wine-searcher.com/images/labels/36/92/11053692.jpg', ml: 250}),
     //'china'
-     Product.create({name:'Hawthorn Berry Sparkling Juice', description: faker.random.words(20), price: 2.79, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/501/251/4C2A66EC05B00E15.jpg!c750x0.jpg' , ml: 250}),
-     Product.create({name:'Nature Soy Unsweetened Soy' , description: faker.random.words(20), price: 4.69, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/485/422/203097888E3D5900.jpg!c750x0.webp' , ml: 1890}),
-     Product.create({name:'Nature Soy High Fiber Soy Milk with Omega-3' , description: faker.random.words(20), price: 3.99, category: 'china', imgUrl:'https://cdn.yamibuy.net/item/27734e3c60d043416c0dab6a84f1f896_640x640.webp' , ml: 250}),
-     Product.create({name:'Genki Forest Sparkling Water' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS9VbBbfvmfMrfTDZmJBiMVJw8QlGiHfvRs3xgIsyJ3NveiDGm&usqp=CAc' , ml: 250}),
-     Product.create({name:'Honey Winter Melon Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/486/114/64E798187375A79B.jpg!c750x0.jpg' , ml: 250}),
-     Product.create({name:'Chiao Kuo Coconut Milk Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://jelifresh.com/images/thumbnails/465/465/detailed/47/4710336101239_a.jpg' , ml: 250}),
-     Product.create({name:'KSF Ice Black Tea Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/761/036/E1C95DF0B94F910.jpg!c750x0.jpg' , ml: 250}),
-     Product.create({name:'Nature Soy Black Sesame Soy Milk' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://cdn.shopify.com/s/files/1/0561/2463/7374/products/2050384.jpg?v=1619878317' , ml: 250}),
-     Product.create({name:'Vitasoy Soy Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://cdn.shopify.com/s/files/1/0561/3553/products/YB-15893_F.jpg?v=1589308068' , ml: 250}),
-     Product.create({name:'Tea Pi Jasmine tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/014/356/3FCC3C28B697715D.jpg!c750x0.jpg' , ml: 250}),
-     Product.create({name:'Master Kong Jasmine Honey Green Tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/891/959/122CA8600C083729.png' , ml: 250}),
-     Product.create({name:'Master Kong Tangerine Peel and Plum Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://i.ebayimg.com/images/g/WwEAAOSw2qJiC67v/s-l500.jpg' , ml: 250}),
-     Product.create({name:'Wahaha Vitamin A and D Calcium Milk' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/578/118/6431DAFD1F6323E3.jpg' , ml: 250}),
-     Product.create({name:'Lan Fong Yuen Milk Tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/324/908/56280CD74014C174.jpg' , ml: 250}),
+    Product.create({name:'Hawthorn Berry Sparkling Juice', description: faker.random.words(20), price: 2.79, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/501/251/4C2A66EC05B00E15.jpg!c750x0.jpg' , ml: 250}),
+    Product.create({name:'Nature Soy Unsweetened Soy' , description: faker.random.words(20), price: 4.69, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/485/422/203097888E3D5900.jpg!c750x0.webp' , ml: 1890}),
+    Product.create({name:'Nature Soy High Fiber Soy Milk with Omega-3' , description: faker.random.words(20), price: 3.99, category: 'china', imgUrl:'https://cdn.yamibuy.net/item/27734e3c60d043416c0dab6a84f1f896_640x640.webp' , ml: 250}),
+    Product.create({name:'Genki Forest Sparkling Water' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS9VbBbfvmfMrfTDZmJBiMVJw8QlGiHfvRs3xgIsyJ3NveiDGm&usqp=CAc' , ml: 250}),
+    Product.create({name:'Honey Winter Melon Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/486/114/64E798187375A79B.jpg!c750x0.jpg' , ml: 250}),
+    Product.create({name:'Chiao Kuo Coconut Milk Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://jelifresh.com/images/thumbnails/465/465/detailed/47/4710336101239_a.jpg' , ml: 250}),
+    Product.create({name:'KSF Ice Black Tea Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/761/036/E1C95DF0B94F910.jpg!c750x0.jpg' , ml: 250}),
+    Product.create({name:'Nature Soy Black Sesame Soy Milk' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://cdn.shopify.com/s/files/1/0561/2463/7374/products/2050384.jpg?v=1619878317' , ml: 250}),
+    Product.create({name:'Vitasoy Soy Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://cdn.shopify.com/s/files/1/0561/3553/products/YB-15893_F.jpg?v=1589308068' , ml: 250}),
+    Product.create({name:'Tea Pi Jasmine tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/014/356/3FCC3C28B697715D.jpg!c750x0.jpg' , ml: 250}),
+    Product.create({name:'Master Kong Jasmine Honey Green Tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/891/959/122CA8600C083729.png' , ml: 250}),
+    Product.create({name:'Master Kong Tangerine Peel and Plum Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://i.ebayimg.com/images/g/WwEAAOSw2qJiC67v/s-l500.jpg' , ml: 250}),
+    Product.create({name:'Wahaha Vitamin A and D Calcium Milk' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/578/118/6431DAFD1F6323E3.jpg' , ml: 250}),
+    Product.create({name:'Lan Fong Yuen Milk Tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://img06.weeecdn.com/item/image/324/908/56280CD74014C174.jpg' , ml: 250}),
     Product.create({name:'Master Kong Jasmine Green Tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://cdn.yamibuy.net/item/909c958bc6350fa0d7bfc296053d124c_750x750.webp' , ml: 250}),
     Product.create({name:'XinYuanZhai Plum Drink', description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://i.ebayimg.com/images/g/m4YAAOSwTcdiC67v/s-l500.jpg' , ml: 250}),
     Product.create({name:'Taisun Grass Jelly Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://cdn.shopify.com/s/files/1/0561/3553/products/grass-jelly-drink.jpg?v=1589600533' , ml: 250}),
     Product.create({name:'Wang Lao Ji Herbal Beverage' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://cdn.yamibuy.net/item/16a15d94d3ce9c63c634a52c84298e8d_750x750.webp' , ml: 250}),
     Product.create({name:'Want-Want Milk Flavored Drink' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://m.media-amazon.com/images/I/41suwUEkXaL._SX425_.jpg' , ml: 250}),
     Product.create({name:'Genki Forest Sparkling Water' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://www.orientalmart.co.uk/images/products/4430/small/1617453096-001762200.jpg' , ml: 250}),
-     Product.create({name:'Vita Chrysanthemum Tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://fresh.hmart.com/media/catalog/product/cache/0c75b0d6b380af6dca3ec180c127a709/l/-/l-489102866486_2_1.jpg' , ml: 250}),
+    Product.create({name:'Vita Chrysanthemum Tea' , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl:'https://fresh.hmart.com/media/catalog/product/cache/0c75b0d6b380af6dca3ec180c127a709/l/-/l-489102866486_2_1.jpg' , ml: 250}),
     // //'mexico'
-Product.create({
-        name: "Jarritos Lime",
-        description: faker.random.words(20),
-        price: 2.99,
-        category: "mexico",
-        imgUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpSftN4cZTcv70tRGfmOIIHxFcrxWBeq2rnJoQDycBn3hPk06h_NffldGXVQ4Dr1tyI8&usqp=CAU",
-        ml: 250,
-      }),
-      Product.create({
-        name: "Jarritos Tamatillo",
-        description: faker.random.words(20),
-        price: 2.99,
-        category: "mexico",
-        imgUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHofHzEsi9HmzCiYsRmXsdPnNVcQkj0rv5toLgpr-mk4rmokcNkEltslPYHdtGApEO9CE&usqp=CAU",
-        ml: 250,
-      }),
-      Product.create({
-        name: "Jumix Guava Nectar",
-        description: faker.random.words(20),
-        price: 2.99,
-        category: "mexico",
-        imgUrl: "https://www.zocalofoods.com/products/jumex-guava-nectar-16-oz",
-        ml: 250,
-      }),
-      Product.create({
-        name: "Jumix Pear Nectar",
-        description: faker.random.words(20),
-        price: 2.99,
-        category: "mexico",
-        imgUrl:
-          "https://www.cassandraonlinemarket.com/wp-content/uploads/2019/08/DSCN7712-scaled.jpg",
-        ml: 250,
-      }),
-      Product.create({
-        name: "Jumix Coco Pina",
-        description: faker.random.words(20),
-        price: 2.99,
-        category: "mexico",
-        imgUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZvZPxMefHqApUOeQop6OgBZwNbzSe3qHqGw&usqp=CAU",
-        ml: 250,
-      }),
-      Product.create({
-        name: "Jumix Mango Nectar",
-        description: faker.random.words(20),
-        price: 2.99,
-        category: "mexico",
-        imgUrl: "https://mfspecialties.com/uc/wr/img-wmedia/BVG6046.PNG",
-        ml: 250,
-      }),
+    Product.create({name: "Jarritos Guava", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://m.media-amazon.com/images/I/61NlSdOViUL._SX425_.jpg", ml: 250}),
+    Product.create({name: "Jarritos Mandarin", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://products0.imgix.drizly.com/ci-jarritos-mandarin-000856522030817e.jpeg?auto=format%2Ccompress&ch=Width%2CDPR&dpr=2&fm=jpg&h=240&q=20", ml: 250}),
+    Product.create({name: "Jarritos Grapefruit", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf7Y4g3BvuwllW8-4M3mSSq3i3QepLVVhBDg&usqp=CAU", ml: 250}),
+    Product.create({name: "Jarritos Tamarind", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://i5.walmartimages.com/asr/12ae73d3-13f2-42b6-a2b2-5f1609a7f147_1.d49b7259798f1eec45aff78b8ba69857.jpeg", ml: 250}),
+    Product.create({name: "Jarritos Strawberry", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://ipcdn.freshop.com/resize?url=https://images.freshop.com/00090478216287/f4d0780472fbd34098cb20f2134501f4_large.png&width=512&type=webp&quality=90", ml: 250}),
+    Product.create({name: "Jarritos Watermelon", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://latindeli.com.au/wp-content/uploads/2020/08/Jarritos_Watermelon-1.jpg", ml: 250}),
+    Product.create({name: "Jarritos Lime", description: faker.random.words(20), price: 2.99, category: "mexico", imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpSftN4cZTcv70tRGfmOIIHxFcrxWBeq2rnJoQDycBn3hPk06h_NffldGXVQ4Dr1tyI8&usqp=CAU", ml: 250}),
+    Product.create({name: "Jarritos Tamatillo", description: faker.random.words(20), price: 2.99, category: "mexico", imgUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHofHzEsi9HmzCiYsRmXsdPnNVcQkj0rv5toLgpr-mk4rmokcNkEltslPYHdtGApEO9CE&usqp=CAU", ml: 250}),
+    Product.create({name: "Jumex Guava Nectar", description: faker.random.words(20), price: 2.99, category: "mexico", imgUrl: "https://nimbusimports.com/wp-content/uploads/2020/11/Jumex-Guava-11oz-24pk.png", ml: 250}),
+    Product.create({name: "Jumex Pear Nectar", description: faker.random.words(20), price: 2.99, category: "mexico", imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFA8FyFDR73Ik5tr1AKOCmQiubI1kbdQbJdA&usqp=CAU", ml: 250}),
+    Product.create({name: "Jumex Coco Pina", description: faker.random.words(20), price: 2.99, category: "mexico", imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG2grTz2R6YfsdE7PlMP8q_MPG3g2fRT2AB92dTNfI5NQe_Pt4RjxcILo-3NukWN_2hEc&usqp=CAU", ml: 250}),
+    Product.create({name: "Jumex Mango Nectar", description: faker.random.words(20), price: 2.99, category: "mexico", imgUrl: "https://images.heb.com/is/image/HEBGrocery/000193696?fit=constrain,1&wid=800&hei=800&fmt=jpg&qlt=85,0&resMode=sharp2&op_usm=1.75,0.3,2,0", ml: 250}),
+    Product.create({name: "Jumex Pineapple Nectar", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://images.heb.com/is/image/HEBGrocery/001141510?fit=constrain,1&wid=800&hei=800&fmt=jpg&qlt=85,0&resMode=sharp2&op_usm=1.75,0.3,2,0", ml: 250}),
+    Product.create({name: "Jumex Strawberry-Banana Nectar", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://images.heb.com/is/image/HEBGrocery/002096358?fit=constrain,1&wid=800&hei=800&fmt=jpg&qlt=85,0&resMode=sharp2&op_usm=1.75,0.3,2,0", ml: 250}),
+    Product.create({name: "Jumex Apple Nectar", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://thumbs.dreamstime.com/b/aluminium-bottle-jumex-apple-isolated-chisinau-moldova-april-over-white-background-clipping-path-181205173.jpg", ml: 250}),
+    Product.create({name: "Goya Passion Fruit Cocktail", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://images.heb.com/is/image/HEBGrocery/001466481", ml: 250}),
+    Product.create({name: "Goya Mango Nectar", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1-lkmlXqFICtX4Xql9uTJN7_kjYvI19MVBC0uqEzfIOtq0FRFtSd2dKpP1BAHyBFKJWc&usqp=CAU", ml: 250}),
+    Product.create({name: "Goya Coconut Milk", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://images.heb.com/is/image/HEBGrocery/001964546", ml: 250}),
+    Product.create({name: "Goya Aloe Vera Original", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://images.epallet.com/production/media/cache/5f/90/5f9022d584bd248d1d1d599c557bb980.jpg", ml: 250}),
+    Product.create({name: "Goya Coconut Water", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://cdn.shopify.com/s/files/1/0280/6834/8007/products/GY2778_1024x1024.jpg?v=1645526560", ml: 250}),
+    Product.create({name: "Malta Goya", description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: "https://i5.peapod.com/c/E9/E9DUK.jpg", ml: 250}),
     ])
-    
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'korea', imgUrl: , ml: 250}),
-
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'china', imgUrl: , ml: 250}),
-
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'japan', imgUrl: , ml: 250}),
-
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'mexico', imgUrl: , ml: 250}),
-
-    // Product.create({name: , description: faker.random.words(20), price: 2.99, category: 'philippines', imgUrl: , ml: 250}),
 
     const port = process.env.PORT || 3000;
     app.listen(port, () => console.log(`listening on port ${port}`));
