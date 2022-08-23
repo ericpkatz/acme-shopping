@@ -5,6 +5,7 @@ import { Link, Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import UserCart from './Users/UserCart';
 import UserProfile from './Users/UserProfile';
+import UserProfileEdit from './Users/UserProfileEdit';
 import ProductSpecificView from './Products/ProductSpecificView';
 import ProductsView from './Products/ProductsView';
 import UserCreateForm from './Users/UserCreateForm';
@@ -31,8 +32,8 @@ class App extends React.Component {
               <Route exact path='/products' component={ ProductsView } />
               <Route exact path='/products/:id' component={ ProductSpecificView } />
               <Route path='/cart' component={ UserCart } />
-              <Route path='/profile' component={ UserProfile } />
-
+              <Route path='/profile' component={ UserProfile } exact />
+              <Route path='/profile/edit' component={ UserProfileEdit } />
             </div>
           </div>
         ) : (
@@ -58,3 +59,5 @@ const mapStateToProps = (state) => {
   return state;
 };
 export default connect(mapStateToProps, mapDispatch)(App);
+
+ //ignore this comment. Just to mark changes

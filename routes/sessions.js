@@ -22,6 +22,14 @@ app.get('/', isLoggedIn, async(req, res, next)=> {
   res.send(req.user);
 });
 
+app.put('/user', isLoggedIn ,async(req,res,next)=>{
+  try {
+    res.send(await req.user.update(req.body));
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.post('/user', async(req, res, next) => {
   try {
     await User.createAccount(req.body);

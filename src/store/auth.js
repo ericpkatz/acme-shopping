@@ -1,10 +1,12 @@
 import axios from 'axios';
+
 const auth = (state = {}, action)=> {
   if(action.type === 'SET_AUTH'){
     state = action.auth;
   }
   return state;
 };
+
 
 export const logout = ()=> {
   return (dispatch)=> {
@@ -50,6 +52,17 @@ export const createAccount = (information) => {
     window.localStorage.setItem('token', token)
     dispatch(login(user));
   }
+};
+
+export const updateUser = (information) => {
+  return async (dispatch) => {
+    const { data: updated } = await axios.put(`/api/sessions/user`, information, {
+            headers: {
+                authorization: window.localStorage.getItem('token')
+            }
+        });
+    dispatch({ updated, type: 'SET_AUTH'});
+  };
 };
 
 export default auth;
