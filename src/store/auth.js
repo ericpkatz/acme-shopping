@@ -1,16 +1,5 @@
 import axios from 'axios';
-/*
-const auth = (state = {}, action)=> {
-  switch (action.type) {
-    case 'SET_AUTH':
-    return state=action.auth;
-    case 'UPDATE_AUTH':
-    return {...state, auth:action.auth};
-    default:
-    return state
-  }
-};
-*/
+
 const auth = (state = {}, action)=> {
   if(action.type === 'SET_AUTH'){
     state = action.auth;
