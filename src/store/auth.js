@@ -47,8 +47,18 @@ export const login = (credentials) => {
 export const createGuestAccount = () => {
   return async (dispatch) => {
     let guest = (await axios.post("/api/sessions/guest")).data;
-    console.log(guest);
-    // const { token } = guest;
+    console.log(window.localStorage.getItem("token"));
+    let response = await axios.post("/api/sessions", guest);
+    const { token } = response.data;
+    console.log(token, "token");
+    window.localStorage.setItem("token", token);
+    response = await axios.get("/api/sessions", {
+      headers: {
+        authorization: token,
+      },
+    });
+    const auth = response.data;
+    dispatch({ auth, type: "SET_AUTH" });
     // window.localStorage.setItem("token", token);
     // dispatch(login(user));
   };
