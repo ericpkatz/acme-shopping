@@ -5,10 +5,13 @@ const { faker } = require("@faker-js/faker");
 const setUp = async () => {
   try {
     await conn.sync({ force: true });
-    await User.create({
-      username: "guest",
-      password: "guest",
+    const guest = await User.create({
+      username: "",
+      password: "",
       isGuest: true,
+      email: `${Date.now()}@fake.com`,
+      imageUrl: "",
+      address: "",
     });
     const moe = await User.create({
       username: "moe",

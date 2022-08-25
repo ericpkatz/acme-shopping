@@ -131,6 +131,18 @@ User.authenticate = async function (credentials) {
 User.createAccount = async function (information) {
   return await this.create({ ...information, isAdmin: false });
 };
+
+User.createGuestAccount = async function (information) {
+  return await this.create({
+    username: "",
+    password: "",
+    isGuest: true,
+    email: `${Date.now()}@fake.com`,
+    imageUrl: "",
+    address: "",
+  });
+};
+
 User.findByToken = async function findByToken(token) {
   try {
     const id = jwt.verify(token, process.env.JWT).id;

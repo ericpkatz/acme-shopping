@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { login } from "./store";
+import { login, createGuestAccount } from "./store";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import UserCreateForm from "./Users/UserCreateForm";
+import axios from "axios";
 
 class SignIn extends Component {
   constructor() {
@@ -16,14 +17,20 @@ class SignIn extends Component {
     this.loginAsGuest = this.loginAsGuest.bind(this);
   }
   onChange(ev) {
+    console.log(this.props);
     this.setState({ [ev.target.name]: ev.target.value });
   }
   onSubmit(ev) {
     ev.preventDefault();
     this.props.login(this.state);
   }
-  loginAsGuest() {
-    this.props.login({ username: "guest", password: "guest" });
+  async loginAsGuest() {
+    const response = (await axios.get("/api/sessions/guest")).data;
+    if (response) {
+      this.props.login({ username: "", password: "" });
+    } else {
+      this.props.createGuestAccount();
+    }
   }
   render() {
     const { onChange, onSubmit, loginAsGuest } = this;
@@ -55,10 +62,18 @@ class SignIn extends Component {
   }
 }
 
+// const mapState = (state) => {
+//   console.log(state);
+//   return {};
+// };
+
 const mapDispatch = (dispatch) => {
   return {
     login: (credentials) => {
       dispatch(login(credentials));
+    },
+    createGuestAccount: () => {
+      dispatch(createGuestAccount());
     },
   };
 };
