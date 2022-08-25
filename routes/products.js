@@ -43,13 +43,14 @@ app.put('/:id', isLoggedIn, async(req, res, next) => {
   //   }
   // });
   // //delete specific product with authentication
-  // app.delete('/:id', isLoggedIn, async(req, res, next) => {
-  //   try{
-  //     const product = await Product.findByPk(req.params.id);
-  //     await product.destroy();
-  //     res.sendStatus(204);
-  //   }
-  //   catch(ex){
-  //     next(ex)
-  //   }
-  // });
+  app.delete('/:id', isLoggedIn, async(req, res, next) => {
+    try{
+      if(req.user.isAdmin){
+        await req.user.deleteProduct(req.params.id)
+        res.sendStatus(204);
+      }
+    }
+    catch(ex){
+      next(ex)
+    }
+  });
