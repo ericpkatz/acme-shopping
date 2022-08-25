@@ -19,7 +19,7 @@ class UserProfileEdit extends Component {
  //       e.preventDefault();
         console.log("This State")
         console.log(this.state);
-        const information = { email: this.state.email, imageUrl: this.state.imageUrl, address:this.state.address };
+        const information = {email: this.state.email, imageUrl: this.state.imageUrl, address:this.state.address };
         console.log(`Generate data from component`);
         console.log(information);
         try {
@@ -33,13 +33,13 @@ class UserProfileEdit extends Component {
     }
     
     componentDidMount(){
-    this.setState({ email: this.props.auth.email, imageUrl:this.props.auth.imageUrl, address:this.props.auth.address  });
+    this.setState({email: this.props.auth.email, imageUrl:this.props.auth.imageUrl, address:this.props.auth.address  });
     }
 
   
   render(){
         const { email, imageUrl, address } = this.state;
-        const { onChange, update } = this;
+        const { update } = this;
     return (
  <section>
    <div>
@@ -83,6 +83,7 @@ class UserProfileEdit extends Component {
                         />
                     </label>
                     <button type='submit'>Update Profile</button>
+                    <button><Link to="/profile/edit/credentials"> Edit Login Info</Link></button>
                     <button><Link to='../profile'>Go Back</Link></button>
                 </form>
             </section>

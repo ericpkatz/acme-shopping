@@ -6,6 +6,7 @@ import SignIn from "./SignIn";
 import UserCart from "./Users/UserCart";
 import UserProfile from "./Users/UserProfile";
 import UserProfileEdit from "./Users/UserProfileEdit";
+import UserCredentialsEdit from "./Users/UserCredentialsEdit";
 import ProductSpecificView from "./Products/ProductSpecificView";
 import ProductsView from "./Products/ProductsView";
 import UserCreateForm from "./Users/UserCreateForm";
@@ -37,7 +38,11 @@ class App extends React.Component {
               />
               <Route path="/cart" component={UserCart} />
               <Route path="/profile" component={UserProfile} exact />
-              <Route path="/profile/edit" component={UserProfileEdit} />
+              <Route path="/profile/edit" component={UserProfileEdit} exact />
+              <Route
+                path="/profile/edit/credentials"
+                component={UserCredentialsEdit}
+              />
             </div>
           </div>
         ) : (

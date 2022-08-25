@@ -30,6 +30,19 @@ app.put('/user', isLoggedIn ,async(req,res,next)=>{
   }
 });
 
+app.put('/user/credential', isLoggedIn ,async(req,res,next)=>{
+  try {
+    await req.user.update(req.body);
+    const credentials = {
+      username: req.body.username,
+      password: req.body.password
+    };
+    res.send(credentials);
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.post('/user', async(req, res, next) => {
   try {
     await User.createAccount(req.body);
