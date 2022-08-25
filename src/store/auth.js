@@ -81,5 +81,4 @@ export const updateUser = (information) => {
   };
 };
 
-
 export default auth;

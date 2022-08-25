@@ -1,6 +1,6 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
-const { STRING, BOOLEAN, TEXT } = Sequelize;
+const { STRING, BOOLEAN, TEXT, INTEGER } = Sequelize;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -9,6 +9,7 @@ const User = conn.define("user", {
   username: {
     type: STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
     type: STRING,
@@ -20,6 +21,7 @@ const User = conn.define("user", {
   },
   email: {
     type: STRING,
+    unique: true,
     validate: {
       isEmail: true,
     },
@@ -29,6 +31,19 @@ const User = conn.define("user", {
   },
   address: {
     type: STRING,
+    // allowNull: false,
+  },
+  city: {
+    type: STRING,
+    // allowNull: false,
+  },
+  state: {
+    type: STRING,
+    // allowNull: false,
+  },
+  zipCode: {
+    type: INTEGER,
+    // allowNull: false,
   },
 });
 
@@ -90,7 +105,9 @@ User.prototype.getCart = async function () {
   return order;
 };
 User.prototype.getProducts = async function () {
-  let products = await conn.models.product.findAll();
+  let products = await conn.models.product.findAll({
+    order: [["name"]],
+  });
   return products;
 };
 User.authenticate = async function (credentials) {
@@ -107,8 +124,8 @@ User.authenticate = async function (credentials) {
     throw error;
   }
 };
-User.createAccount = async function (information){
-   return await this.create({...information, isAdmin: false});
+User.createAccount = async function (information) {
+  return await this.create({ ...information, isAdmin: false });
 };
 User.findByToken = async function findByToken(token) {
   try {
