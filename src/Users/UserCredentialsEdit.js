@@ -23,6 +23,7 @@ class UserCredentialsEdit extends Component {
       username: this.state.username,
       password: this.state.password,
       passwordConfirm: this.state.passwordConfirm,
+      isGuest: false,
     };
     console.log(`Generate data from component`);
     console.log(information);
