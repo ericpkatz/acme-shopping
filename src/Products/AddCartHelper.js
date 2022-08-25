@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const AddCartHelper = ({addToCart, product, lineItems}) => {
     let [quantity, setQuantity] = useState(1);
@@ -16,13 +15,12 @@ const AddCartHelper = ({addToCart, product, lineItems}) => {
     }
     return (
         <div>
-            <Link to={`/products/${product.id}`}>{ product.name }</Link><br />
-            ${ product.price }<br />
             <button onClick={() => setQuantity(quantity - 1)} disabled={quantity === 1}>-</button>
             { quantity }
             <button onClick={ () => setQuantity(quantity + 1)}>+</button><br />
             <button onClick={() => handleSubmit(product, quantity)} className="addToCart-btn">Add to Cart</button>
             {/* <button>Add to WishList</button> */}
+            {/* {auth.isAdmin === true ? <button>x</button> : null} */}
         </div>
     )
 };

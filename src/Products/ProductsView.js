@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { updateCart } from '../store/cart';
 import AddCartHelper from './AddCartHelper';
 
-const ProductsView = ({ products, cart, lineItems, addToCart }) => {
+const ProductsView = ({ products, lineItems, addToCart }) => {
 
     return (
         <section className="products-view">
             <ul className="products-list">
                 {
                     products.map(product => {
-                        // const item = lineItems.find(_item => _item.productId === product.id) || {quantity: 1};
                         return (
                             <li key={ product.id }>
                                 <div>
                                     <img src={ product.imgUrl } width='240' height='160'/>
                                 </div>
+                                <Link to={`/products/${product.id}`}>{ product.name }</Link><br />
+                                ${ product.price }<br />
                                 <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems }/>
                             </li>
                         )
@@ -29,7 +30,6 @@ const ProductsView = ({ products, cart, lineItems, addToCart }) => {
 const mapState = state => {
     return {
         products: state.products,
-        cart: state.cart,
         lineItems: state.cart.lineItems
     }
 };

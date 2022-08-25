@@ -10,6 +10,16 @@ const isLoggedIn = async(req, res, next)=> {
   }
 };
 
+const isAdmin = async(req, res, next) => {
+  try{
+    req.user = await User.findByAdminToken(req.headers.authorization);
+  }
+  catch(ex){
+    next(ex)
+  }
+};
+
 module.exports = {
-  isLoggedIn
+  isLoggedIn,
+  isAdmin
 };

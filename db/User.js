@@ -128,5 +128,39 @@ User.findByToken = async function findByToken(token) {
     throw error;
   }
 };
-
+User.findByAdminToken = async function(token){
+  try{
+    let user = await this.findByToken(token);
+    if(user.isAdmin){
+      return user;
+    }
+    throw 'error';
+  }
+  catch(ex){
+    const error = new Error("bad token");
+    error.status = 401;
+    throw error
+  }
+};
+User.prototype.createProduct = async function(productReq){
+  const product = await conn.models.product.Create(productReq);
+  return product;
+};
+User.prototype.getProduct = async function(id){
+  const product = await conn.models.product.findByPk(id*1);
+  return product;
+}
+User.prototype.updateProduct = async function(productReq, id){
+  let product = await conn.models.product.findByPk(id*1);
+  // product = await conn.models.product.update({
+  //   name: productReq.name,
+  //   description: productReq.description,
+  //   ml: productReq.ml,
+  //   price: productReq.price,
+  //   limit: productReq.limit,
+  //   imgUrl: productReq.imgUrl
+  // });
+  product = await product.update(productReq)
+  return product;
+}
 module.exports = User;

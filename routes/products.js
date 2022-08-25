@@ -1,10 +1,8 @@
 const express = require('express');
 
 const app = express.Router();
-const { isLoggedIn } = require('./middleware');
-
+const { isLoggedIn, isAdmin } = require('./middleware');
 module.exports = app;
-
 //get all products with authentication
 app.get('/', isLoggedIn, async(req, res, next)=> {
     try {
@@ -14,15 +12,23 @@ app.get('/', isLoggedIn, async(req, res, next)=> {
       next(ex);
     }
   });
+  app.post('/', isAdmin, async(req, res, next) => {
+    try{
+      res.status(201).send(await req.user.createProduct(req.body));
+    }
+    catch(ex){
+      next(ex)
+    }
+  });
+  app.put('/:id', isLoggedIn, async(req, res, next) => {
+    try{
+      res.status(201).send(await req.user.updateProduct(req.body, req.params.id));
+    }
+    catch(ex){
+      next(ex)
+    }
+  });
   //create a product with authentication
-  // app.post('/', isLoggedIn, async(req, res, next) => {
-  //   try{
-  //     res.send(await Product.create(req.body));
-  //   }
-  //   catch(ex){
-  //     next(ex)
-  //   }
-  // });
   // //edit/update specific product with authentication
   // app.put('/:id', isLoggedIn, async(req, res, next) => {
   //   try{

@@ -10,8 +10,11 @@ const ProductSpecificView = ({ product , addToCart, lineItems }) => {
                 <img src={ product.imgUrl } width='240' height='160'/>
             </div>
             <div>
+            { product.name }<br />
+            { product.description }<br />
+            ML: { product.ml }<br />
+            ${ product.price }<br />
                 <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems } />
-                { product.description }<br />
             </div>
         </div>
     )
@@ -20,7 +23,7 @@ const ProductSpecificView = ({ product , addToCart, lineItems }) => {
 const mapState = (state, { match }) => {
     return {
         product: state.products.find(product => product.id === 1 * match.params.id) || {},
-        lineItems: state.cart.lineItems,
+        lineItems: state.cart.lineItems
     } 
 }
 const mapDispatch = dispatch => {

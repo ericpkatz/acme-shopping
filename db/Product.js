@@ -1,6 +1,6 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
-const { STRING, TEXT, DECIMAL, ENUM, INTEGER } = Sequelize;
+const { STRING, TEXT, DECIMAL, INTEGER } = Sequelize;
 const Product = conn.define("product", {
   name: {
     type: STRING,
@@ -16,15 +16,17 @@ const Product = conn.define("product", {
       notEmpty: true,
     },
   },
-  category: {
-    type: ENUM,
-    values: ["philippines", "china", "korea", "japan", "mexico"],
-  },
+  // category: {
+  //   type: ENUM,
+  //   values: ["philippines", "china", "korea", "japan", "mexico"],
+  // },
   ml: {
     type: INTEGER,
+    defaultValue: 250
   },
   limit: {
     type: INTEGER,
+    defaultValue: 100
   },
   imgUrl: {
     type: TEXT,

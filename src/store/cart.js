@@ -30,31 +30,5 @@ export const updateCart = (product, quantity) => {
     dispatch({type: 'UPDATE_CART', item});
   }
 };
-// //update cartItem
-// export const updateCartItem = (item) => {
-//   return async (dispatch) => {
-//     item = (
-//       await axios.put(`/api/orders/cart`, item, {
-//         headers: {
-//           authorization: window.localStorage.getItem("token"),
-//         },
-//       })
-//     ).data;
-//     dispatch({ type: "UPDATE_CART_ITEM", item });
-//   };
-// };
-
-// export const deleteCartItem = (item) => {
-//   return async (dispatch) => {
-//     item = (
-//       await axios.put("/api/orders/cart", item, {
-//         headers: {
-//           authorization: window.localStorage.getItem("token"),
-//         },
-//       })
-//     ).data;
-//     dispatch({ type: "DELETE_CART_ITEM", item });
-//   };
-// };
 
 export default cart;
