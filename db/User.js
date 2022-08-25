@@ -146,10 +146,6 @@ User.prototype.createProduct = async function(productReq){
   const product = await conn.models.product.Create(productReq);
   return product;
 };
-User.prototype.getProduct = async function(id){
-  const product = await conn.models.product.findByPk(id*1);
-  return product;
-}
 User.prototype.updateProduct = async function(productReq, id){
   let product = await conn.models.product.findByPk(id*1);
   // product = await conn.models.product.update({
@@ -162,5 +158,10 @@ User.prototype.updateProduct = async function(productReq, id){
   // });
   product = await product.update(productReq)
   return product;
+}
+User.prototype.deleteProduct = async function(id){
+  const product = await conn.models.product.findByPk(id*1);
+  await product.destroy();
+  return;
 }
 module.exports = User;

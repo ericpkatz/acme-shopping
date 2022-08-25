@@ -41,7 +41,6 @@ export const createProduct = (product) => {
 //update product
 export const updateProduct = (product, id) => {
     return async(dispatch) => {
-        console.log(id)
         const updatedProduct = (await axios.put(`/api/products/${id}`, {
             name: product.name,
             description: product.description,
