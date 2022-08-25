@@ -9,26 +9,47 @@ const cart = (state = { lineItems: [] }, action) => {
   return state;
 };
 //get list of items added to cart but not submitted
-export const fetchCart = ()=> {
-  return async(dispatch)=> {
-    const cart = (await axios.get('/api/orders/cart', {
-      headers: {
-        authorization: window.localStorage.getItem('token')
-      }
-    })).data;
-    dispatch({ type: 'SET_CART', cart});
-  }
+export const fetchCart = () => {
+  return async (dispatch) => {
+    const cart = (
+      await axios.get("/api/orders/cart", {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "SET_CART", cart });
+  };
 };
 //add / update / delete items in cart
 export const updateCart = (product, quantity) => {
-  return async(dispatch) => {
-    const item = (await axios.put('/api/orders/cart',{product, quantity}, {
-      headers: {
-        authorization: window.localStorage.getItem('token')
-      }
-    })).data;
-    dispatch({type: 'UPDATE_CART', item});
-  }
+  return async (dispatch) => {
+    const item = (
+      await axios.put(
+        "/api/orders/cart",
+        { product, quantity },
+        {
+          headers: {
+            authorization: window.localStorage.getItem("token"),
+          },
+        }
+      )
+    ).data;
+    dispatch({ type: "UPDATE_CART", item });
+  };
+};
+//update cartItem
+export const updateLineItem = (item) => {
+  return async (dispatch) => {
+    item = (
+      await axios.put(`/api/orders/cart`, item, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "UPDATE_CART", item });
+  };
 };
 
 export default cart;

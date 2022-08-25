@@ -1,6 +1,6 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
-const { STRING, BOOLEAN, TEXT } = Sequelize;
+const { STRING, BOOLEAN, TEXT, INTEGER } = Sequelize;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -31,6 +31,19 @@ const User = conn.define("user", {
   },
   address: {
     type: STRING,
+    // allowNull: false,
+  },
+  city: {
+    type: STRING,
+    // allowNull: false,
+  },
+  state: {
+    type: STRING,
+    // allowNull: false,
+  },
+  zipCode: {
+    type: INTEGER,
+    // allowNull: false,
   },
 });
 
@@ -93,7 +106,7 @@ User.prototype.getCart = async function () {
 };
 User.prototype.getProducts = async function () {
   let products = await conn.models.product.findAll({
-    order: [['name']]
+    order: [["name"]],
   });
   return products;
 };
@@ -111,8 +124,8 @@ User.authenticate = async function (credentials) {
     throw error;
   }
 };
-User.createAccount = async function (information){
-   return await this.create({...information, isAdmin: false});
+User.createAccount = async function (information) {
+  return await this.create({ ...information, isAdmin: false });
 };
 User.findByToken = async function findByToken(token) {
   try {
