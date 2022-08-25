@@ -29,6 +29,7 @@ export const exchangeToken = ()=> {
     }
   };
 };
+
 export const login = (credentials)=> {
   return async(dispatch)=> {
     let response = await axios.post('/api/sessions', credentials);
@@ -54,6 +55,21 @@ export const createAccount = (information) => {
   }
 };
 
+
+export const updateUserCredential = (information) => {
+  return async (dispatch) => {
+    let user = await axios.put(`/api/sessions/user/credential`, information, {
+            headers: {
+                authorization: window.localStorage.getItem('token')
+            }
+        }).data;
+        const {token} = user;
+    window.localStorage.setItem('token', token);
+    dispatch(login(user));
+  //  dispatch({ user, type: 'SET_AUTH'});
+  };
+};
+
 export const updateUser = (information) => {
   return async (dispatch) => {
     const { data: updated } = await axios.put(`/api/sessions/user`, information, {
@@ -64,5 +80,6 @@ export const updateUser = (information) => {
     dispatch({ updated, type: 'SET_AUTH'});
   };
 };
+
 
 export default auth;
