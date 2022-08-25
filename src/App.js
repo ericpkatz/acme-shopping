@@ -1,15 +1,15 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import { fetchCart, exchangeToken, logout, fetchProducts } from './store';
-import { Link, Route } from 'react-router-dom';
-import SignIn from './SignIn';
-import UserCart from './Users/UserCart';
-import UserProfile from './Users/UserProfile';
-import UserProfileEdit from './Users/UserProfileEdit';
-import ProductSpecificView from './Products/ProductSpecificView';
-import ProductsView from './Products/ProductsView';
-import UserCreateForm from './Users/UserCreateForm';
-import Header from './Header';
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
+import { fetchCart, exchangeToken, logout, fetchProducts } from "./store";
+import { Link, Route } from "react-router-dom";
+import SignIn from "./SignIn";
+import UserCart from "./Users/UserCart";
+import UserProfile from "./Users/UserProfile";
+import UserProfileEdit from "./Users/UserProfileEdit";
+import ProductSpecificView from "./Products/ProductSpecificView";
+import ProductsView from "./Products/ProductsView";
+import UserCreateForm from "./Users/UserCreateForm";
+import Header from "./Header";
 
 class App extends React.Component {
   componentDidMount() {
@@ -28,18 +28,22 @@ class App extends React.Component {
           <div>
             <Route path="/:view?" component={Header} />
             <div>
-              <Route exact path='/' component={ UserCart } />
-              <Route exact path='/products' component={ ProductsView } />
-              <Route exact path='/products/:id' component={ ProductSpecificView } />
-              <Route path='/cart' component={ UserCart } />
-              <Route path='/profile' component={ UserProfile } exact />
-              <Route path='/profile/edit' component={ UserProfileEdit } />
+              <Route exact path="/" component={UserCart} />
+              <Route exact path="/products" component={ProductsView} />
+              <Route
+                exact
+                path="/products/:id"
+                component={ProductSpecificView}
+              />
+              <Route path="/cart" component={UserCart} />
+              <Route path="/profile" component={UserProfile} exact />
+              <Route path="/profile/edit" component={UserProfileEdit} />
             </div>
           </div>
         ) : (
           <div>
-            <Route exact path='/' component={ SignIn } />
-            <Route exact path='/createAccount' component={ UserCreateForm } />
+            <Route exact path="/" component={SignIn} />
+            <Route exact path="/createAccount" component={UserCreateForm} />
           </div>
         )}
       </main>
@@ -60,4 +64,4 @@ const mapStateToProps = (state) => {
 };
 export default connect(mapStateToProps, mapDispatch)(App);
 
- //ignore this comment. Just to mark changes
+//ignore this comment. Just to mark changes

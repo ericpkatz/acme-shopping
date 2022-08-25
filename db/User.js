@@ -15,6 +15,10 @@ const User = conn.define("user", {
     type: STRING,
     allowNull: false,
   },
+  isGuest: {
+    type: BOOLEAN,
+    defaultValue: false,
+  },
   isAdmin: {
     type: BOOLEAN,
     defaultValue: false,

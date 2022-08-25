@@ -6,6 +6,11 @@ const setUp = async () => {
   try {
     await conn.sync({ force: true });
     await User.create({
+      username: "guest",
+      password: "guest",
+      isGuest: true,
+    });
+    await User.create({
       username: "moe",
       password: "moe_pw",
       email: faker.internet.email("moe", null, "fakeMail.dev"),
