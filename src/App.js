@@ -10,6 +10,7 @@ import UserCredentialsEdit from './Users/UserCredentialsEdit';
 import ProductSpecificView from './Products/ProductSpecificView';
 import ProductsView from './Products/ProductsView';
 import UserCreateForm from './Users/UserCreateForm';
+import OrderComplete from './'
 import Header from './Header';
 import ProductForm from './Products/ProductForm';
 
@@ -42,6 +43,7 @@ class App extends React.Component {
               <Route path='/profile' component={ UserProfile } exact />
               <Route path='/profile/edit' component={ UserProfileEdit } exact/>
               <Route path='/profile/edit/credentials' component={ UserCredentialsEdit } />
+              <Route path='/order/complete' component={ UserCredentialsEdit } />
             </div>
           </div>
         ) : (

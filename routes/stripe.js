@@ -1,4 +1,3 @@
-require('../getApiKeys');
 const express = require('express');
 const app = express.Router();
 const { isLoggedIn } = require('./middleware');
@@ -32,8 +31,7 @@ app.post('/', isLoggedIn, async (req, res, next) => {
       payment_method_types: ['card'],
       mode: 'payment',
       line_items,
-      // TODO: Change endpoints
-      success_url: `${DOMAIN}/#/products`,
+      success_url: `${DOMAIN}/order/complete`,
       cancel_url: `${DOMAIN}/`,
     });
     res.json(session.url)
