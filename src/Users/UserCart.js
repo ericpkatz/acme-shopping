@@ -8,8 +8,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateLineItem, updateCart } from "../store";
+import auth from "../store/auth";
+import { Link, Redirect } from "react-router-dom";
 
-const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
+const UserCart = ({ auth, lineItems, subtotal, increment, deleteLineItem }) => {
   return (
     <section>
       <table className="table">
@@ -61,7 +63,15 @@ const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
             <th></th>
             <th>Subtotal: ${subtotal}</th>
             <th>
-              <button>Continue to Checkout</button>
+              {auth.isGuest ? (
+                <button>
+                  <Link to="/profile/edit/credentials">
+                    Create Profile to Checkout
+                  </Link>
+                </button>
+              ) : (
+                <button>Continue to Checkout</button>
+              )}
             </th>
           </tr>
         </tbody>
@@ -84,9 +94,11 @@ const mapState = (state) => {
   (state.cart.lineItems || []).sort(function (a, b) {
     return a.id - b.id;
   });
+  console.log(state);
   return {
     lineItems: state.cart.lineItems || [],
     subtotal: calculateSum().toFixed(2),
+    auth: state.auth,
   };
 };
 const mapDispatch = (dispatch) => {
