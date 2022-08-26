@@ -21,6 +21,7 @@ const Header = ({ auth, cart, logout }) => {
     <section>
       <header>
         <h1>Thirsty International</h1>
+        <p>Exotic Drinks</p>
       </header>
       {
         auth.id ?
