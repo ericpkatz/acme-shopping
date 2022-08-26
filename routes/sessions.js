@@ -42,26 +42,6 @@ app.put("/user/credential", isLoggedIn, async (req, res, next) => {
   }
 });
 
-app.put("/guest", async (req, res, next) => {
-  try {
-    let guestUser = await User.findOne({
-      where: {
-        isGuest: true,
-      },
-      include: [
-        {
-          model: conn.models.order,
-        },
-      ],
-    });
-    guestUser = await guestUser.update(req.body);
-    User.guestAuthenticate(guestUser);
-    res.send();
-  } catch (error) {
-    next(error);
-  }
-});
-
 app.post("/user", async (req, res, next) => {
   try {
     await User.createAccount(req.body);
@@ -75,7 +55,9 @@ app.post("/user", async (req, res, next) => {
   }
 });
 
-app.post("/guest", async (req, res, next) => {
+//====================
+//get token for guest
+app.post("/guest/", async (req, res, next) => {
   try {
     const guest = await User.createGuestAccount();
     res.send(guest);
@@ -84,6 +66,7 @@ app.post("/guest", async (req, res, next) => {
   }
 });
 
+//finds if guest
 app.get("/guest", async (req, res, next) => {
   try {
     const guestUser = await User.findOne({
@@ -96,7 +79,7 @@ app.get("/guest", async (req, res, next) => {
         },
       ],
     });
-    console.log(guestUser);
+    // console.log(guestUser);
     if (!guestUser) {
       res.send(false);
     } else {
@@ -104,5 +87,29 @@ app.get("/guest", async (req, res, next) => {
     }
   } catch (ex) {
     next(ex);
+  }
+});
+
+//update guest
+app.put("/guest", async (req, res, next) => {
+  try {
+    let guestUser = await User.findOne({
+      where: {
+        isGuest: true,
+      },
+      include: [
+        {
+          model: conn.models.order,
+        },
+      ],
+    });
+    // console.log(guestUser.id);
+
+    guestUser = await guestUser.update(req.body);
+    // console.log(guestUser);
+    // User.guestAuthenticate(guestUser);
+    res.send(guestUser);
+  } catch (error) {
+    next(error);
   }
 });

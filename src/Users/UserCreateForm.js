@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import {
   createAccount,
-  updateUserCredential,
+  updateGuestToUser,
   createGuestAccount,
 } from "../store/auth";
 import axios from "axios";
@@ -28,8 +28,15 @@ class UserCreateForm extends Component {
   };
   handleSubmit = async (e) => {
     e.preventDefault(e);
-    // const guest = (await axios.get("/api/sessions/guest")).data;
-    this.props.createAccount(this.state);
+    const guest = (await axios.get("/api/sessions/guest")).data;
+    if (guest) {
+      console.log("guest found", guest);
+      // this.props.createAccount(this.state);
+      this.props.updateGuestToUser(guest, { ...this.state, isGuest: false });
+    } else {
+      console.log("no guest");
+      this.props.createAccount(this.state);
+    }
   };
   render() {
     const { username, email, password, imageUrl, address } = this.state;
@@ -106,8 +113,8 @@ const mapDispatch = (dispatch) => {
     createAccount: (information) => {
       dispatch(createAccount(information));
     },
-    updateUserCredential: (auth) => {
-      dispatch(updateUserCredential(auth));
+    updateGuestToUser: (guest, updateInfo) => {
+      dispatch(updateGuestToUser(guest, updateInfo));
     },
     createGuestAccount: (guest) => {
       dispatch(createGuestAccount(guest));

@@ -134,16 +134,17 @@ User.authenticate = async function (credentials) {
     throw error;
   }
 };
-User.guestAuthenticate = async function (guestUser) {
-  if (guestUser) {
-    console.log("\n\n\n\ndfasdfasdfasdfasd\n");
-    return jwt.sign({ id: guest.id }, process.env.JWT);
-  } else {
-    const error = new Error("Bad Credentials");
-    error.status = 401;
-    throw error;
-  }
-};
+// User.guestAuthenticate = async function (guestUser) {
+//   if (guestUser) {
+//     console.log("\n\nGuestAuthenticate\n\n");
+//     console.log("guestUser");
+//     return jwt.sign({ id: guestUser.id }, process.env.JWT);
+//   } else {
+//     const error = new Error("Bad Credentials");
+//     error.status = 401;
+//     throw error;
+//   }
+// };
 User.createAccount = async function (information) {
   return await this.create({ ...information, isAdmin: false });
 };
@@ -158,6 +159,8 @@ User.createGuestAccount = async function (information) {
     address: "",
   });
 };
+
+// User.updateGuestToUser = async function () {};
 
 User.findByToken = async function findByToken(token) {
   try {
