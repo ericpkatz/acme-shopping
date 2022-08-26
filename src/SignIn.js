@@ -17,7 +17,6 @@ class SignIn extends Component {
     this.loginAsGuest = this.loginAsGuest.bind(this);
   }
   onChange(ev) {
-    console.log(this.props);
     this.setState({ [ev.target.name]: ev.target.value });
   }
   onSubmit(ev) {
@@ -26,10 +25,11 @@ class SignIn extends Component {
   }
   async loginAsGuest() {
     const response = (await axios.get("/api/sessions/guest")).data;
+    console.log(response);
     if (response) {
       this.props.login({ username: "", password: "" });
     } else {
-      this.props.createGuestAccount();
+      this.props.createGuestAccount({ username: "", password: "" });
     }
   }
   render() {
@@ -72,8 +72,8 @@ const mapDispatch = (dispatch) => {
     login: (credentials) => {
       dispatch(login(credentials));
     },
-    createGuestAccount: () => {
-      dispatch(createGuestAccount());
+    createGuestAccount: (credentials) => {
+      dispatch(createGuestAccount(credentials));
     },
   };
 };
