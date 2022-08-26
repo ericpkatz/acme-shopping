@@ -1,11 +1,22 @@
 const app = require("./app");
-const { conn, User, Product } = require("./db");
+const { conn, User, Product, Order, LineItem } = require("./db");
 const { faker } = require("@faker-js/faker");
 
 const setUp = async () => {
   try {
     await conn.sync({ force: true });
-    await User.create({
+
+    // test start with user created
+    // const guest = await User.create({
+    //   username: "",
+    //   password: "",
+    //   isGuest: true,
+    //   email: `${Date.now()}@fake.com`,
+    //   imageUrl: "",
+    //   address: "",
+    // });
+
+    const moe = await User.create({
       username: "moe",
       password: "moe_pw",
       email: faker.internet.email("moe", null, "fakeMail.dev"),
@@ -85,7 +96,7 @@ const setUp = async () => {
     await lucy.addToCart({ product: foo, quantity: 3 });
     await lucy.addToCart({ product: bar, quantity: 4 });
 
-    await Promise.all([
+    const products = await Promise.all([
       //'philippines'
       Product.create({
         name: "Gina Calamansi Juice",
@@ -1018,6 +1029,24 @@ const setUp = async () => {
         ml: 250,
       }),
     ]);
+
+    //orders for moe - not cart
+    // const moeOrder = await Order.create({
+    //   isCart: false,
+    //   userId: moe.id,
+    // });
+
+    // const item1 = await LineItem.create({
+    //   productId: products[0].id,
+    //   quantity: 10,
+    //   orderId: moeOrder.id,
+    // });
+
+    // const item2 = await LineItem.create({
+    //   productId: products[1].id,
+    //   quantity: 40,
+    //   orderId: moeOrder.id,
+    // });
 
     const port = process.env.PORT || 3000;
     app.listen(port, () => console.log(`listening on port ${port}`));
