@@ -24,11 +24,13 @@ class SignIn extends Component {
     this.props.login(this.state);
   }
   async loginAsGuest() {
-    const response = (await axios.get("/api/sessions/guest")).data;
-    console.log(response);
-    if (response) {
+    const guest = (await axios.get("/api/sessions/guest")).data;
+
+    if (guest) {
+      console.log(guest);
       this.props.login({ username: "", password: "" });
     } else {
+      console.log(guest);
       this.props.createGuestAccount({ username: "", password: "" });
     }
   }
@@ -62,10 +64,11 @@ class SignIn extends Component {
   }
 }
 
-// const mapState = (state) => {
-//   console.log(state);
-//   return {};
-// };
+const mapState = (state) => {
+  return {
+    state,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -78,4 +81,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(SignIn);
+export default connect(mapState, mapDispatch)(SignIn);

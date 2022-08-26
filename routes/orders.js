@@ -1,5 +1,5 @@
 const express = require("express");
-const { Order, co } = require("../db");
+const { Order, conn, User } = require("../db");
 const { Product } = require("../db/Product");
 const app = express.Router();
 const { isLoggedIn } = require("./middleware");
@@ -35,7 +35,7 @@ app.get("/", async (req, res, next) => {
     res.send(
       await Order.findOne({
         where: {
-          isCart: false,
+          isCart: true,
         },
         include: [
           {
@@ -49,3 +49,30 @@ app.get("/", async (req, res, next) => {
     next(ex);
   }
 });
+//testing branch
+app.get("/guest", async (req, res, next) => {
+  try {
+    const guest = await User.findOne({
+      where: {
+        isGuest: true,
+      },
+      include: [
+        {
+          model: conn.models.order,
+          include: [conn.models.lineItem],
+        },
+      ],
+    });
+    res.send(guest);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
+// app.put("/cart", async (req, res, next) => {
+//   try {
+//     res.send(await Order.update());
+//   } catch (ex) {
+//     next(ex);
+//   }
+// });

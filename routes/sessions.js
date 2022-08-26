@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express.Router();
-const { User, Order } = require("../db");
+const { User, Order, conn } = require("../db");
 const { isLoggedIn } = require("./middleware");
 
 module.exports = app;
@@ -42,6 +42,26 @@ app.put("/user/credential", isLoggedIn, async (req, res, next) => {
   }
 });
 
+app.put("/guest", async (req, res, next) => {
+  try {
+    let guestUser = await User.findOne({
+      where: {
+        isGuest: true,
+      },
+      include: [
+        {
+          model: conn.models.order,
+        },
+      ],
+    });
+    guestUser = await guestUser.update(req.body);
+    User.guestAuthenticate(guestUser);
+    res.send();
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.post("/user", async (req, res, next) => {
   try {
     await User.createAccount(req.body);
@@ -70,7 +90,13 @@ app.get("/guest", async (req, res, next) => {
       where: {
         isGuest: true,
       },
+      include: [
+        {
+          model: conn.models.order,
+        },
+      ],
     });
+    console.log(guestUser);
     if (!guestUser) {
       res.send(false);
     } else {

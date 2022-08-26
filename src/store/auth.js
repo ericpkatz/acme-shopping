@@ -32,7 +32,6 @@ export const exchangeToken = () => {
 export const login = (credentials) => {
   return async (dispatch) => {
     let response = await axios.post("/api/sessions", credentials);
-    console.log(response);
     const { token } = response.data;
     window.localStorage.setItem("token", token);
     response = await axios.get("/api/sessions", {
@@ -47,10 +46,11 @@ export const login = (credentials) => {
 
 export const createGuestAccount = (credentials) => {
   return async (dispatch) => {
-    let guest = (await axios.post("/api/sessions/guest")).data;
+    const guest = (await axios.post("/api/sessions/guest")).data;
     if (guest) {
       let response = await axios.post("/api/sessions", credentials);
       const { token } = response.data;
+      console.log(response.data);
       window.localStorage.setItem("token", token);
       response = await axios.get("/api/sessions", {
         headers: {
@@ -75,6 +75,21 @@ export const createAccount = (information) => {
 export const updateUserCredential = (information) => {
   return async (dispatch) => {
     let user = await axios.put(`/api/sessions/user/credential`, information, {
+      headers: {
+        authorization: window.localStorage.getItem("token"),
+      },
+    }).data;
+    console.log(user);
+    const { token } = user;
+    window.localStorage.setItem("token", token);
+    dispatch(login(user));
+    //  dispatch({ user, type: 'SET_AUTH'});
+  };
+};
+
+export const updateGuest = (information) => {
+  return async (dispatch) => {
+    let user = await axios.put(`/api/sessions/guest`, information, {
       headers: {
         authorization: window.localStorage.getItem("token"),
       },

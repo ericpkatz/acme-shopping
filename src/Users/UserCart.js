@@ -94,7 +94,7 @@ const mapState = (state) => {
   (state.cart.lineItems || []).sort(function (a, b) {
     return a.id - b.id;
   });
-  console.log(state);
+  // console.log(state);
   return {
     lineItems: state.cart.lineItems || [],
     subtotal: calculateSum().toFixed(2),

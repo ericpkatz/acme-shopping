@@ -15,6 +15,12 @@ const User = conn.define("user", {
     type: STRING,
     allowNull: false,
   },
+  firstName: {
+    type: STRING,
+  },
+  lastName: {
+    type: STRING,
+  },
   isGuest: {
     type: BOOLEAN,
     defaultValue: false,
@@ -122,6 +128,16 @@ User.authenticate = async function (credentials) {
   });
   if (user && (await bcrypt.compare(credentials.password, user.password))) {
     return jwt.sign({ id: user.id }, process.env.JWT);
+  } else {
+    const error = new Error("Bad Credentials");
+    error.status = 401;
+    throw error;
+  }
+};
+User.guestAuthenticate = async function (guestUser) {
+  if (guestUser) {
+    console.log("\n\n\n\ndfasdfasdfasdfasd\n");
+    return jwt.sign({ id: guest.id }, process.env.JWT);
   } else {
     const error = new Error("Bad Credentials");
     error.status = 401;
