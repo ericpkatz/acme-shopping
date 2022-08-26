@@ -27,7 +27,7 @@ class App extends React.Component {
     return (
       <main>
         {auth.id ? (
-          <div>
+          <div id="main-app">
             <Route path="/:view?" component={Header} />
             <div>
               <Route exact path='/' component={ UserCart } />

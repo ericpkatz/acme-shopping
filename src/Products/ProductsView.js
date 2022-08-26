@@ -5,17 +5,20 @@ import { updateCart } from '../store/cart';
 import AddCartHelper from './AddCartHelper';
 //new product button wll enable form on side
 const ProductsView = ({ products, auth, lineItems, addToCart }) => {
-    const history = useHistory();
+    const openForm = () => {
+        document.getElementById("main-app").style.marginRight = '350px';
+        document.getElementById('product-form').style.width = '300px';
+    }
     return (
-        <section className="main">
-            <button>Add New Product</button>
+        <section id="products" className="main">
+            <button onClick={() => openForm()} className='open-form-btn'>&#9776; Add New Product</button>
             <ul className="products-list">
                 {
                     products.map(product => {
                         return (
                             <li key={ product.id }>
                                 <div>
-                                    <img src={ product.imgUrl } width='240' height='160'/>
+                                    <img src={ product.imgUrl } width='100%' height='50%'/>
                                 </div>
                                 <Link to={`/products/${product.id}`}>{ product.name }</Link><br />
                                 ${ product.price }<br />

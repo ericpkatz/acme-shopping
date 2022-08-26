@@ -156,7 +156,7 @@ User.findByAdminToken = async function(token){
   }
 };
 User.prototype.createProduct = async function(productReq){
-  const product = await conn.models.product.Create(productReq);
+  const product = await conn.models.product.create(productReq);
   return product;
 };
 User.prototype.updateProduct = async function(productReq, id){

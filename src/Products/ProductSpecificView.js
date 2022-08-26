@@ -4,6 +4,10 @@ import { updateCart } from '../store/cart';
 import AddCartHelper from "./AddCartHelper";
 
 const ProductSpecificView = ({ product , addToCart, lineItems }) => {
+    const openForm = () => {
+        document.getElementById("main-app").style.marginRight = '350px';
+        document.getElementById('product-form').style.width = '300px';
+    }
     return (
         <div className="main">
             <div className="product-image">
@@ -16,10 +20,10 @@ const ProductSpecificView = ({ product , addToCart, lineItems }) => {
             ${ product.price }<br />
                 <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems } />
             </div>
+            <button onClick={() => openForm()} className='open-form-btn'>Edit Product</button>
         </div>
     )
 }
-
 const mapState = (state, { match }) => {
     return {
         product: state.products.find(product => product.id === 1 * match.params.id) || {},

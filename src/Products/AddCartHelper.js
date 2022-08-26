@@ -16,7 +16,7 @@ const AddCartHelper = ({addToCart, product, lineItems}) => {
     return (
         <div>
             <button onClick={() => setQuantity(quantity - 1)} disabled={quantity === 1}>-</button>
-            { quantity }
+            <span>{ quantity }</span>
             <button onClick={ () => setQuantity(quantity + 1)}>+</button><br />
             <button onClick={() => handleSubmit(product, quantity)} className="addToCart-btn">Add to Cart</button>
             {/* <button>Add to WishList</button> */}

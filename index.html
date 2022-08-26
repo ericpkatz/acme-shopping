@@ -5,6 +5,7 @@
   html {
     text-align: center;
     font-family: 'Roboto', sans-serif;
+    cursor: pointer;
   }
   header {
     padding: 20px;
@@ -55,11 +56,11 @@
     color: white;
     text-shadow: 2px 2px black, 3px 3px orange;
   }
-  .addToCart-btn, .createAccount-btn, .login-btn {
+  /* .addToCart-btn, .createAccount-btn, .login-btn {
     background-color: white;
     margin: 1em;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 1px 3px 0 rgba(0,0,0,0.19);
-  }
+  } */
   .table {
     border-collapse: collapse;
     width: 100%;
@@ -83,7 +84,48 @@
     color: black;
   }
   .side {
-
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    right: 0;
+    background-color: whitesmoke; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+  }
+  .side, .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  .open-form-btn, .addToCart-btn, button {
+    font-size: 20px;
+    background-color: rgb(71, 70, 70);
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    margin: 10px;
+  }
+  .open-form-btn:hover {
+    background-color: #444;
+  }
+  span {
+    padding: 5px;
+    font-size: 20px;
+  }
+  #main-app, .products-list {
+    transition: margin-right .5s; /* If you want a transition effect */
+    padding: 20px;
+  }
+  @media screen and (max-height: 450px) {
+    .side {
+      padding-top: 15px;
+      font-size: 18px;
+    }
   }
 </style>
   <script defer src='/dist/main.js'></script>

@@ -26,6 +26,7 @@ class ProductForm extends React.Component {
             imgUrl: this.props.product.imgUrl
         })
     };
+
     componentDidUpdate(prevProps){
         if(!prevProps.product.id && this.props.product.id){
             this.setState({
@@ -67,16 +68,21 @@ class ProductForm extends React.Component {
             });
         }
     };
+    closeForm(){
+        document.getElementById("product-form").style.width = '0';
+        document.getElementById("main-app").style.marginRight = '0';
+    }
     render(){
         const { name, description, price, ml, limit, imgUrl} = this.state;
-        const { onChange, handleSubmit } = this;
+        const { onChange, handleSubmit, closeForm } = this;
         const { auth, product } = this.props;
         if(auth.isAdmin){
             return (
-                <section className='side'>
+                <section className='side' id="product-form">
+                    <button className="closebtn" onClick={() => closeForm()}>&times;</button>
                     <h3>{ product.id ? 'UPDATE PRODUCT FORM' : 'NEW PRODUCT FORM'}</h3>
                     <form onSubmit={ handleSubmit }>
-                        <label>Name:
+                        <label>Name:<br />
                             <input
                                 type='text'
                                 name='name'
@@ -88,15 +94,15 @@ class ProductForm extends React.Component {
                         <label>Description:
                             <textarea
                                 type='text'
-                                cols='50'
-                                rows='5'
+                                cols='30'
+                                rows='7'
                                 name='description'
                                 value={ description }
                                 onChange={ onChange }
                                 required
                                 />
                         </label>
-                        <label>Price:
+                        <label>Price:<br />
                             <input
                                 type='number'
                                 name='price'
@@ -105,7 +111,7 @@ class ProductForm extends React.Component {
                                 required
                             />
                         </label>
-                        <label>ML:
+                        <label>ML:<br />
                             <input
                                 type='number'
                                 name='ml'
@@ -114,7 +120,7 @@ class ProductForm extends React.Component {
                                 required
                             />
                         </label>
-                        <label>Limit:
+                        <label>Limit:<br />
                             <input
                                 type='number'
                                 name='limit'
@@ -123,13 +129,12 @@ class ProductForm extends React.Component {
                                 required
                             />
                         </label>
-                        <label>ImageUrl:
+                        <label>ImageUrl:<br />
                             <input
                                 type='text'
                                 name='imgUrl'
                                 value={ imgUrl }
                                 onChange={ onChange }
-                                required
                             />
                         </label>
                         <button type='submit'>{product.id ? 'Update Product' : 'Add Product'}</button>
