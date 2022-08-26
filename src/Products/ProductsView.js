@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { updateCart } from '../store/cart';
 import AddCartHelper from './AddCartHelper';
-
+//new product button wll enable form on side
 const ProductsView = ({ products, auth, lineItems, addToCart }) => {
     const history = useHistory();
     return (
