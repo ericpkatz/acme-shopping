@@ -27,7 +27,7 @@ class SignIn extends Component{
     return (
       <div>
         <header>
-          <h1>Acme Shopping</h1>
+          <h1>International Thirsty</h1>
           <p>Exotic Drinks</p>
         </header>
         <form onSubmit={ onSubmit }>

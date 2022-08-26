@@ -20,7 +20,7 @@ const Header = ({ auth, cart, logout }) => {
   return (
     <section>
       <header>
-        <h1>Acme Shopping</h1>
+        <h1>International Thirsty</h1>
         <p>Exotic Drinks</p>
       </header>
       {
