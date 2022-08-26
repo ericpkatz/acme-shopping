@@ -56,7 +56,7 @@ app.post("/user", async (req, res, next) => {
 });
 
 //====================
-//get token for guest
+//createGuest if none -
 app.post("/guest/", async (req, res, next) => {
   try {
     const guest = await User.createGuestAccount();

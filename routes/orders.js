@@ -30,44 +30,44 @@ app.get("/cart", isLoggedIn, async (req, res, next) => {
   }
 });
 
-app.get("/", async (req, res, next) => {
-  try {
-    res.send(
-      await Order.findOne({
-        where: {
-          isCart: true,
-        },
-        include: [
-          {
-            model: conn.models.lineItem,
-            include: [conn.models.product],
-          },
-        ],
-      })
-    );
-  } catch (ex) {
-    next(ex);
-  }
-});
+// app.get("/", async (req, res, next) => {
+//   try {
+//     res.send(
+//       await Order.findOne({
+//         where: {
+//           isCart: true,
+//         },
+//         include: [
+//           {
+//             model: conn.models.lineItem,
+//             include: [conn.models.product],
+//           },
+//         ],
+//       })
+//     );
+//   } catch (ex) {
+//     next(ex);
+//   }
+// });
 //testing branch
-app.get("/guest", async (req, res, next) => {
-  try {
-    const guest = await User.findOne({
-      where: {
-        isGuest: true,
-      },
-      include: [
-        {
-          model: conn.models.order,
-          include: [conn.models.lineItem],
-        },
-      ],
-    });
-    res.send(guest);
-  } catch (ex) {
-    next(ex);
-  }
-});
+// app.get("/guest", async (req, res, next) => {
+//   try {
+//     const guest = await User.findOne({
+//       where: {
+//         isGuest: true,
+//       },
+//       include: [
+//         {
+//           model: conn.models.order,
+//           include: [conn.models.lineItem],
+//         },
+//       ],
+//     });
+//     res.send(guest);
+//   } catch (ex) {
+//     next(ex);
+//   }
+// });
 
 // app.put("/cart", async (req, res, next) => {
 //   try {

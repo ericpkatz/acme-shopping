@@ -6,6 +6,7 @@ const setUp = async () => {
   try {
     await conn.sync({ force: true });
 
+    // test start with user created
     // const guest = await User.create({
     //   username: "",
     //   password: "",
@@ -1029,22 +1030,23 @@ const setUp = async () => {
       }),
     ]);
 
-    const moeOrder = await Order.create({
-      isCart: false,
-      userId: moe.id,
-    });
+    //orders for moe - not cart
+    // const moeOrder = await Order.create({
+    //   isCart: false,
+    //   userId: moe.id,
+    // });
 
-    const item1 = await LineItem.create({
-      productId: products[0].id,
-      quantity: 10,
-      orderId: moeOrder.id,
-    });
+    // const item1 = await LineItem.create({
+    //   productId: products[0].id,
+    //   quantity: 10,
+    //   orderId: moeOrder.id,
+    // });
 
-    const item2 = await LineItem.create({
-      productId: products[1].id,
-      quantity: 40,
-      orderId: moeOrder.id,
-    });
+    // const item2 = await LineItem.create({
+    //   productId: products[1].id,
+    //   quantity: 40,
+    //   orderId: moeOrder.id,
+    // });
 
     const port = process.env.PORT || 3000;
     app.listen(port, () => console.log(`listening on port ${port}`));
