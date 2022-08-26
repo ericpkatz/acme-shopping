@@ -33,7 +33,11 @@ class App extends React.Component {
               <Route exact path='/' component={ UserCart } />
               <Route exact path='/products' component={ ProductsView } />
               <Route exact path='/products/:id' component={ ProductSpecificView } />
-              { auth.isAdmin ? <Route exact path='/products/:id' component={ ProductForm } /> : null }
+              { auth.isAdmin ?
+              <div>
+                <Route exact path='/products/:id' component={ ProductForm } />
+                <Route exact path='/products' component={ ProductForm } />
+              </div> : null }
               <Route path='/cart' component={ UserCart } />
               <Route path='/profile' component={ UserProfile } exact />
               <Route path='/profile/edit' component={ UserProfileEdit } exact/>

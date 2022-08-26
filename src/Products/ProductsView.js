@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { updateCart } from '../store/cart';
 import AddCartHelper from './AddCartHelper';
 
-const ProductsView = ({ products, lineItems, addToCart }) => {
-
+const ProductsView = ({ products, auth, lineItems, addToCart }) => {
+    const history = useHistory();
     return (
-        <section className="products-view">
+        <section className="main">
+            <button>Add New Product</button>
             <ul className="products-list">
                 {
                     products.map(product => {
@@ -29,6 +30,7 @@ const ProductsView = ({ products, lineItems, addToCart }) => {
 };
 const mapState = state => {
     return {
+        auth: state.auth,
         products: state.products,
         lineItems: state.cart.lineItems
     }

@@ -5,8 +5,8 @@ import AddCartHelper from "./AddCartHelper";
 
 const ProductSpecificView = ({ product , addToCart, lineItems }) => {
     return (
-        <div className="product-specific-view">
-            <div className="product-specific-view-img">
+        <div className="main">
+            <div className="product-image">
                 <img src={ product.imgUrl } width='240' height='160'/>
             </div>
             <div>

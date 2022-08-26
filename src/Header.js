@@ -11,6 +11,7 @@ const Header = ({ auth, cart, logout }) => {
   const navigateCart = () => history.push('/cart');
   const navigateProfile = () => history.push('/profile');
   const navigateWishlist = () => history.push('wishlist');
+  const navigateUsersList = () => history.push('/usersList');
   const navigateSignInPage = () => {
     if(auth.id){
       logout();

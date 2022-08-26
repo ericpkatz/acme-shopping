@@ -25,7 +25,6 @@ class ProductForm extends React.Component {
             limit: this.props.product.limit,
             imgUrl: this.props.product.imgUrl
         })
-        console.log(this.state)
     };
     componentDidUpdate(prevProps){
         if(!prevProps.product.id && this.props.product.id){
@@ -141,7 +140,6 @@ class ProductForm extends React.Component {
     }
 };
 const mapState = (state, { match } )=> {
-    console.log(match)
     const product = state.products.find(product => product.id === match.params.id*1) || {
         name: '',
         description: '',

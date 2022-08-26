@@ -11,7 +11,7 @@ import { updateLineItem, updateCart } from "../store";
 
 const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
   return (
-    <section>
+    <section className="main">
       <table className="table">
         <tbody>
           <tr>
