@@ -38,6 +38,14 @@ app.put("/cart", isLoggedIn, async (req, res, next) => {
   }
 });
 
+app.put("/cart/purchased", isLoggedIn, async (req, res, next) => {
+  try {
+    res.send(await req.user.getCart().createOrderFromCart());
+  } catch (ex) {
+    next(ex);
+  }
+});
+
 app.get("/cart", isLoggedIn, async (req, res, next) => {
   try {
     res.send(await req.user.getCart());

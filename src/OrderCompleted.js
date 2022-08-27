@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { updateCartToOrder } from "./store";
 
-const OrderCompleted = ({ lineItems, subtotal, orderCart }) => {
-
+const OrderCompleted = ({ lineItems, subtotal, cart, orderCart }) => {
   return (
     <section>
       <table className="table">
@@ -66,6 +65,7 @@ const mapState = ({ cart, auth }) => {
     lineItems: cart.lineItems || [],
     subtotal: calculateSum().toFixed(2),
     auth,
+    cart,
   };
 };
 const mapDispatch = (dispatch) => {

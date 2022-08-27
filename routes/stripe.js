@@ -26,12 +26,13 @@ app.post('/', isLoggedIn, async (req, res, next) => {
       };
     });
 
+    // will only know if the checkout is successful if it goes to the success_url
     const session = await stripe.checkout.sessions.create({
       client_reference_id: cart.id,
       payment_method_types: ['card'],
       mode: 'payment',
       line_items,
-      success_url: `${DOMAIN}/#/orders/complete`,
+      success_url: `${DOMAIN}/#/orders/willComplete`,
       cancel_url: `${DOMAIN}/#/cart`,
     });
     res.json(session.url)
