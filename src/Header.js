@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from "./store";
 const Header = ({ auth, cart, logout }) => {
+
   const history = useHistory();
   let location = history.location.pathname;
   const navigateHome = () => history.push('/');
