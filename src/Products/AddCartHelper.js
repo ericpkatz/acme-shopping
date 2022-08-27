@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 
 const AddCartHelper = ({ singleProduct, addToCart, product, lineItems }) => {
-  console.log(singleProduct);
   let [quantity, setQuantity] = useState(1);
   const handleSubmit = (product, quantity) => {
     const item = lineItems.find((item) => item.productId === product.id);
