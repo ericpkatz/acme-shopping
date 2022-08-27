@@ -6,11 +6,11 @@ import UserOrdersCompleted from "./UserOrdersCompleted";
 const UserProfile = ({ auth }) => {
   return (
     <div>
-      <h1>{auth.username}</h1>
+      <h1>{auth.firstName} {auth.lastName}</h1>
       <img src={auth.imageUrl} />
       <p>Email:{auth.email}</p>
-      <p>Address:{auth.address}</p>
-
+      <p>Address:{auth.address}, {auth.city}, {auth.state}, {auth.zipCode}</p>
+      
       <UserOrdersCompleted />
       {auth.isGuest ? (
         <button>

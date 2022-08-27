@@ -17,19 +17,14 @@ class UserCredentialsEdit extends Component {
 
   async update(e) {
     //       e.preventDefault();
-    console.log("This State");
-    console.log(this.state);
     const information = {
       username: this.state.username,
       password: this.state.password,
       passwordConfirm: this.state.passwordConfirm,
       isGuest: false,
     };
-    console.log(`Generate data from component`);
-    console.log(information);
+
     try {
-      console.log(`Transfer data from component`);
-      console.log(information);
       await this.props.update(information);
     } catch (ex) {
       console.log(ex);
@@ -55,7 +50,7 @@ class UserCredentialsEdit extends Component {
         <div>
           <h1>{this.props.auth.username}</h1>
         </div>
-        <h2>Update Username</h2>
+        <h2>Update Credentials </h2>
         <form onSubmit={update}>
           <label>
             New Username:

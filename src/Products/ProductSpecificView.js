@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateCart } from '../store/cart';
+import { updateCart } from "../store/cart";
 import AddCartHelper from "./AddCartHelper";
 
-const ProductSpecificView = ({ product , addToCart, lineItems, auth }) => {
+const ProductSpecificView = ({ singleProduct, product , addToCart, lineItems, auth }) => {
     const openForm = () => {
         document.getElementById("main-app").style.marginRight = '350px';
         document.getElementById("product-form").style.width = '300px';
