@@ -14,7 +14,7 @@ const AddCartHelper = ({addToCart, product, lineItems}) => {
         }
     }
     return (
-        <div>
+        <div className="addCart-div">
             <button onClick={() => setQuantity(quantity - 1)} disabled={quantity === 1}>-</button>
             <span>{ quantity }</span>
             <button onClick={ () => setQuantity(quantity + 1)}>+</button><br />

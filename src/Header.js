@@ -73,7 +73,8 @@ const Header = ({ auth, cart, logout }) => {
         <nav>
           <div onClick={navigateSignInPage}> Sign In </div>
         </nav>
-      }
+      )
+    }
     </section>
   );
 };

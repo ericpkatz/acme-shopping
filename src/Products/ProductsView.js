@@ -11,17 +11,21 @@ const ProductsView = ({ products, auth, lineItems, addToCart }) => {
     }
     return (
         <section id="products" className="main">
-            <button onClick={() => openForm()} className='open-form-btn'>&#9776; Add New Product</button>
+            {
+                auth.isAdmin ?
+                <button onClick={() => openForm()} className='open-form-btn'>&#9776; Add New Product</button>
+                : null
+            }
             <ul className="products-list">
                 {
                     products.map(product => {
                         return (
-                            <li key={ product.id }>
+                            <li key={ product.id } className="product">
                                 <div>
                                     <img src={ product.imgUrl } width='100%' height='50%'/>
+                                    <Link to={`/products/${product.id}`}>{ product.name }</Link><br />
+                                    ${ product.price }<br />
                                 </div>
-                                <Link to={`/products/${product.id}`}>{ product.name }</Link><br />
-                                ${ product.price }<br />
                                 <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems }/>
                             </li>
                         )
