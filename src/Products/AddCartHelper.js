@@ -1,20 +1,51 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 
-const AddCartHelper = ({ style, addToCart, product, lineItems }) => {
-  console.log(style);
-  let [quantity, setQuantity] = useState(1);
-  const handleSubmit = (product, quantity) => {
-    const item = lineItems.find((item) => item.productId === product.id);
-    if (item) {
-      quantity += item.quantity;
-      addToCart(product, quantity);
-      setQuantity(1);
-    } else {
-      addToCart(product, quantity);
-      setQuantity(1);
-    }
+const AddCartHelper = ({singleProduct, addToCart, product, lineItems}) => {
+    let [quantity, setQuantity] = useState(1);
+    const handleSubmit = (product, quantity) => {
+        console.log(product)
+        const item = lineItems.find(item => item.productId === product.id);
+        if(item){
+            setQuantity(quantity + item.quantity)
+            if(quantity < product.limit){
+              addToCart(product, quantity)
+              setQuantity(1);
+            } else {
+               if(product.limit === 0){
+                 alert('Sold Out! Check back again later!')
+               } else {
+                 alert(`We only have ${product.limit} left!`);
+               }
+            }
+        } else {
+          if(product.limit === 0){
+            alert('Sold Out! Check back again later!')
+          } else {
+            alert(`We only have ${product.limit} left!`);
+         }
+      }
   };
-  return (
+  return singleProduct ? (
+    <Fragment>
+      <div>
+        <button
+          onClick={() => setQuantity(quantity - 1)}
+          disabled={quantity === 1}
+        >
+          -
+        </button>
+
+        <span>{quantity}</span>
+        <button onClick={() => setQuantity(quantity + 1)}>+</button>
+      </div>
+      <button
+        onClick={() => handleSubmit(product, quantity)}
+        className="addToCart-btn"
+      >
+        Add to Cart
+      </button>
+    </Fragment>
+  ) : (
     <div className="addCart-div">
       <button
         onClick={() => setQuantity(quantity - 1)}
@@ -27,7 +58,7 @@ const AddCartHelper = ({ style, addToCart, product, lineItems }) => {
       <br />
       <button
         onClick={() => handleSubmit(product, quantity)}
-        className={style ? style : "addToCart-btn"}
+        className={"addToCart-btn"}
       >
         Add to Cart
       </button>

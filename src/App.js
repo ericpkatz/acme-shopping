@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCart, exchangeToken, logout, fetchProducts, fetchUserOrders } from './store';
+
+import { fetchCart, exchangeToken, logout, fetchProducts, fetchUsers, fetchUserOrders } from './store';
+
 import { Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import UserCart from './Users/UserCart';
@@ -14,6 +16,7 @@ import OrderCompleted from './OrderCompleted';
 import UserOrdersCompletedDetail from './Users/UserOrdersCompletedDetail';
 import Header from './Header';
 import ProductForm from './Products/ProductForm';
+import UsersList from './Users/UsersList';
 
 class App extends React.Component {
   componentDidMount() {
@@ -38,17 +41,21 @@ class App extends React.Component {
               <Route exact path='/' component={ UserCart } />
               <Route exact path='/products' component={ ProductsView } />
               <Route exact path='/products/:id' component={ ProductSpecificView } />
-              { auth.isAdmin ?
-              <div>
-                <Route exact path='/products/:id' component={ ProductForm } />
-                <Route exact path='/products' component={ ProductForm } />
-              </div> : null }
               <Route path='/cart' component={ UserCart } />
               <Route path='/profile' component={ UserProfile } exact />
               <Route path='/profile/edit' component={ UserProfileEdit } exact/>
               <Route path='/profile/edit/credentials' component={ UserCredentialsEdit } />
               <Route path='/orders/complete' component={ OrderCompleted } />
               <Route path='/profile/orders/:id' component={ UserOrdersCompletedDetail } />
+
+              { auth.isAdmin ?
+                <div>
+                  <Route exact path='/products/:id' component={ ProductForm } />
+                  <Route exact path='/products' component={ ProductForm } />
+                  <Route exact path='/users' component={ UsersList } />
+                </div> : null 
+              }
+
             </div>
           </div>
         ) : (
@@ -68,6 +75,8 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchProducts());
       dispatch(fetchCart());
       dispatch(fetchUserOrders());
+      dispatch(fetchUsers());
+
     },
   };
 };
