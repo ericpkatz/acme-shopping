@@ -1,25 +1,9 @@
 import React from "react";
-import axios from "axios";
 import { connect } from "react-redux";
-import { updateLineItem, updateCart } from "../store";
-import auth from "../store/auth";
-import { Link, Redirect } from "react-router-dom";
 
-const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
-  const token = localStorage.getItem("token");
-  const stripeSession = async () => {
-    const noBodyNeeded = null;
-    const headers = {
-      headers: {
-        authorization: token,
-      },
-    }
-    const { data: url } = await axios.post('/api/stripe', noBodyNeeded, headers);
-    window.location.href = url;
-  }
-
+const OrderCompleted = ({  }) => {
   return (
-    <section className="main">
+    <section>
       <table className="table">
         <tbody>
           <tr>
@@ -84,7 +68,8 @@ const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
       </table>
     </section>
   );
-};
+}
+
 const mapState = (state) => {
   const lineItems = state.cart.lineItems;
   const subtotalArr = (lineItems || []).map(
@@ -106,6 +91,7 @@ const mapState = (state) => {
     auth: state.auth,
   };
 };
+
 const mapDispatch = (dispatch) => {
   return {
     increment: (lineItem, dir) => {
@@ -118,4 +104,5 @@ const mapDispatch = (dispatch) => {
     },
   };
 };
-export default connect(mapState, mapDispatch)(UserCart);
+
+export default connect(mapState, mapDispatch)(OrderCompleted);
