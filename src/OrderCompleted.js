@@ -4,10 +4,6 @@ import { updateCartToOrder } from "./store";
 
 const OrderCompleted = ({ lineItems, subtotal, orderCart }) => {
 
-  useEffect(() => {
-    orderCart();
-  } , []);
-
   return (
     <section>
       <table className="table">
