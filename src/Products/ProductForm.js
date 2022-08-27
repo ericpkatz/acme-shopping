@@ -11,10 +11,12 @@ class ProductForm extends React.Component {
             price: 0,
             ml: 0,
             limit: 0,
-            imgUrl: ''
+            imgUrl: '',
+            soldOut: ''
         }
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.removeProduct = this.removeProduct.bind(this);
     };
     componentDidMount(){
         this.setState({
@@ -23,7 +25,8 @@ class ProductForm extends React.Component {
             price: this.props.product.price,
             ml: this.props.product.ml,
             limit: this.props.product.limit,
-            imgUrl: this.props.product.imgUrl
+            imgUrl: this.props.product.imgUrl,
+            soldOut: this.props.product.soldOut
         })
     };
 
@@ -35,7 +38,8 @@ class ProductForm extends React.Component {
                 price: this.props.product.price,
                 ml: this.props.product.ml,
                 limit: this.props.product.limit,
-                imgUrl: this.props.product.imgUrl
+                imgUrl: this.props.product.imgUrl,
+                soldOut: this.props.product.soldOut
             })
         }
         if(prevProps.product.id && !this.props.product.id){
@@ -45,7 +49,8 @@ class ProductForm extends React.Component {
                 price: 0,
                 ml: 0,
                 limit: 0,
-                imgUrl: ''
+                imgUrl: '',
+                soldOut: ''
             })
         }
     };
@@ -64,17 +69,28 @@ class ProductForm extends React.Component {
                 price: 0,
                 ml: 0,
                 limit: 0,
-                imgUrl: ''
+                imgUrl: '',
+                soldOut: ''
             });
         }
     };
     closeForm(){
         document.getElementById("product-form").style.width = '0';
         document.getElementById("main-app").style.marginRight = '0';
+    };
+    removeProduct(product){
+        product.soldOut = true;
+        console.log(product)
+        this.props.updateProduct(product, product.id);
+        console.log('ran')
+        document.getElementById("product-form").style.width = '0';
+        document.getElementById("main-app").style.marginRight = '0';
+        this.props.history.push('/products');
+
     }
     render(){
         const { name, description, price, ml, limit, imgUrl} = this.state;
-        const { onChange, handleSubmit, closeForm } = this;
+        const { onChange, handleSubmit, closeForm, removeProduct} = this;
         const { auth, product } = this.props;
         if(auth.isAdmin){
             return (
@@ -139,6 +155,7 @@ class ProductForm extends React.Component {
                         </label>
                         <button type='submit'>{product.id ? 'Update Product' : 'Add Product'}</button>
                     </form>
+                    <button onClick={ ()=> removeProduct(product)}>{ product.id ? 'Remove Product' : null }</button>
                 </section>
             )
         }
@@ -166,7 +183,6 @@ const mapDispatch = dispatch => {
         updateProduct: (product, id) => {
             dispatch(updateProduct(product, id))
         }
-
     }
 };
 export default connect(mapState, mapDispatch)(ProductForm);

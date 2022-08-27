@@ -4,6 +4,7 @@ const { STRING, BOOLEAN, TEXT, INTEGER, CHAR } = Sequelize;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { VIRTUAL } = require("sequelize");
 
 const User = conn.define("user", {
   username: {
@@ -55,6 +56,12 @@ const User = conn.define("user", {
     type: CHAR,
     // allowNull: false,
   },
+  fullAddress: {
+    type: VIRTUAL,
+    get: function(){
+      return `${this.address}, ${this.city}, ${this.state} ${this.zipCode}`
+    }
+  }
 });
 
 User.addHook("beforeSave", async (user) => {
@@ -66,7 +73,6 @@ User.prototype.createOrderFromCart = async function () {
   cart.isCart = false;
   return cart.save();
 };
-
 User.prototype.addToCart = async function ({ product, quantity }) {
   const cart = await this.getCart();
   let lineItem = await conn.models.lineItem.findOne({
@@ -92,7 +98,6 @@ User.prototype.addToCart = async function ({ product, quantity }) {
   return this.getCart();
   //the active order with the array of lineItems with product info along with quantity
 };
-
 User.prototype.getOrders = async function () {
   let orders = await conn.models.order.findAll({
     where: {
@@ -109,7 +114,6 @@ User.prototype.getOrders = async function () {
   });
   return orders || [];
 };
-
 User.prototype.getCart = async function () {
   let order = await conn.models.order.findOne({
     where: {
@@ -131,12 +135,7 @@ User.prototype.getCart = async function () {
   }
   return order;
 };
-User.prototype.getProducts = async function () {
-  let products = await conn.models.product.findAll({
-    order: [["name"]],
-  });
-  return products;
-};
+//user / guest
 User.authenticate = async function (credentials) {
   const user = await this.findOne({
     where: {
@@ -151,21 +150,9 @@ User.authenticate = async function (credentials) {
     throw error;
   }
 };
-// User.guestAuthenticate = async function (guestUser) {
-//   if (guestUser) {
-//     console.log("\n\nGuestAuthenticate\n\n");
-//     console.log("guestUser");
-//     return jwt.sign({ id: guestUser.id }, process.env.JWT);
-//   } else {
-//     const error = new Error("Bad Credentials");
-//     error.status = 401;
-//     throw error;
-//   }
-// };
 User.createAccount = async function (information) {
   return await this.create({ ...information, isAdmin: false });
 };
-
 User.createGuestAccount = async function (information) {
   return await this.create({
     username: "",
@@ -176,8 +163,9 @@ User.createGuestAccount = async function (information) {
     address: "",
   });
 };
-
-// User.updateGuestToUser = async function () {};
+User.prototype.getUsers = async function(){
+  return (await User.findAll());
+}
 
 User.findByToken = async function findByToken(token) {
   try {
@@ -207,20 +195,19 @@ User.findByAdminToken = async function(token){
     throw error
   }
 };
+//Products
+User.prototype.getProducts = async function () {
+  let products = await conn.models.product.findAll({
+    order: [["name"]],
+  });
+  return products;
+};
 User.prototype.createProduct = async function(productReq){
   const product = await conn.models.product.create(productReq);
   return product;
 };
 User.prototype.updateProduct = async function(productReq, id){
   let product = await conn.models.product.findByPk(id*1);
-  // product = await conn.models.product.update({
-  //   name: productReq.name,
-  //   description: productReq.description,
-  //   ml: productReq.ml,
-  //   price: productReq.price,
-  //   limit: productReq.limit,
-  //   imgUrl: productReq.imgUrl
-  // });
   product = await product.update(productReq)
   return product;
 }

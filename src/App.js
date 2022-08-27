@@ -1,18 +1,20 @@
-import React from "react";
-import { connect } from "react-redux";
-import { fetchCart, exchangeToken, logout, fetchProducts } from "./store";
-import { Route } from "react-router-dom";
-import SignIn from "./SignIn";
-import UserCart from "./Users/UserCart";
-import UserProfile from "./Users/UserProfile";
-import UserProfileEdit from "./Users/UserProfileEdit";
-import UserCredentialsEdit from "./Users/UserCredentialsEdit";
-import ProductSpecificView from "./Products/ProductSpecificView";
-import ProductsView from "./Products/ProductsView";
-import UserCreateForm from "./Users/UserCreateForm";
-import OrderCompleted from "./OrderCompleted";
-import Header from "./Header";
-import ProductForm from "./Products/ProductForm";
+
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchCart, exchangeToken, fetchProducts, fetchUsers } from './store';
+import { Route } from 'react-router-dom';
+import SignIn from './SignIn';
+import UserCart from './Users/UserCart';
+import UserProfile from './Users/UserProfile';
+import UserProfileEdit from './Users/UserProfileEdit';
+import UserCredentialsEdit from './Users/UserCredentialsEdit';
+import ProductSpecificView from './Products/ProductSpecificView';
+import ProductsView from './Products/ProductsView';
+import UserCreateForm from './Users/UserCreateForm';
+import OrderCompleted from './OrderCompleted'
+import Header from './Header';
+import ProductForm from './Products/ProductForm';
+import UsersList from './Users/UsersList';
 
 class App extends React.Component {
   componentDidMount() {
@@ -31,27 +33,22 @@ class App extends React.Component {
           <div id="main-app">
             <Route path="/:view?" component={Header} />
             <div>
-              <Route exact path="/" component={UserCart} />
-              <Route exact path="/products" component={ProductsView} />
-              <Route
-                exact
-                path="/products/:id"
-                component={ProductSpecificView}
-              />
-              {auth.isAdmin ? (
+
+              <Route exact path='/' component={ UserCart } />
+              <Route exact path='/products' component={ ProductsView } />
+              <Route exact path='/products/:id' component={ ProductSpecificView } />
+              <Route path='/cart' component={ UserCart } />
+              <Route path='/profile' component={ UserProfile } exact />
+              <Route path='/profile/edit' component={ UserProfileEdit } exact/>
+              <Route path='/profile/edit/credentials' component={ UserCredentialsEdit } />
+              <Route path='/orders/complete' component={ OrderCompleted } />
+              { auth.isAdmin ?
                 <div>
-                  <Route exact path="/products/:id" component={ProductForm} />
-                  <Route exact path="/products" component={ProductForm} />
-                </div>
-              ) : null}
-              <Route path="/cart" component={UserCart} />
-              <Route path="/profile" component={UserProfile} exact />
-              <Route path="/profile/edit" component={UserProfileEdit} exact />
-              <Route
-                path="/profile/edit/credentials"
-                component={UserCredentialsEdit}
-              />
-              <Route path="/orders/complete" component={OrderCompleted} />
+                  <Route exact path='/products/:id' component={ ProductForm } />
+                  <Route exact path='/products' component={ ProductForm } />
+                  <Route exact path='/users' component={ UsersList } />
+                </div> : null 
+              }
             </div>
           </div>
         ) : (
@@ -70,6 +67,7 @@ const mapDispatch = (dispatch) => {
     loadData: () => {
       dispatch(fetchProducts());
       dispatch(fetchCart());
+      dispatch(fetchUsers());
     },
   };
 };
