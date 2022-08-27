@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCart, exchangeToken, logout, fetchProducts } from './store';
-import { Link, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import UserCart from './Users/UserCart';
 import UserProfile from './Users/UserProfile';
@@ -10,6 +10,7 @@ import UserCredentialsEdit from './Users/UserCredentialsEdit';
 import ProductSpecificView from './Products/ProductSpecificView';
 import ProductsView from './Products/ProductsView';
 import UserCreateForm from './Users/UserCreateForm';
+import OrderCompleted from './OrderCompleted'
 import Header from './Header';
 import ProductForm from './Products/ProductForm';
 
@@ -42,11 +43,12 @@ class App extends React.Component {
               <Route path='/profile' component={ UserProfile } exact />
               <Route path='/profile/edit' component={ UserProfileEdit } exact/>
               <Route path='/profile/edit/credentials' component={ UserCredentialsEdit } />
+              <Route path='/orders/complete' component={ OrderCompleted } />
             </div>
           </div>
         ) : (
           <div>
-            <Route exact path="/" component={SignIn} />
+          <Route exact path="/" component={SignIn} />
             <Route exact path="/createAccount" component={UserCreateForm} />
           </div>
         )}
@@ -67,5 +69,3 @@ const mapStateToProps = (state) => {
   return state;
 };
 export default connect(mapStateToProps, mapDispatch)(App);
-
-//ignore this comment. Just to mark changes

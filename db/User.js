@@ -93,6 +93,23 @@ User.prototype.addToCart = async function ({ product, quantity }) {
   //the active order with the array of lineItems with product info along with quantity
 };
 
+User.prototype.getOrders = async function () {
+  let orders = await conn.models.order.findAll({
+    where: {
+      userId: this.id,
+      isCart: false,
+    },
+    include: [
+      {
+        model: conn.models.lineItem,
+        include: [conn.models.product],
+      },
+    ],
+    order: ['updatedAt', 'DESC']
+  });
+  return orders || [];
+};
+
 User.prototype.getCart = async function () {
   let order = await conn.models.order.findOne({
     where: {
