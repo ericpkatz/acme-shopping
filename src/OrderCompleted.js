@@ -1,7 +1,11 @@
 import React from "react";
+import axios from "axios";
 import { connect } from "react-redux";
+// import { updateLineItem, updateCart } from "./store";
+import auth from "./store/auth";
+import { Link } from "react-router-dom";
 
-const OrderCompleted = ({  }) => {
+const OrderCompleted = ({ lineItems, subtotal, increment, deleteLineItem }) => {
   return (
     <section>
       <table className="table">
@@ -60,7 +64,7 @@ const OrderCompleted = ({  }) => {
                   </Link>
                 </button>
               ) : (
-                <button onClick={stripeSession}>Continue to Checkout</button>
+                <button>df</button>
               )}
             </th>
           </tr>
@@ -68,13 +72,12 @@ const OrderCompleted = ({  }) => {
       </table>
     </section>
   );
-}
-
-const mapState = (state) => {
-  const lineItems = state.cart.lineItems;
-  const subtotalArr = (lineItems || []).map(
-    (lineItem) => lineItem.product.price * 1 * lineItem.quantity
-  );
+};
+const mapState = ({ cart, auth }) => {
+  const lineItems = cart.lineItems;
+  const subtotalArr = lineItems.map((lineItem) => {
+    return lineItem.product.price * lineItem.quantity;
+  });
   const calculateSum = () => {
     return subtotalArr.reduce((total, current) => {
       return total + current;
@@ -82,27 +85,25 @@ const mapState = (state) => {
   };
 
   //Sorts the Line Items
-  (state.cart.lineItems || []).sort(function (a, b) {
+  cart.lineItems.sort(function (a, b) {
     return a.id - b.id;
   });
   return {
-    lineItems: state.cart.lineItems || [],
+    lineItems: cart.lineItems || [],
     subtotal: calculateSum().toFixed(2),
     auth: state.auth,
   };
 };
-
 const mapDispatch = (dispatch) => {
   return {
-    increment: (lineItem, dir) => {
-      const item = { ...lineItem, quantity: lineItem.quantity + dir };
-      dispatch(updateLineItem(item));
-    },
-    deleteLineItem: (lineItem) => {
-      const item = { ...lineItem, quantity: 0 };
-      dispatch(updateLineItem(item));
-    },
+    increment: (lineItem, dir) => null,
+    //   const item = { ...lineItem, quantity: lineItem.quantity + dir };
+    //   dispatch(updateLineItem(item));
+    // },
+    deleteLineItem: (lineItem) => null,
+    //   const item = { ...lineItem, quantity: 0 };
+    //   dispatch(updateLineItem(item));
+    // },
   };
 };
-
 export default connect(mapState, mapDispatch)(OrderCompleted);
