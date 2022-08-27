@@ -15,6 +15,7 @@ import ProductsView from './Products/ProductsView';
 import UserCreateForm from './Users/UserCreateForm';
 import OrderCompleted from './OrderCompleted';
 import UserOrdersCompletedDetail from './Users/UserOrdersCompletedDetail';
+import WillCompleteOrder from './WillCompleteOrder';
 import Header from './Header';
 import ProductForm from './Products/ProductForm';
 import UsersList from './Users/UsersList';
@@ -48,7 +49,8 @@ class App extends React.Component {
               <Route path='/profile' component={ UserProfileEdit } />
               <Route path='/profile' component={ UserCredentialsEdit } />
               <Route path='/profile' component={ UserCreateForm } />
-              <Route path='/orders/complete' component={ OrderCompleted } />
+              <Route path='/orders/willComplete' component={ WillCompleteOrder} />
+              <Route path='/orders/:id/completed' component={ OrderCompleted } />
               <Route path='/profile/orders/:id' component={ UserOrdersCompletedDetail } />
 
               { auth.isAdmin ?
