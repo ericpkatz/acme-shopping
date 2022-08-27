@@ -37,7 +37,11 @@ const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
                 <td>
                   <img src={lineItem.product.imgUrl} width="120" height="80" />
                 </td>
-                <td>{lineItem.product.name}</td>
+                <td>
+                  <Link to={`products/${lineItem.product.id}`}>
+                    {lineItem.product.name}
+                  </Link>
+                </td>
                 <td>
                   <button
                     onClick={() => increment(lineItem, -1)}

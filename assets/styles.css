@@ -167,6 +167,13 @@ span {
   padding: 20px;
 }
 
+.product-add-edit-Cart-div {
+  border: red solid 1px;
+  background-color: rgb(71, 70, 70);
+  width: 100%;
+  height: 500px;
+}
+
 @media screen and (max-height: 450px) {
   .side {
     padding-top: 15px;
