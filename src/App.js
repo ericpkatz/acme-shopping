@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCart, exchangeToken, logout, fetchProducts } from './store';
+import { fetchCart, exchangeToken, logout, fetchProducts, fetchUserOrders } from './store';
 import { Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import UserCart from './Users/UserCart';
@@ -10,7 +10,8 @@ import UserCredentialsEdit from './Users/UserCredentialsEdit';
 import ProductSpecificView from './Products/ProductSpecificView';
 import ProductsView from './Products/ProductsView';
 import UserCreateForm from './Users/UserCreateForm';
-import OrderCompleted from './OrderCompleted'
+import OrderCompleted from './OrderCompleted';
+import UserOrdersCompletedDetail from './Users/UserOrdersCompletedDetail';
 import Header from './Header';
 import ProductForm from './Products/ProductForm';
 
@@ -25,6 +26,9 @@ class App extends React.Component {
   }
   render() {
     const { auth } = this.props;
+    console.log('Chloe this is the store');
+    console.log(this.props);
+   
     return (
       <main>
         {auth.id ? (
@@ -44,6 +48,7 @@ class App extends React.Component {
               <Route path='/profile/edit' component={ UserProfileEdit } exact/>
               <Route path='/profile/edit/credentials' component={ UserCredentialsEdit } />
               <Route path='/orders/complete' component={ OrderCompleted } />
+              <Route path='/profile/orders/:id' component={ UserOrdersCompletedDetail } />
             </div>
           </div>
         ) : (
@@ -62,6 +67,7 @@ const mapDispatch = (dispatch) => {
     loadData: () => {
       dispatch(fetchProducts());
       dispatch(fetchCart());
+      dispatch(fetchUserOrders());
     },
   };
 };

@@ -1042,6 +1042,40 @@ const setUp = async () => {
       }),
     ]);
 
+    const moeOrder1 = await Order.create({
+      isCart: false,
+      userId: moe.id,
+    });
+
+    const item1 = await LineItem.create({
+      productId: products[0].id,
+      quantity: 10,
+      orderId: moeOrder1.id,
+    });
+
+    const item2 = await LineItem.create({
+      productId: products[1].id,
+      quantity: 40,
+      orderId: moeOrder1.id,
+    });
+    
+    const moeOrder2 = await Order.create({
+      isCart: false,
+      userId: moe.id,
+    });
+
+    const item3 = await LineItem.create({
+      productId: products[3].id,
+      quantity: 18,
+      orderId: moeOrder2.id,
+    });
+
+    const item4 = await LineItem.create({
+      productId: products[5].id,
+      quantity: 2,
+      orderId: moeOrder2.id,
+    });
+
     const port = process.env.PORT || 3000;
     app.listen(port, () => console.log(`listening on port ${port}`));
   } catch (ex) {
