@@ -180,3 +180,7 @@ span {
     font-size: 18px;
   }
 }
+
+.test {
+  border: red solid 1px;
+}

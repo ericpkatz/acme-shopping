@@ -4,7 +4,7 @@ import { updateCart } from "../store/cart";
 import AddCartHelper from "./AddCartHelper";
 
 const ProductSpecificView = ({
-  style,
+  singleProduct,
   product,
   addToCart,
   lineItems,
@@ -14,7 +14,6 @@ const ProductSpecificView = ({
     document.getElementById("main-app").style.marginRight = "350px";
     document.getElementById("product-form").style.width = "300px";
   };
-  console.log(style);
   return (
     <section className="main">
       <div className="product">
@@ -30,18 +29,15 @@ const ProductSpecificView = ({
             ML: {product.ml}
             <br />${product.price}
             <br />
-            <div className={"product-add-edit-Cart-div"}>
-              <button onClick={() => openForm()} className="open-form-btn">
-                Edit Product
-              </button>
-              <br />
-              <AddCartHelper
-                addToCart={addToCart}
-                product={product}
-                lineItems={lineItems}
-                style={style}
-              />
-            </div>
+            <button onClick={() => openForm()} className="open-form-btn">
+              Edit Product
+            </button>
+            <AddCartHelper
+              addToCart={addToCart}
+              product={product}
+              lineItems={lineItems}
+              singleProduct={singleProduct}
+            />
           </div>
         ) : (
           <div className="info">
@@ -53,11 +49,10 @@ const ProductSpecificView = ({
             <br />${product.price}
             <br />
             <AddCartHelper
-              b={"open-form-btn"}
               addToCart={addToCart}
               product={product}
               lineItems={lineItems}
-              style={style}
+              singleProduct={singleProduct}
             />
           </div>
         )}
@@ -72,7 +67,7 @@ const mapState = (state, { match }) => {
       {},
     lineItems: state.cart.lineItems,
     auth: state.auth,
-    style: "open-form-btn",
+    singleProduct: true,
   };
 };
 const mapDispatch = (dispatch) => {

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 
-const AddCartHelper = ({ style, addToCart, product, lineItems }) => {
-  console.log(style);
+const AddCartHelper = ({ singleProduct, addToCart, product, lineItems }) => {
+  console.log(singleProduct);
   let [quantity, setQuantity] = useState(1);
   const handleSubmit = (product, quantity) => {
     const item = lineItems.find((item) => item.productId === product.id);
@@ -14,7 +14,27 @@ const AddCartHelper = ({ style, addToCart, product, lineItems }) => {
       setQuantity(1);
     }
   };
-  return (
+  return singleProduct ? (
+    <Fragment>
+      <div>
+        <button
+          onClick={() => setQuantity(quantity - 1)}
+          disabled={quantity === 1}
+        >
+          -
+        </button>
+
+        <span>{quantity}</span>
+        <button onClick={() => setQuantity(quantity + 1)}>+</button>
+      </div>
+      <button
+        onClick={() => handleSubmit(product, quantity)}
+        className="addToCart-btn"
+      >
+        Add to Cart
+      </button>
+    </Fragment>
+  ) : (
     <div className="addCart-div">
       <button
         onClick={() => setQuantity(quantity - 1)}
@@ -27,7 +47,7 @@ const AddCartHelper = ({ style, addToCart, product, lineItems }) => {
       <br />
       <button
         onClick={() => handleSubmit(product, quantity)}
-        className={style ? style : "addToCart-btn"}
+        className={"addToCart-btn"}
       >
         Add to Cart
       </button>
