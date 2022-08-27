@@ -14,6 +14,14 @@ app.get('/', isLoggedIn, async (req, res, next) => {
   }
 });
 
+app.get('/userorders', isLoggedIn, async (req, res, next) => {
+  try {
+    res.send(await req.user.getUserOrders());
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.post("/", isLoggedIn, async (req, res, next) => {
   try {
     res.send(await req.user.createOrderFromCart());
@@ -37,6 +45,8 @@ app.get("/cart", isLoggedIn, async (req, res, next) => {
     next(ex);
   }
 });
+
+
 
 // app.get("/", async (req, res, next) => {
 //   try {
@@ -84,3 +94,23 @@ app.get("/cart", isLoggedIn, async (req, res, next) => {
 //     next(ex);
 //   }
 // });
+
+app.get("/Chloe", async (req, res, next) => {
+  try {
+    res.send(
+      await Order.findOne({
+        where: {
+          isCart: false,
+        },
+        include: [
+          {
+            model: conn.models.lineItem,
+            include: [conn.models.product],
+          },
+        ],
+      })
+    );
+  } catch (ex) {
+    next(ex);
+  }
+});

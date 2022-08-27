@@ -1,6 +1,9 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCart, exchangeToken, fetchProducts, fetchUsers } from './store';
+
+import { fetchCart, exchangeToken, logout, fetchProducts, fetchUsers, fetchUserOrders } from './store';
+
 import { Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import UserCart from './Users/UserCart';
@@ -10,7 +13,8 @@ import UserCredentialsEdit from './Users/UserCredentialsEdit';
 import ProductSpecificView from './Products/ProductSpecificView';
 import ProductsView from './Products/ProductsView';
 import UserCreateForm from './Users/UserCreateForm';
-import OrderCompleted from './OrderCompleted'
+import OrderCompleted from './OrderCompleted';
+import UserOrdersCompletedDetail from './Users/UserOrdersCompletedDetail';
 import Header from './Header';
 import ProductForm from './Products/ProductForm';
 import UsersList from './Users/UsersList';
@@ -26,12 +30,16 @@ class App extends React.Component {
   }
   render() {
     const { auth } = this.props;
+    console.log('Chloe this is the store');
+    console.log(this.props);
+   
     return (
       <main>
         {auth.id ? (
           <div id="main-app">
             <Route path="/:view?" component={Header} />
             <div>
+
               <Route exact path='/' component={ UserCart } />
               <Route exact path='/products' component={ ProductsView } />
               <Route exact path='/products/:id' component={ ProductSpecificView } />
@@ -41,6 +49,8 @@ class App extends React.Component {
               <Route path='/profile' component={ UserCredentialsEdit } />
               <Route path='/profile' component={ UserCreateForm } />
               <Route path='/orders/complete' component={ OrderCompleted } />
+              <Route path='/profile/orders/:id' component={ UserOrdersCompletedDetail } />
+
               { auth.isAdmin ?
                 <div>
                   <Route exact path='/products/:id' component={ ProductForm } />
@@ -48,6 +58,7 @@ class App extends React.Component {
                   <Route exact path='/users' component={ UsersList } />
                 </div> : null 
               }
+
             </div>
           </div>
         ) : (
@@ -63,7 +74,9 @@ const mapDispatch = (dispatch) => {
     loadData: () => {
       dispatch(fetchProducts());
       dispatch(fetchCart());
+      dispatch(fetchUserOrders());
       dispatch(fetchUsers());
+
     },
   };
 };
