@@ -1,6 +1,6 @@
 const conn = require("./conn");
 const { Sequelize } = conn;
-const { STRING, BOOLEAN, TEXT, INTEGER } = Sequelize;
+const { STRING, BOOLEAN, TEXT, INTEGER, CHAR } = Sequelize;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -53,7 +53,7 @@ const User = conn.define("user", {
     // allowNull: false,
   },
   zipCode: {
-    type: INTEGER,
+    type: CHAR,
     // allowNull: false,
   },
   fullAddress: {
@@ -98,6 +98,22 @@ User.prototype.addToCart = async function ({ product, quantity }) {
   return this.getCart();
   //the active order with the array of lineItems with product info along with quantity
 };
+User.prototype.getOrders = async function () {
+  let orders = await conn.models.order.findAll({
+    where: {
+      userId: this.id,
+      isCart: false,
+    },
+    include: [
+      {
+        model: conn.models.lineItem,
+        include: [conn.models.product],
+      },
+    ],
+    order: ['updatedAt', 'DESC']
+  });
+  return orders || [];
+};
 User.prototype.getCart = async function () {
   let order = await conn.models.order.findOne({
     where: {
@@ -134,17 +150,6 @@ User.authenticate = async function (credentials) {
     throw error;
   }
 };
-// User.guestAuthenticate = async function (guestUser) {
-//   if (guestUser) {
-//     console.log("\n\nGuestAuthenticate\n\n");
-//     console.log("guestUser");
-//     return jwt.sign({ id: guestUser.id }, process.env.JWT);
-//   } else {
-//     const error = new Error("Bad Credentials");
-//     error.status = 401;
-//     throw error;
-//   }
-// };
 User.createAccount = async function (information) {
   return await this.create({ ...information, isAdmin: false });
 };
@@ -161,7 +166,6 @@ User.createGuestAccount = async function (information) {
 User.prototype.getUsers = async function(){
   return (await User.findAll());
 }
-// User.updateGuestToUser = async function () {};
 
 User.findByToken = async function findByToken(token) {
   try {

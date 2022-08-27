@@ -52,4 +52,17 @@ export const updateLineItem = (item) => {
   };
 };
 
+export const updateCartToOrder = (cart) => {
+  return async (dispatch) => {
+    cart = (
+      await axios.put(`/api/orders/cart`, { ...cart, isCart: false }, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "UPDATE_CART", cart });
+  }
+}
+
 export default cart;

@@ -10,6 +10,7 @@ import UserCredentialsEdit from './Users/UserCredentialsEdit';
 import ProductSpecificView from './Products/ProductSpecificView';
 import ProductsView from './Products/ProductsView';
 import UserCreateForm from './Users/UserCreateForm';
+import OrderCompleted from './OrderCompleted'
 import Header from './Header';
 import ProductForm from './Products/ProductForm';
 import UsersList from './Users/UsersList';
@@ -38,6 +39,7 @@ class App extends React.Component {
               <Route path='/profile' component={ UserProfile } exact />
               <Route path='/profile/edit' component={ UserProfileEdit } exact/>
               <Route path='/profile/edit/credentials' component={ UserCredentialsEdit } />
+              <Route path='/orders/complete' component={ OrderCompleted } />
               { auth.isAdmin ?
                 <div>
                   <Route exact path='/products/:id' component={ ProductForm } />
@@ -49,7 +51,7 @@ class App extends React.Component {
           </div>
         ) : (
           <div>
-            <Route exact path="/" component={SignIn} />
+          <Route exact path="/" component={SignIn} />
             <Route exact path="/createAccount" component={UserCreateForm} />
           </div>
         )}
@@ -71,5 +73,3 @@ const mapStateToProps = (state) => {
   return state;
 };
 export default connect(mapStateToProps, mapDispatch)(App);
-
-//ignore this comment. Just to mark changes

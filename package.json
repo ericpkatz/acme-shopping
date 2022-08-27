@@ -8,7 +8,7 @@
     "build:dev": "npm run build -- --watch --mode=development",
     "test": "mocha spec.js",
     "test:dev": "QUIET=true JWT=shh DATABASE_URL=postgres://localhost/acme_db_test npm test -- --watch",
-    "start:dev": "JWT=shhh nodemon server --ignore src/ --ignore dist/ & npm run build:dev"
+    "start:dev": "STRIPE_API_KEY=sk_test_4eC39HqLyjWDarjtT1zdp7dc JWT=shhh nodemon server --ignore src/ --ignore dist/ & npm run build:dev"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +21,8 @@
     "pg": "^8.7.3",
     "redux-logger": "^3.0.6",
     "sequelize": "^6.21.3",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "stripe": "^10.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",

@@ -27,17 +27,18 @@ Link to Grace Shopper starting repo:
 ### As a logged-in customer, I want to be able to:
 
 - [x] have a persistent cart so I can revisit and pick up where I left off.
-  - [ ] Bob - _Logged-in-user across multiple devices: I'm logged in on my mobile device and add some items to my cart. When I open the browser on my laptop and log in, I want to see those items in my cart._
-  - [ ] Bob - _No one else should be able to edit my cart except me._
+  - [x] Bob - _Logged-in-user across multiple devices: I'm logged in on my mobile device and add some items to my cart. When I open the browser on my laptop and log in, I want to see those items in my cart._
+  - [x] Bob - _No one else should be able to edit my cart except me._
 
 ### As a guest I should be able to add items in my cart which persist in local storage:
 
-- [ ] Alex - upon login, the cart in local storage should be persisted to a database.
+- [x] Alex - upon login, the cart in local storage should be persisted to a database.
 
 ### As an administrator, I want to be able to:
 
 - [ ] Diane - have full rights to make backend requests to add, edit, and remove products.
-  - [ x ] Diane - _No one else should have access._
+  - [x] Diane - _No one else should have access._
+
 - [ ] Diane - view user information.
   - [ ] Diane - _No one else should have access._
 

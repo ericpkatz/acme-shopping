@@ -1,16 +1,22 @@
-//Alejandro
-//list out all lineItems x
-//be able to change quantity : decrease or increase x
-//be able to remove lineItem x
-//should be able to display subtotal x
-//price X quantity x
-
 import React from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import { updateLineItem } from "../store";
 import { Link } from "react-router-dom";
 
-const UserCart = ({ auth, lineItems, subtotal, increment, deleteLineItem }) => {
+const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
+  const token = localStorage.getItem("token");
+  const stripeSession = async () => {
+    const noBodyNeeded = null;
+    const headers = {
+      headers: {
+        authorization: token,
+      },
+    }
+    const { data: url } = await axios.post('/api/stripe', noBodyNeeded, headers);
+    window.location.href = url;
+  }
+
   return (
     <section className="main">
       <table className="table">
@@ -30,7 +36,11 @@ const UserCart = ({ auth, lineItems, subtotal, increment, deleteLineItem }) => {
                 <td>
                   <img src={lineItem.product.imgUrl} width="120" height="80" />
                 </td>
-                <td>{lineItem.product.name}</td>
+                <td>
+                  <Link to={`products/${lineItem.product.id}`}>
+                    {lineItem.product.name}
+                  </Link>
+                </td>
                 <td>
                   <button
                     onClick={() => increment(lineItem, -1)}
@@ -69,7 +79,7 @@ const UserCart = ({ auth, lineItems, subtotal, increment, deleteLineItem }) => {
                   </Link>
                 </button>
               ) : (
-                <button>Continue to Checkout</button>
+                <button onClick={stripeSession}>Continue to Checkout</button>
               )}
             </th>
           </tr>
@@ -93,7 +103,6 @@ const mapState = (state) => {
   (state.cart.lineItems || []).sort(function (a, b) {
     return a.id - b.id;
   });
-  // console.log(state);
   return {
     lineItems: state.cart.lineItems || [],
     subtotal: calculateSum().toFixed(2),
