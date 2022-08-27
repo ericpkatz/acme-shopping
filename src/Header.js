@@ -67,7 +67,7 @@ const Header = ({ auth, cart, logout }) => {
           ) : (
             <div onClick={navigateSignInPage} className="logout">
               {" "}
-              Logout {auth.username}{" "}
+              Logout {auth.firstName}{" "}
             </div>
           )}
         </nav>

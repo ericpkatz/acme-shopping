@@ -44,9 +44,10 @@ class App extends React.Component {
               <Route exact path='/products' component={ ProductsView } />
               <Route exact path='/products/:id' component={ ProductSpecificView } />
               <Route path='/cart' component={ UserCart } />
-              <Route path='/profile' component={ UserProfile } exact />
-              <Route path='/profile/edit' component={ UserProfileEdit } exact/>
-              <Route path='/profile/edit/credentials' component={ UserCredentialsEdit } />
+              <Route path='/profile' component={ UserProfile } />
+              <Route path='/profile' component={ UserProfileEdit } />
+              <Route path='/profile' component={ UserCredentialsEdit } />
+              <Route path='/profile' component={ UserCreateForm } />
               <Route path='/orders/complete' component={ OrderCompleted } />
               <Route path='/profile/orders/:id' component={ UserOrdersCompletedDetail } />
 
@@ -61,10 +62,7 @@ class App extends React.Component {
             </div>
           </div>
         ) : (
-          <div>
-            <Route exact path="/" component={SignIn} />
-            <Route exact path="/createAccount" component={UserCreateForm} />
-          </div>
+          <Route exact path="/" component={SignIn} />
         )}
       </main>
     );

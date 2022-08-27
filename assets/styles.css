@@ -8,7 +8,7 @@ header {
   padding: 20px;
   background-color: white;
   color: whitesmoke;
-  text-shadow: 1px 1px purple, 2px 2px black, 3px 3px orange;
+  text-shadow:2px 2px black;
 }
 
 form {
@@ -20,7 +20,6 @@ form {
 form > * {
   margin: 1rem;
 }
-
 .products-list {
   padding: 10px;
   display: grid;
@@ -28,13 +27,16 @@ form > * {
   list-style: none;
 }
 
-.product {
+.product, .profile {
   display: flex;
   justify-content: center;
   flex-direction: row;
   position: relative;
+  margin: 1rem;
 }
-
+input {
+  width: 100%;
+}
 .info {
   display: flex;
   justify-content: center;
@@ -56,7 +58,7 @@ nav div {
   float: left;
   display: block;
   color: white;
-  text-shadow: 2px 2px black, 3px 3px orange;
+  text-shadow: 2px 2px black;
   border: 2px solid rgb(69, 68, 68);
   font-size: 20px;
   padding: 10px 20px;
@@ -69,7 +71,7 @@ nav > .logout {
   font-size: 20px;
   background-color: rgb(69, 68, 68);
   color: white;
-  text-shadow: 2px 2px black, 3px 3px orange;
+  text-shadow: 2px 2px black;
 }
 
 /* .addToCart-btn, .createAccount-btn, .login-btn {
@@ -108,7 +110,7 @@ background-color: rgb(235, 232, 232);
   color: black;
 }
 
-#product-form {
+#product-form, #editProfile-form, #credentials-form, #createAccount-form {
   height: 100%;
   /* 100% Full-height */
   width: 0;
@@ -128,8 +130,6 @@ background-color: rgb(235, 232, 232);
   transition: 0.5s;
   /* 0.5 second transition effect to slide in the sidebar */
 }
-
-#product-form,
 .closebtn {
   position: absolute;
   top: 0;
@@ -144,17 +144,21 @@ background-color: rgb(235, 232, 232);
   width: 100%;
 }
 
-.open-form-btn,
-.addToCart-btn,
 button {
   font-size: 20px;
   background-color: rgb(71, 70, 70);
   color: white;
-  padding: 5px 5px;
   border: none;
   margin: 10px;
 }
-
+.openForm-btn, .addToCart-btn,  .create-btn, .back-btn, .login-btn, .guest-btn, .update-btn {
+  width: 100%;
+  font-size: 20px;
+  background-color: rgb(71, 70, 70);
+  color: white;
+  border: none;
+  margin: 1rem;
+}
 .open-form-btn:hover {
   background-color: #444;
 }
