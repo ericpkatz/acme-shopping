@@ -80,9 +80,7 @@ class ProductForm extends React.Component {
     };
     removeProduct(product){
         product.soldOut = true;
-        console.log(product)
         this.props.updateProduct(product, product.id);
-        console.log('ran')
         document.getElementById("product-form").style.width = '0';
         document.getElementById("main-app").style.marginRight = '0';
         this.props.history.push('/products');

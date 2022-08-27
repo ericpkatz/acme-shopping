@@ -83,10 +83,10 @@ class UserCredentialsEdit extends Component {
               required
             />
           </label>
-          <button disabled={!validatePassword()} type="submit">
+          <button disabled={!validatePassword()} type="submit" className='update-btn'>
             Update Credentials
           </button>
-          <button>
+          <button className='back-btn'>
             <Link to="../profile">Go Back</Link>
           </button>
         </form>

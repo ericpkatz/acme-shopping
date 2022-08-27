@@ -5,23 +5,26 @@ import UserOrdersCompleted from "./UserOrdersCompleted";
 
 const UserProfile = ({ auth }) => {
   return (
-    <div>
-      <h1>{auth.firstName} {auth.lastName}</h1>
-      <img src={auth.imageUrl} />
-      <p>Email:{auth.email}</p>
-      <p>Address:{auth.address}, {auth.city}, {auth.state}, {auth.zipCode}</p>
-      
+    <section className="main">
+      <div>
+        <img src={auth.imageUrl} width='100%' height='100%'/>
+      </div>
+      <div className="info">
+        <h1>{auth.firstName} {auth.lastName}</h1>
+        <p>Email:{auth.email}</p>
+        <p>Address:{auth.address}, {auth.city}, {auth.state}, {auth.zipCode}</p>
+      </div>
       <UserOrdersCompleted />
       {auth.isGuest ? (
-        <button>
+        <button className='create-btn'>
           <Link to="/profile/edit/credentials"> Create Profile</Link>
         </button>
       ) : (
-        <button>
+        <button className='update-btn'>
           <Link to="/profile/edit"> Edit Profile</Link>
         </button>
       )}
-    </div>
+    </section>
   );
 };
 

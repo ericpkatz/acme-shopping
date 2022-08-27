@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 const UsersList = ({ users }) => {
     return (
         <section>
-            <table>
+            <table className="table">
                 <tbody>
                     <tr>
                         <th>First Name</th>

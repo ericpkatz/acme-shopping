@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   createAccount,
   updateGuestToUser,
@@ -48,8 +48,7 @@ class UserCreateForm extends Component {
       <section>
         <h2>Create Account</h2>
         <form onSubmit={handleSubmit}>
-          <label>
-            Username:
+          <label>Username:<br />
             <input
               type="text"
               name="username"
@@ -58,8 +57,7 @@ class UserCreateForm extends Component {
               required
             />
           </label>
-          <label>
-            Password:
+          <label>Password:<br />
             <input
               type="password"
               name="password"
@@ -68,8 +66,7 @@ class UserCreateForm extends Component {
               required
             />
           </label>
-                 <label>
-            First Name:
+          <label>First Name:<br />
             <input
               type="text"
               name="firstName"
@@ -78,8 +75,7 @@ class UserCreateForm extends Component {
               required
             />
           </label>
-                 <label>
-            Last Name:
+          <label>Last Name:<br />
             <input
               type="text"
               name="lastName"
@@ -88,8 +84,7 @@ class UserCreateForm extends Component {
               required
             />
           </label>
-          <label>
-            Email:
+          <label>Email:<br />
             <input
               type="email"
               name="email"
@@ -98,8 +93,7 @@ class UserCreateForm extends Component {
               required
             />
           </label>
-          <label>
-            imageUrl:
+          <label>imageUrl:<br />
             <input
               type="text"
               name="imageUrl"
@@ -107,8 +101,7 @@ class UserCreateForm extends Component {
               onChange={onChange}
             />
           </label>
-          <label>
-            Address:
+          <label>Address:<br />
             <input
               type="text"
               name="address"
@@ -117,36 +110,36 @@ class UserCreateForm extends Component {
               required
             />
           </label>
-          <label>City:
-          <input
-              type='text'
-              name='city'
-              value={ city }
-              onChange={onChange}
-              required
-             />
+          <label>City:<br />
+            <input
+                type='text'
+                name='city'
+                value={ city }
+                onChange={onChange}
+                required
+              />
           </label>
-          <label>State:
-          <input
-              type='text'
-              name='state'
-              value={ state }
-               onChange={onChange}
-              required
-            />
+          <label>State:<br />
+            <input
+                type='text'
+                name='state'
+                value={ state }
+                onChange={onChange}
+                required
+              />
            </label>
-           <label>Zipcode:
-           <input
-           type='text'
-            name='zipCode'
-            value={ zipCode }
-            onChange={ onChange}
-            required
-                        />
-                    </label>
-          <button type="submit">Create Account</button>
+           <label>Zipcode:<br />
+            <input
+                type='text'
+                name='zipCode'
+                value={ zipCode }
+                onChange={ onChange}
+                required
+              />
+          </label>
+          <button type="submit" className='create-btn'>Create Account</button>
           <button>
-            <Link to="/">Go Back</Link>
+            <Link to="/" className='back-btn'>Go Back</Link>
           </button>
         </form>
       </section>

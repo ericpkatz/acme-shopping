@@ -13,7 +13,7 @@ const ProductsView = ({ products, auth, lineItems, addToCart }) => {
         <section id="products" className="main">
             {
                 auth.isAdmin ?
-                <button onClick={() => openForm()} className='open-form-btn'>&#9776; Add New Product</button>
+                <button onClick={() => openForm()} className='openForm-btn'>&#9776; Add New Product</button>
                 : null
             }
             <ul className="products-list">

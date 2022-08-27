@@ -6,24 +6,21 @@ const AddCartHelper = ({singleProduct, addToCart, product, lineItems}) => {
         console.log(product)
         const item = lineItems.find(item => item.productId === product.id);
         if(item){
-            setQuantity(quantity + item.quantity)
-            if(quantity < product.limit){
-              addToCart(product, quantity)
-              setQuantity(1);
-            } else {
-               if(product.limit === 0){
-                 alert('Sold Out! Check back again later!')
-               } else {
-                 alert(`We only have ${product.limit} left!`);
-               }
-            }
+          quantity += item.quantity;
+            setQuantity(quantity);
+        }
+        if(quantity < product.limit || quantity === product.limit){
+          addToCart(product, quantity)
+          setQuantity(1);
         } else {
           if(product.limit === 0){
             alert('Sold Out! Check back again later!')
+            setQuantity(1);
           } else {
-            alert(`We only have ${product.limit} left!`);
-         }
-      }
+           alert(`We only have ${product.limit} left!`)
+           setQuantity(1);
+          }
+        }
   };
   return singleProduct ? (
     <Fragment>

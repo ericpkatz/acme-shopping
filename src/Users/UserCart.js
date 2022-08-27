@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { updateLineItem } from "../store";
 import { Link } from "react-router-dom";
 
-const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
-  const token = localStorage.getItem("token");
+const UserCart = ({ auth, lineItems, subtotal, increment, deleteLineItem }) => {
+  const token = window.localStorage.getItem("token");
   const stripeSession = async () => {
     const noBodyNeeded = null;
     const headers = {
