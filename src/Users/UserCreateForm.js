@@ -36,16 +36,24 @@ class UserCreateForm extends Component {
       console.log("guest found", guest);
       // this.props.createAccount(this.state);
       this.props.updateGuestToUser(guest, { ...this.state, isGuest: false });
+      document.getElementById("createAccount-form").style.width = '0';
+      document.getElementById("main-app").style.marginRight = '0';
+      alert('Account has been created!');
     } else {
       console.log("no guest");
       this.props.createAccount(this.state);
     }
   };
+  closeForm(){
+    document.getElementById("createAccount-form").style.width = '0';
+    document.getElementById("main-app").style.marginRight = '0';
+  }
   render() {
     const { username, firstName, lastName, email, password, imageUrl, address,city,state,zipCode } = this.state;
-    const { onChange, handleSubmit } = this;
+    const { onChange, handleSubmit, closeForm, goBack} = this;
     return (
-      <section>
+      <section className='side' id="createAccount-form">
+        <button className="closebtn" onClick={() => closeForm()}>&times;</button>
         <h2>Create Account</h2>
         <form onSubmit={handleSubmit}>
           <label>Username:<br />
@@ -138,17 +146,13 @@ class UserCreateForm extends Component {
               />
           </label>
           <button type="submit" className='create-btn'>Create Account</button>
-          <button>
-            <Link to="/" className='back-btn'>Go Back</Link>
-          </button>
-        </form>
+        </form> 
       </section>
     );
   }
 }
 
 const mapState = (state) => {
-  console.log(state);
   return { state };
 };
 const mapDispatch = (dispatch) => {

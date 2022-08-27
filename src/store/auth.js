@@ -74,11 +74,11 @@ export const createAccount = (information) => {
 
 export const updateUserCredential = (information) => {
   return async (dispatch) => {
-    let user = await axios.put(`/api/sessions/user/credential`, information, {
+    let user = (await axios.put(`/api/sessions/user/credential`, information, {
       headers: {
         authorization: window.localStorage.getItem("token"),
       },
-    }).data;
+    })).data;
     console.log(user);
     const { token } = user;
     window.localStorage.setItem("token", token);
@@ -112,16 +112,11 @@ export const updateGuestToUser = (guest, updateInfo) => {
 
 export const updateUser = (information) => {
   return async (dispatch) => {
-    const { data: updated } = await axios.put(
-      `/api/sessions/user`,
-      information,
-      {
+    const auth = (await axios.put(`/api/sessions/user`,information, {
         headers: {
           authorization: window.localStorage.getItem("token"),
-        },
-      }
-    );
-    dispatch({ updated, type: "SET_AUTH" });
+        }})).data;
+    dispatch({ auth, type: "SET_AUTH" });
   };
 };
 

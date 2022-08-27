@@ -4,7 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { updateUser } from '../store/auth';
 
 class UserProfileEdit extends Component {
-    
     constructor(){
         super();
         this.state = {
@@ -19,12 +18,9 @@ class UserProfileEdit extends Component {
         }
         this.update = this.update.bind(this);
     }
-    
     async update(e){
- //       e.preventDefault();
-        
-        const information = {firstName:this.state.firstName, lastName:this.state.lastName, city:this.state.city, state:this.state.state, zipCode:this.state.zipCode, email: this.state.email, imageUrl: this.state.imageUrl, address:this.state.address };
-
+       e.preventDefault();
+        const information = {...this.state};
         try {
             await this.props.update(information);
         }
@@ -32,32 +28,57 @@ class UserProfileEdit extends Component {
         console.log(ex);
         }
     }
-    
     componentDidMount(){
-    this.setState({firstName:this.props.auth.firstName, lastName:this.props.auth.lastName, city:this.props.auth.city, state:this.props.auth.state, zipCode:this.props.auth.zipCode, email: this.props.auth.email, imageUrl:this.props.auth.imageUrl, address:this.props.auth.address  });
-    }
-
-  
+        this.setState({
+            firstName:this.props.auth.firstName, 
+            lastName:this.props.auth.lastName,
+            city:this.props.auth.city,
+            state:this.props.auth.state,
+            zipCode:this.props.auth.zipCode,
+            email: this.props.auth.email,
+            imageUrl:this.props.auth.imageUrl,
+            address:this.props.auth.address 
+        });
+    };
+    componentDidUpdate(prevProps){
+        if(!prevProps.auth.id && this.props.auth.id){
+            this.setState({
+                firstName:this.props.auth.firstName, 
+                lastName:this.props.auth.lastName,
+                city:this.props.auth.city,
+                state:this.props.auth.state,
+                zipCode:this.props.auth.zipCode,
+                email: this.props.auth.email,
+                imageUrl:this.props.auth.imageUrl,
+                address:this.props.auth.address 
+            });
+        }
+        if(prevProps.auth.id && !this.props.auth.id){
+            this.setState({
+                firstName:'',
+                lastName:'',
+                email:'',
+                imageUrl:'',
+                address:'',
+                city:'',
+                state:'',
+                zipCode:''
+            })
+        }
+    };
+    closeForm(){
+        document.getElementById("editProfile-form").style.width = '0';
+        document.getElementById("main-app").style.marginRight = '0';
+    };
   render(){
         const { firstName,lastName,city,state,zipCode, email, imageUrl, address } = this.state;
-        const { update } = this;
+        const { update, closeForm} = this;
     return (
- <section>
-   <div>
-    <h1>
-    {this.props.auth.firstName} {this.props.auth.lastName}
-    </h1>
-     <img src={this.props.auth.imageUrl} />
-    <p>
-    Email:{this.props.auth.email}
-    </p>
-    <p>
-    Address:{this.props.auth.address}, {this.props.auth.city}, {this.props.auth.state}, {this.props.auth.zipCode}
-    </p>
-    </div>
-                <h2>Update Profile</h2>
-                <form onSubmit={ update }>
-                 <label>First Name:
+        <section className='side' id="editProfile-form">
+            <button className="closebtn" onClick={() => closeForm()}>&times;</button>
+            <h2>Update Profile</h2>
+            <form onSubmit={ update }>
+                 <label>First Name:<br />
                         <input
                             type='text'
                             name='firstName'
@@ -66,7 +87,7 @@ class UserProfileEdit extends Component {
                             required
                         />
                     </label>
-                     <label>Last Name:
+                    <label>Last Name:<br />
                         <input
                             type='text'
                             name='lastName'
@@ -75,7 +96,7 @@ class UserProfileEdit extends Component {
                             required
                         />
                     </label>
-                    <label>Email:
+                    <label>Email:<br />
                         <input
                             type='email'
                             name='email'
@@ -84,7 +105,7 @@ class UserProfileEdit extends Component {
                             required
                         />
                     </label>
-                    <label>imageUrl:
+                    <label>imageUrl:<br />
                         <input
                             type='text'
                             name='imageUrl'
@@ -92,7 +113,7 @@ class UserProfileEdit extends Component {
                             onChange={ ev => this.setState({ imageUrl: ev.target.value })}
                         />
                     </label>
-                    <label>Address:
+                    <label>Street Address:<br />
                         <input
                             type='text'
                             name='address'
@@ -101,7 +122,7 @@ class UserProfileEdit extends Component {
                             required
                         />
                     </label>
-                       <label>City:
+                       <label>City:<br />
                         <input
                             type='text'
                             name='city'
@@ -110,7 +131,7 @@ class UserProfileEdit extends Component {
                             required
                         />
                     </label>
-                       <label>State:
+                       <label>State:<br />
                         <input
                             type='text'
                             name='state'
@@ -119,7 +140,7 @@ class UserProfileEdit extends Component {
                             required
                         />
                     </label>
-                       <label>Zipcode:
+                       <label>Zipcode:<br />
                         <input
                             type='text'
                             name='zipCode'
@@ -129,11 +150,8 @@ class UserProfileEdit extends Component {
                         />
                     </label>
                     <button type='submit'>Update Profile</button>
-                    <button><Link to="/profile/edit/credentials"> Edit Login Info</Link></button>
-                    <button><Link to='../profile'>Go Back</Link></button>
                 </form>
-            </section>
-    
+        </section>
     )
   }
 };

@@ -16,24 +16,23 @@ class UserCredentialsEdit extends Component {
   }
 
   async update(e) {
-    //       e.preventDefault();
+    e.preventDefault();
     const information = {
       username: this.state.username,
       password: this.state.password,
       passwordConfirm: this.state.passwordConfirm,
       isGuest: false,
     };
-
     try {
       await this.props.update(information);
+      document.getElementById("credentials-form").style.width = '0';
+      document.getElementById("main-app").style.marginRight = '0';
+      alert('Your Username / Password has been updated!');
+
     } catch (ex) {
       console.log(ex);
     }
   }
-
-  //   componentDidMount(){
-  // this.setState({ username:this.props.auth.username, password:this.props.auth.password, passwordConfirm:this.props.auth.password  });
-  //   }
   validatePassword() {
     return (
       this.state.password.length > 0 &&
@@ -41,19 +40,20 @@ class UserCredentialsEdit extends Component {
       this.state.password === this.state.passwordConfirm
     );
   }
-
+  closeForm(){
+    document.getElementById("credentials-form").style.width = '0';
+    document.getElementById("main-app").style.marginRight = '0';
+  };
   render() {
     const { username, password, passwordConfirm } = this.state;
-    const { update, validatePassword } = this;
+    const { update, validatePassword, closeForm} = this;
     return (
-      <section>
-        <div>
-          <h1>{this.props.auth.username}</h1>
-        </div>
+      <section className='side' id="credentials-form">
+        <button className="closebtn" onClick={() => closeForm()}>&times;</button>
         <h2>Update Credentials </h2>
         <form onSubmit={update}>
           <label>
-            New Username:
+            New Username:<br />
             <input
               type="username"
               name="username"
@@ -63,7 +63,7 @@ class UserCredentialsEdit extends Component {
             />
           </label>
           <label>
-            New Password:
+            New Password:<br />
             <input
               type="password"
               name="password"
@@ -72,7 +72,7 @@ class UserCredentialsEdit extends Component {
             />
           </label>
           <label>
-            Password Confirmation:
+            Password Confirmation:<br />
             <input
               type="password"
               name="passwordConfirm"
@@ -85,9 +85,6 @@ class UserCredentialsEdit extends Component {
           </label>
           <button disabled={!validatePassword()} type="submit" className='update-btn'>
             Update Credentials
-          </button>
-          <button className='back-btn'>
-            <Link to="../profile">Go Back</Link>
           </button>
         </form>
       </section>

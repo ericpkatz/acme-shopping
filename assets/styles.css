@@ -27,7 +27,7 @@ form > * {
   list-style: none;
 }
 
-.product {
+.product, .profile {
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -106,7 +106,7 @@ background-color: rgb(235, 232, 232);
   color: black;
 }
 
-#product-form {
+#product-form, #editProfile-form, #credentials-form, #createAccount-form {
   height: 100%;
   /* 100% Full-height */
   width: 0;
