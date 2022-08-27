@@ -36,10 +36,11 @@ const ProductsView = ({ products, auth, lineItems, addToCart }) => {
     )
 };
 const mapState = state => {
+    const products = state.products.filter(product => product.soldOut === false);
     return {
         auth: state.auth,
         lineItems: state.cart.lineItems,
-        products: state.products
+        products
     }
 };
 const mapDispatch = dispatch => {

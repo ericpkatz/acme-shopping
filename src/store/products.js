@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const products = (state = [], action) => {
     if(action.type === 'SET_PRODUCTS'){
-        return action.products.filter(product => product.soldOut === false);
+        return action.products;
     }
     else if(action.type === 'CREATE_PRODUCT'){
         return [...state, action.product];
@@ -54,17 +54,7 @@ export const updateProduct = (product, id) => {
         }
     }
 };
-//delete product
-export const deleteProduct = (product) => {
-    return async(dispatch) => {
-        await axios.delete(`/api/products/${product.id}`, {
-            headers: {
-                authorization: window.localStorage.getItem('token')
-            }
-        });
-        dispatch({type: 'DELETE_PRODUCT', product});
-    }
-};
+
 // //remove Product
 // export const removeProduct = (product) => {
 //     return async(dispatch) => {
