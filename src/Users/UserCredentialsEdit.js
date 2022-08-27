@@ -18,14 +18,9 @@ class UserCredentialsEdit extends Component {
     
     async update(e){
  //       e.preventDefault();
-        console.log("This State")
-        console.log(this.state);
         const information = {username:this.state.username, password:this.state.password, passwordConfirm:this.state.passwordConfirm };
-        console.log(`Generate data from component`);
-        console.log(information);
+
         try {
-            console.log(`Transfer data from component`);
-            console.log(information);
             await this.props.update(information);
         }
         catch(ex){

@@ -12,13 +12,16 @@ class UserCreateForm extends Component {
   constructor() {
     super();
     this.state = {
-      // firstName: '',
-      // lastName: '',
+      firstName: '',
+      lastName: '',
       email: "",
       username: "",
       password: "",
       imageUrl: "",
       address: "",
+      city:'',
+      state:'',
+      zipCode:''
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,7 +42,7 @@ class UserCreateForm extends Component {
     }
   };
   render() {
-    const { username, email, password, imageUrl, address } = this.state;
+    const { username, firstName, lastName, email, password, imageUrl, address,city,state,zipCode } = this.state;
     const { onChange, handleSubmit } = this;
     return (
       <section>
@@ -61,6 +64,26 @@ class UserCreateForm extends Component {
               type="password"
               name="password"
               value={password}
+              onChange={onChange}
+              required
+            />
+          </label>
+                 <label>
+            First Name:
+            <input
+              type="text"
+              name="firstName"
+              value={firstName}
+              onChange={onChange}
+              required
+            />
+          </label>
+                 <label>
+            Last Name:
+            <input
+              type="text"
+              name="lastName"
+              value={lastName}
               onChange={onChange}
               required
             />
@@ -94,6 +117,33 @@ class UserCreateForm extends Component {
               required
             />
           </label>
+          <label>City:
+          <input
+              type='text'
+              name='city'
+              value={ city }
+              onChange={onChange}
+              required
+             />
+          </label>
+          <label>State:
+          <input
+              type='text'
+              name='state'
+              value={ state }
+               onChange={onChange}
+              required
+            />
+           </label>
+           <label>Zipcode:
+           <input
+           type='text'
+            name='zipCode'
+            value={ zipCode }
+            onChange={ onChange}
+            required
+                        />
+                    </label>
           <button type="submit">Create Account</button>
           <button>
             <Link to="/">Go Back</Link>
