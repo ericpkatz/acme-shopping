@@ -1,11 +1,18 @@
 import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { updateLineItem, updateCart } from "../store";
+import { updateLineItem, updateCart, logout } from "../store";
 import auth from "../store/auth";
 import { Link, Redirect } from "react-router-dom";
 
-const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
+const UserCart = ({
+  lineItems,
+  subtotal,
+  auth,
+  increment,
+  deleteLineItem,
+  logout,
+}) => {
   const token = localStorage.getItem("token");
   const stripeSession = async () => {
     const noBodyNeeded = null;
@@ -13,10 +20,14 @@ const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
       headers: {
         authorization: token,
       },
-    }
-    const { data: url } = await axios.post('/api/stripe', noBodyNeeded, headers);
+    };
+    const { data: url } = await axios.post(
+      "/api/stripe",
+      noBodyNeeded,
+      headers
+    );
     window.location.href = url;
-  }
+  };
 
   return (
     <section className="main">
@@ -74,10 +85,11 @@ const UserCart = ({ lineItems, subtotal, increment, deleteLineItem }) => {
             <th>Subtotal: ${subtotal}</th>
             <th>
               {auth.isGuest ? (
-                <button>
-                  <Link to="/profile/edit/credentials">
+                <button onClick={logout}>
+                  Sign In to Checkout
+                  {/* <Link to="/profile/edit/credentials">
                     Create Profile to Checkout
-                  </Link>
+                  </Link> */}
                 </button>
               ) : (
                 <button onClick={stripeSession}>Continue to Checkout</button>
@@ -119,6 +131,9 @@ const mapDispatch = (dispatch) => {
     deleteLineItem: (lineItem) => {
       const item = { ...lineItem, quantity: 0 };
       dispatch(updateLineItem(item));
+    },
+    logout: () => {
+      dispatch(logout());
     },
   };
 };

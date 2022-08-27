@@ -55,8 +55,10 @@ class SignIn extends Component {
             Login
           </button>
         </form>
-        <button className="createAccount-btn">
-          <Link to="/createAccount">Create An Account</Link>
+        <button>
+          <Link className="createAccount-btn" to="/createAccount">
+            Create An Account
+          </Link>
         </button>
         <button onClick={loginAsGuest}>Continue As Guest</button>
       </div>

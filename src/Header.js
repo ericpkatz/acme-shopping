@@ -3,15 +3,14 @@ import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from "./store";
 const Header = ({ auth, cart, logout }) => {
-
   const history = useHistory();
   let location = history.location.pathname;
-  const navigateHome = () => history.push('/');
-  const navigateProducts = () => history.push('/products');
-  const navigateCart = () => history.push('/cart');
-  const navigateProfile = () => history.push('/profile');
-  const navigateWishlist = () => history.push('wishlist');
-  const navigateUsersList = () => history.push('/usersList');
+  const navigateHome = () => history.push("/");
+  const navigateProducts = () => history.push("/products");
+  const navigateCart = () => history.push("/cart");
+  const navigateProfile = () => history.push("/profile");
+  const navigateWishlist = () => history.push("wishlist");
+  const navigateUsersList = () => history.push("/usersList");
   const navigateSignInPage = () => {
     if (auth.id) {
       logout();
@@ -72,10 +71,9 @@ const Header = ({ auth, cart, logout }) => {
         </nav>
       ) : (
         <nav>
-          <div onClick={navigateSignInPage}> Sign In </div>
+          <div onClick={logout}> Sign In </div>
         </nav>
-      )
-    }
+      )}
     </section>
   );
 };
