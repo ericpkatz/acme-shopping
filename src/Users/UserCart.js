@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const UserCart = ({ auth, lineItems, subtotal, increment, deleteLineItem }) => {
   const token = window.localStorage.getItem("token");
