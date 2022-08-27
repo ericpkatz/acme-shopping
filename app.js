@@ -1,18 +1,22 @@
 const express = require('express');
-const app = express();
-app.use(express.json());
-const { User } = require('./db');
+const favicon = require('serve-favicon')
 const path = require('path');
 
-app.use('/dist', express.static('dist'));
+const app = express();
+app.use(express.json());
 
-app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
+app.use(favicon(path.join(__dirname, 'favicon_io', 'favicon.ico')))
+
+app.use('/dist', express.static('dist'));
+app.use('/favicon_io', express.static('favicon_io'));
+
+app.get('/', (_req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/sessions', require('./routes/sessions'));
 app.use('/api/products', require('./routes/products'));
 
-app.use((err, req, res, next)=> {
+app.use((err, _req, res, _next)=> {
   console.log(err);
   res.status(err.status || 500).send({ error: err });
 });
