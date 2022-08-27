@@ -13,7 +13,7 @@ import { Link, Redirect } from "react-router-dom";
 
 const UserCart = ({ auth, lineItems, subtotal, increment, deleteLineItem }) => {
   return (
-    <section>
+    <section className="main">
       <table className="table">
         <tbody>
           <tr>
