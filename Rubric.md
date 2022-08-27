@@ -32,12 +32,12 @@ Link to Grace Shopper starting repo:
 
 ### As a guest I should be able to add items in my cart which persist in local storage:
 
-- [ ] Alex - upon login, the cart in local storage should be persisted to a database.
+- [x] Alex - upon login, the cart in local storage should be persisted to a database.
 
 ### As an administrator, I want to be able to:
 
 - [ ] Diane - have full rights to make backend requests to add, edit, and remove products.
-  - [ x ] Diane - _No one else should have access._
+  - [x] Diane - _No one else should have access._
 - [ ] Diane - view user information.
   - [ ] Diane - _No one else should have access._
 
