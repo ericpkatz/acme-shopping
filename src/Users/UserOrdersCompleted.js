@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 <ul>
     {
-      (auth.orderId||[]).map( orderValue => {
+      (auth.orders||[]).map( orderValue => {
         return (
           <li key={ orderValue.id }>
             Order NO. { orderValue.id }
