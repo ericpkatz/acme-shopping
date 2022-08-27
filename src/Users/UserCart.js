@@ -123,6 +123,7 @@ const mapDispatch = (dispatch) => {
       const item = { ...lineItem, quantity: 0 };
       dispatch(updateLineItem(item));
     },
+    quickClearCart: () => dispatch({ type: "SET_CART", cart: { lineItems: [] }}),
     logout: () => {
       dispatch(logout());
     },

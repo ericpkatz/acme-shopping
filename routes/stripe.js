@@ -35,7 +35,10 @@ app.post('/', isLoggedIn, async (req, res, next) => {
       success_url: `${DOMAIN}/#/products`,
       cancel_url: `${DOMAIN}/#/cart`,
     });
-    res.json(session.url)
+    const urlToGo = session.url;
+
+    cart.destroy();
+    res.json(urlToGo)
   }
   catch(err) {
     next(err);

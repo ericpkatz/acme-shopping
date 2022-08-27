@@ -54,12 +54,13 @@ export const updateLineItem = (item) => {
 
 export const updateCartToOrder = (cart) => {
   return async (dispatch) => {
-    dispatch({ type: "SET_CART", cart: { lineItems: [] }});
-    await axios.put(`/api/orders/cart/purchased`, {
-      headers: {
-        authorization: window.localStorage.getItem("token"),
-      },
-    })
+    // dispatch({ type: "SET_CART", cart: { lineItems: [] }});
+
+    // await axios.put(`/api/orders/cart/purchased`, {
+    //   headers: {
+    //     authorization: window.localStorage.getItem("token"),
+    //   },
+    // })
   }
 }
 
