@@ -3,14 +3,26 @@ import React, { useState } from 'react';
 const AddCartHelper = ({addToCart, product, lineItems}) => {
     let [quantity, setQuantity] = useState(1);
     const handleSubmit = (product, quantity) => {
+        console.log(product)
         const item = lineItems.find(item => item.productId === product.id);
         if(item){
-            quantity += item.quantity;
+            setQuantity(quantity + item.quantity)
+            if(quantity < product.limit){
+                addToCart(product, quantity)
+                setQuantity(1);
+            } else {
+                if(product.limit === 0){
+                    alert('Sold Out! Check back again later!')
+                } else {
+                    alert(`We only have ${product.limit} left!`);
+                }
+            }
+        }
+        if(quantity < product.limit*1){
             addToCart(product, quantity)
             setQuantity(1);
         } else {
-            addToCart(product, quantity);
-            setQuantity(1);
+            alert(`We only have ${item.limit} left!`);
         }
     }
     return (

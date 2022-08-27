@@ -90,7 +90,7 @@
   .table th {
     padding-top: 6px;
     padding-bottom: 6px;
-    background-color: rgb(235, 188, 188);
+    background-color: whitesmoke;
     color: black;
   }
   #product-form {
@@ -105,28 +105,38 @@
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
   }
-  #product-form, .closebtn {
+  #product-form {
     position: absolute;
     top: 0;
     right: 25px;
     font-size: 20px;
     margin-right: 10px;
   }
+  .closebtn {
+    background-color: whitesmoke;
+    color: #444;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
   .addCart-div {
     position: absolute;
     bottom: 0px;
     width: 100%;
   }
-  .open-form-btn, .addToCart-btn, button {
+  button {
     font-size: 20px;
     background-color: rgb(71, 70, 70);
     color: white;
-    padding: 5px 5px;
     border: none;
     margin: 10px;
   }
   .open-form-btn:hover {
     background-color: #444;
+    color: white;
   }
   span {
     padding: 5px;

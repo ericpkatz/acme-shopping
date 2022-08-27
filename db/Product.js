@@ -1,3 +1,4 @@
+const { BOOLEAN } = require("sequelize");
 const conn = require("./conn");
 const { Sequelize } = conn;
 const { STRING, TEXT, DECIMAL, INTEGER } = Sequelize;
@@ -26,11 +27,15 @@ const Product = conn.define("product", {
   },
   limit: {
     type: INTEGER,
-    defaultValue: 100
+    defaultValue: 3
   },
   imgUrl: {
     type: TEXT,
   },
+  soldOut: {
+    type: BOOLEAN,
+    defaultValue: false
+  }
 });
 
 module.exports = Product;

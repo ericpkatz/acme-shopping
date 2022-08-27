@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const products = (state = [], action) => {
     if(action.type === 'SET_PRODUCTS'){
-        return action.products;
+        return action.products.filter(product => product.soldOut === false);
     }
     else if(action.type === 'CREATE_PRODUCT'){
         return [...state, action.product];
@@ -11,8 +11,8 @@ const products = (state = [], action) => {
     else if(action.type === 'UPDATE_PRODUCT'){
         return state.map(product => product.id === action.updatedProduct.id ? action.updatedProduct : product);
     }
-    else if(action.type === 'DELETE_PRODUCT'){
-        return state.filter(product => product.id !== action.product.id);
+    else if(action.type === 'REMOVE_PRODUCT'){
+        return state.filter(product => product.id !== action.id);
     }
     return state;
 }
@@ -41,19 +41,17 @@ export const createProduct = (product) => {
 //update product
 export const updateProduct = (product, id) => {
     return async(dispatch) => {
-        const updatedProduct = (await axios.put(`/api/products/${id}`, {
-            name: product.name,
-            description: product.description,
-            limit: product.limit,
-            ml: product.ml,
-            price: product.price,
-            imgUrl: product.imgUrl
-        }, {
+        const updatedProduct = (await axios.put(`/api/products/${id}`, product, {
             headers: {
                 authorization: window.localStorage.getItem('token')
             }
         })).data;
-        dispatch({type: 'UPDATE_PRODUCT', updatedProduct});
+        console.log(updatedProduct)
+        if(updatedProduct.soldOut){
+            dispatch({type: 'REMOVE_PRODUCT', id});
+        } else {
+            dispatch({type: 'UPDATE_PRODUCT', updatedProduct});
+        }
     }
 };
 //delete product
@@ -67,5 +65,15 @@ export const deleteProduct = (product) => {
         dispatch({type: 'DELETE_PRODUCT', product});
     }
 };
-
+// //remove Product
+// export const removeProduct = (product) => {
+//     return async(dispatch) => {
+//         product = (await axios.put(`/api/products/${product.id}`, {
+//             headers: {
+//                 authorization: window.localStorage.getItem('token')
+//             }
+//         })).data;
+//         dispatch({type: 'UPDATE_PRODUCT', product})
+//     }
+// }
 export default products;

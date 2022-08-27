@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCart, exchangeToken, fetchProducts } from './store';
+import { fetchCart, exchangeToken, fetchProducts, fetchUsers } from './store';
 import { Route } from 'react-router-dom';
 import SignIn from './SignIn';
 import UserCart from './Users/UserCart';
@@ -63,6 +63,7 @@ const mapDispatch = (dispatch) => {
     loadData: () => {
       dispatch(fetchProducts());
       dispatch(fetchCart());
+      dispatch(fetchUsers());
     },
   };
 };

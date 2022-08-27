@@ -12,7 +12,7 @@ const ProductSpecificView = ({ product , addToCart, lineItems, auth }) => {
         <section className="main">
             <div className="product">
                 <div className="image">
-                    <img src={ product.imgUrl } width='600' height='400'/>
+                    <img src={ product.imgUrl } width='100%' height='100%'/>
                 </div>
                 {
                     auth.isAdmin ?
@@ -21,15 +21,16 @@ const ProductSpecificView = ({ product , addToCart, lineItems, auth }) => {
                         { product.description }<br />
                         ML: { product.ml }<br />
                         ${ product.price }<br />
+                        Only { product.limit } left!<br />
                         <button onClick={() => openForm()} className='open-form-btn'>Edit Product</button><br />
-                        <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems } />
+                        {product.limit ? <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems }/> : 'Sold Out! Check back again later!'}
                     </div> :
                     <div className="info">
                         { product.name }<br />
                         { product.description }<br />
                         ML: { product.ml }<br />
                         ${ product.price }<br />
-                        <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems } />
+                        {product.limit ? <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems }/> : 'Sold Out! Check back again later!'}
                 </div>
                 }
             </div>
@@ -38,7 +39,7 @@ const ProductSpecificView = ({ product , addToCart, lineItems, auth }) => {
 }
 const mapState = (state, { match }) => {
     return {
-        product: state.products.find(product => product.id === 1 * match.params.id) || {},
+        product: state.products.find(product => product.id === 1 * match.params.id ) || {},
         lineItems: state.cart.lineItems,
          auth: state.auth
     } 

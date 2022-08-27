@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { logout } from "./store";
 const Header = ({ auth, cart, logout }) => {
   const history = useHistory();
@@ -49,13 +49,15 @@ const Header = ({ auth, cart, logout }) => {
             {" "}
             Profile{" "}
           </div>
-          <div
+          {auth.isAdmin ? (
+            <div
             onClick={navigateUsers}
             className={location === "users" ? "selected" : ""}
           >
             {" "}
             Users{" "}
           </div>
+          ) : null}
           {auth.isGuest ? (
             <div onClick={navigateSignInPage} className="logout">
               {" "}

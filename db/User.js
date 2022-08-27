@@ -4,6 +4,7 @@ const { STRING, BOOLEAN, TEXT, INTEGER } = Sequelize;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { VIRTUAL } = require("sequelize");
 
 const User = conn.define("user", {
   username: {
@@ -55,6 +56,12 @@ const User = conn.define("user", {
     type: INTEGER,
     // allowNull: false,
   },
+  fullAddress: {
+    type: VIRTUAL,
+    get: function(){
+      return `${this.address}, ${this.city}, ${this.state} ${this.zipCode}`
+    }
+  }
 });
 
 User.addHook("beforeSave", async (user) => {
@@ -66,7 +73,6 @@ User.prototype.createOrderFromCart = async function () {
   cart.isCart = false;
   return cart.save();
 };
-
 User.prototype.addToCart = async function ({ product, quantity }) {
   const cart = await this.getCart();
   let lineItem = await conn.models.lineItem.findOne({
@@ -92,7 +98,6 @@ User.prototype.addToCart = async function ({ product, quantity }) {
   return this.getCart();
   //the active order with the array of lineItems with product info along with quantity
 };
-
 User.prototype.getCart = async function () {
   let order = await conn.models.order.findOne({
     where: {
@@ -114,12 +119,7 @@ User.prototype.getCart = async function () {
   }
   return order;
 };
-User.prototype.getProducts = async function () {
-  let products = await conn.models.product.findAll({
-    order: [["name"]],
-  });
-  return products;
-};
+//user / guest
 User.authenticate = async function (credentials) {
   const user = await this.findOne({
     where: {
@@ -148,7 +148,6 @@ User.authenticate = async function (credentials) {
 User.createAccount = async function (information) {
   return await this.create({ ...information, isAdmin: false });
 };
-
 User.createGuestAccount = async function (information) {
   return await this.create({
     username: "",
@@ -159,7 +158,9 @@ User.createGuestAccount = async function (information) {
     address: "",
   });
 };
-
+User.prototype.getUsers = async function(){
+  return (await User.findAll());
+}
 // User.updateGuestToUser = async function () {};
 
 User.findByToken = async function findByToken(token) {
@@ -190,20 +191,19 @@ User.findByAdminToken = async function(token){
     throw error
   }
 };
+//Products
+User.prototype.getProducts = async function () {
+  let products = await conn.models.product.findAll({
+    order: [["name"]],
+  });
+  return products;
+};
 User.prototype.createProduct = async function(productReq){
   const product = await conn.models.product.create(productReq);
   return product;
 };
 User.prototype.updateProduct = async function(productReq, id){
   let product = await conn.models.product.findByPk(id*1);
-  // product = await conn.models.product.update({
-  //   name: productReq.name,
-  //   description: productReq.description,
-  //   ml: productReq.ml,
-  //   price: productReq.price,
-  //   limit: productReq.limit,
-  //   imgUrl: productReq.imgUrl
-  // });
   product = await product.update(productReq)
   return product;
 }

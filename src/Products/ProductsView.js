@@ -26,7 +26,7 @@ const ProductsView = ({ products, auth, lineItems, addToCart }) => {
                                     <Link to={`/products/${product.id}`}>{ product.name }</Link><br />
                                     ${ product.price }<br />
                                 </div>
-                                <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems }/>
+                                {product.limit ? <AddCartHelper addToCart={ addToCart } product={ product } lineItems={ lineItems }/> : 'Sold Out!'}
                             </li>
                         )
                     })
@@ -38,8 +38,8 @@ const ProductsView = ({ products, auth, lineItems, addToCart }) => {
 const mapState = state => {
     return {
         auth: state.auth,
-        products: state.products,
-        lineItems: state.cart.lineItems
+        lineItems: state.cart.lineItems,
+        products: state.products
     }
 };
 const mapDispatch = dispatch => {

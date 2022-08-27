@@ -7,9 +7,8 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { updateLineItem, updateCart } from "../store";
-import auth from "../store/auth";
-import { Link, Redirect } from "react-router-dom";
+import { updateLineItem } from "../store";
+import { Link } from "react-router-dom";
 
 const UserCart = ({ auth, lineItems, subtotal, increment, deleteLineItem }) => {
   return (
