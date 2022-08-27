@@ -18,7 +18,8 @@ class UserCredentialsEdit extends Component {
     
     async update(e){
  //       e.preventDefault();
-        const information = {username:this.state.username, password:this.state.password, passwordConfirm:this.state.passwordConfirm };
+        const information = {username:this.state.username, password:this.state.password, passwordConfirm:this.state.passwordConfirm
+        isGuest: false};
 
         try {
             await this.props.update(information);
