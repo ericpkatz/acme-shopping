@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCart, exchangeToken, fetchProducts, fetchUsers } from './store';
@@ -32,6 +33,7 @@ class App extends React.Component {
           <div id="main-app">
             <Route path="/:view?" component={Header} />
             <div>
+
               <Route exact path='/' component={ UserCart } />
               <Route exact path='/products' component={ ProductsView } />
               <Route exact path='/products/:id' component={ ProductSpecificView } />
@@ -51,7 +53,7 @@ class App extends React.Component {
           </div>
         ) : (
           <div>
-          <Route exact path="/" component={SignIn} />
+            <Route exact path="/" component={SignIn} />
             <Route exact path="/createAccount" component={UserCreateForm} />
           </div>
         )}
