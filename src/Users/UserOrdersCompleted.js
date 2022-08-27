@@ -2,24 +2,39 @@
 // add on user profile view
 import React from "react";
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 
     
-    const UserOrdersCompleted = ({auth}) => {
+    const UserOrdersCompleted = ({orders}) => {
     return (
 
-<ul>
+<table className="table">
+<tbody>
+    <tr>
+        <th >Order Number</th>
+        <th >Order Date</th>
+        <th ></th>
+    </tr>
     {
-      (auth.orders||[]).map( orderValue => {
+      (orders||[]).map( orderValue => {
         return (
-          <li key={ orderValue.id }>
-            Order NO. { orderValue.id }
-          </li>
-            )
+          <tr key={ orderValue.id }>
+          <td>
+          { orderValue.id }
+          </td>
+          <td>
+          { orderValue.updatedAt.slice(0,10) }
+          </td>
+          <td>
+          <button><Link to={`/profile/orders/${orderValue.id}`}>
+           View Order Details </Link></button>
+           </td>
+          </tr>
+          )
       })
     }
-    </ul>
-    
+</tbody>
+</table>
     )
 };
 

@@ -20,4 +20,17 @@ export const fetchOrders = () => {
   }
 }
 
+export const fetchUserOrders = () => {
+  return async (dispatch) => {
+    const orders = (
+      await axios.get("/api/orders", {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      })
+    ).data;
+    dispatch({ type: "SET_ORDERS", orders });
+  }
+}
+
 export default orders;

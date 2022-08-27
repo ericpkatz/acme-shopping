@@ -109,8 +109,24 @@ User.prototype.getOrders = async function () {
         model: conn.models.lineItem,
         include: [conn.models.product],
       },
+    ]//,
+//    order: ['updatedAt', 'DESC']
+  });
+  return orders || [];
+};
+
+User.prototype.getUserOrders = async function () {
+  let orders = await conn.models.order.findAll({
+    where: {
+      userId: this.id,
+      isCart: false,
+    },
+    include: [
+      {
+        model: conn.models.lineItem,
+        include: [conn.models.product],
+      },
     ],
-    order: ['updatedAt', 'DESC']
   });
   return orders || [];
 };
