@@ -36,10 +36,10 @@ Link to Grace Shopper starting repo:
 
 ### As an administrator, I want to be able to:
 
-- [ ] Diane - have full rights to make backend requests to add, edit, and remove products.
+- [x ] Diane - have full rights to make backend requests to add, edit, and remove products.
   - [ x ] Diane - _No one else should have access._
-- [ ] Diane - view user information.
-  - [ ] Diane - _No one else should have access._
+- [ x] Diane - view user information.
+  - [ x] Diane - _No one else should have access._
 
 ### As a logged-in customer, I want to be able to:
 
