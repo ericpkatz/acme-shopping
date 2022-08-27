@@ -32,7 +32,7 @@ app.post('/', isLoggedIn, async (req, res, next) => {
       payment_method_types: ['card'],
       mode: 'payment',
       line_items,
-      success_url: `${DOMAIN}/#/orders/willComplete`,
+      success_url: `${DOMAIN}/#/products`,
       cancel_url: `${DOMAIN}/#/cart`,
     });
     res.json(session.url)
