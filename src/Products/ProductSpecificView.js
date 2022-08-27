@@ -12,7 +12,7 @@ const ProductSpecificView = ({ product , addToCart, lineItems, auth }) => {
         <section className="main">
             <div className="product">
                 <div className="image">
-                    <img src={ product.imgUrl } width='450' height='320'/>
+                    <img src={ product.imgUrl } width='600' height='400'/>
                 </div>
                 {
                     auth.isAdmin ?

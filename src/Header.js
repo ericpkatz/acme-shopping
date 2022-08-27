@@ -9,8 +9,7 @@ const Header = ({ auth, cart, logout }) => {
   const navigateProducts = () => history.push('/products');
   const navigateCart = () => history.push('/cart');
   const navigateProfile = () => history.push('/profile');
-  const navigateWishlist = () => history.push('wishlist');
-  const navigateUsersList = () => history.push('/usersList');
+  const navigateUsers = () => history.push('/users');
   const navigateSignInPage = () => {
     if (auth.id) {
       logout();
@@ -51,11 +50,11 @@ const Header = ({ auth, cart, logout }) => {
             Profile{" "}
           </div>
           <div
-            onClick={navigateWishlist}
-            className={location === "wishlist" ? "selected" : ""}
+            onClick={navigateUsers}
+            className={location === "users" ? "selected" : ""}
           >
             {" "}
-            Wish List{" "}
+            Users{" "}
           </div>
           {auth.isGuest ? (
             <div onClick={navigateSignInPage} className="logout">
