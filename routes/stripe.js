@@ -31,8 +31,8 @@ app.post('/', isLoggedIn, async (req, res, next) => {
       payment_method_types: ['card'],
       mode: 'payment',
       line_items,
-      success_url: `${DOMAIN}/order/complete`,
-      cancel_url: `${DOMAIN}/`,
+      success_url: `${DOMAIN}/#/orders/complete`,
+      cancel_url: `${DOMAIN}/#/cart`,
     });
     res.json(session.url)
   }

@@ -43,12 +43,12 @@ class App extends React.Component {
               <Route path='/profile' component={ UserProfile } exact />
               <Route path='/profile/edit' component={ UserProfileEdit } exact/>
               <Route path='/profile/edit/credentials' component={ UserCredentialsEdit } />
-              <Route path='/order/complete' component={ OrderCompleted } />
+              <Route path='/orders/complete' component={ OrderCompleted } />
             </div>
           </div>
         ) : (
           <div>
-            <Route exact path="/" component={SignIn} />
+          <Route exact path="/" component={SignIn} />
             <Route exact path="/createAccount" component={UserCreateForm} />
           </div>
         )}

@@ -1,11 +1,13 @@
-import React from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-// import { updateLineItem, updateCart } from "./store";
-import auth from "./store/auth";
-import { Link } from "react-router-dom";
+import { updateCartToOrder } from "./store";
 
-const OrderCompleted = ({ lineItems, subtotal, increment, deleteLineItem }) => {
+const OrderCompleted = ({ lineItems, subtotal, orderCart }) => {
+
+  useEffect(() => {
+    orderCart();
+  } , []);
+
   return (
     <section>
       <table className="table">
@@ -18,7 +20,7 @@ const OrderCompleted = ({ lineItems, subtotal, increment, deleteLineItem }) => {
             <th>Total</th>
             <th></th>
           </tr>
-          {(lineItems || []).map((lineItem) => {
+          {lineItems.map((lineItem) => {
             let subtotal = lineItem.product.price * lineItem.quantity;
             return (
               <tr key={lineItem.id}>
@@ -26,27 +28,10 @@ const OrderCompleted = ({ lineItems, subtotal, increment, deleteLineItem }) => {
                   <img src={lineItem.product.imgUrl} width="120" height="80" />
                 </td>
                 <td>{lineItem.product.name}</td>
-                <td>
-                  <button
-                    onClick={() => increment(lineItem, -1)}
-                    disabled={lineItem.quantity === 1}
-                  >
-                    -
-                  </button>
-                  {lineItem.quantity}
-                  <button onClick={() => increment(lineItem, +1)}>+</button>
-                </td>
+                <td>{lineItem.quantity}</td>
                 <td>${lineItem.product.price}</td>
                 <td>${subtotal && subtotal.toFixed(2)}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      deleteLineItem(lineItem);
-                    }}
-                  >
-                    Remove
-                  </button>
-                </td>
+                <td></td>
               </tr>
             );
           })}
@@ -55,17 +40,8 @@ const OrderCompleted = ({ lineItems, subtotal, increment, deleteLineItem }) => {
             <th></th>
             <th></th>
             <th></th>
-            <th>Subtotal: ${subtotal}</th>
+            <th>Total: ${subtotal}</th>
             <th>
-              {auth.isGuest ? (
-                <button>
-                  <Link to="/profile/edit/credentials">
-                    Create Profile to Checkout
-                  </Link>
-                </button>
-              ) : (
-                <button>df</button>
-              )}
             </th>
           </tr>
         </tbody>
@@ -73,6 +49,7 @@ const OrderCompleted = ({ lineItems, subtotal, increment, deleteLineItem }) => {
     </section>
   );
 };
+
 const mapState = ({ cart, auth }) => {
   const lineItems = cart.lineItems;
   const subtotalArr = lineItems.map((lineItem) => {
@@ -88,22 +65,16 @@ const mapState = ({ cart, auth }) => {
   cart.lineItems.sort(function (a, b) {
     return a.id - b.id;
   });
+
   return {
     lineItems: cart.lineItems || [],
     subtotal: calculateSum().toFixed(2),
-    auth: state.auth,
+    auth,
   };
 };
 const mapDispatch = (dispatch) => {
   return {
-    increment: (lineItem, dir) => null,
-    //   const item = { ...lineItem, quantity: lineItem.quantity + dir };
-    //   dispatch(updateLineItem(item));
-    // },
-    deleteLineItem: (lineItem) => null,
-    //   const item = { ...lineItem, quantity: 0 };
-    //   dispatch(updateLineItem(item));
-    // },
+    orderCart: (cart) => dispatch(updateCartToOrder(cart)),
   };
 };
 export default connect(mapState, mapDispatch)(OrderCompleted);
