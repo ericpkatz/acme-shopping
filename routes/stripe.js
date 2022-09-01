@@ -37,7 +37,6 @@ app.post('/', isLoggedIn, async (req, res, next) => {
     });
     const urlToGo = session.url;
 
-    cart.destroy();
     res.json(urlToGo)
   }
   catch(err) {
