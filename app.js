@@ -1,28 +1,25 @@
-const express = require('express');
+const express = require("express");
+const favicon = require("serve-favicon");
+const path = require("path");
+
 const app = express();
 app.use(express.json());
-const { User } = require('./db');
-const path = require('path');
 
-app.use('/dist', express.static('dist'));
+app.use(favicon(path.join(__dirname, "favicon_io", "favicon.ico")));
 
+app.use("/dist", express.static("dist"));
+app.use("/favicon_io", express.static("favicon_io"));
+app.use(express.static("assets"));
 
-const isLoggedIn = async(req, res, next)=> {
-  try {
-    req.user = await User.findByToken(req.headers.authorization);
-    next();
-  }
-  catch(ex){
-    next(ex);
-  }
-};
-
-app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
+app.get("/", (_req, res) => res.sendFile(path.join(__dirname, "index.html")));
 
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/sessions', require('./routes/sessions'));
+app.use('/api/products', require('./routes/products'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/stripe', require('./routes/stripe'));
 
-app.use((err, req, res, next)=> {
+app.use((err, _req, res, _next) => {
   console.log(err);
   res.status(err.status || 500).send({ error: err });
 });

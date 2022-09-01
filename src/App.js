@@ -1,50 +1,88 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import { fetchCart, exchangeToken, logout } from './store';
-import { Link, Route } from 'react-router-dom';
-import SignIn from './SignIn';
-import Cart from './Cart';
 
-class App extends React.Component{
-  componentDidMount(){
+import React from 'react';
+import { connect } from 'react-redux';
+
+import { fetchCart, exchangeToken, logout, fetchProducts, fetchUsers, fetchUserOrders } from './store';
+
+import { Route } from 'react-router-dom';
+import SignIn from './SignIn';
+import UserCart from './Users/UserCart';
+import UserProfile from './Users/UserProfile';
+import UserProfileEdit from './Users/UserProfileEdit';
+import UserCredentialsEdit from './Users/UserCredentialsEdit';
+import ProductSpecificView from './Products/ProductSpecificView';
+import ProductsView from './Products/ProductsView';
+import UserCreateForm from './Users/UserCreateForm';
+import OrderCompleted from './OrderCompleted';
+import UserOrdersCompletedDetail from './Users/UserOrdersCompletedDetail';
+import WillCompleteOrder from './WillCompleteOrder';
+import Header from './Header';
+import ProductForm from './Products/ProductForm';
+import UsersList from './Users/UsersList';
+
+class App extends React.Component {
+  componentDidMount() {
     this.props.exchangeToken();
   }
-  componentDidUpdate(prevProps){
-    if(!prevProps.auth.id && this.props.auth.id){
-      this.props.fetchCart();
+  componentDidUpdate(prevProps) {
+    if (!prevProps.auth.id && this.props.auth.id) {
+      this.props.loadData();
     }
   }
-  render(){
-    const { auth, logout, cart } = this.props;
+  render() {
+    const { auth } = this.props;
+    console.log('Chloe this is the store');
+    console.log(this.props);
+   
     return (
       <main>
-        <h1>Grace Shopper</h1>
-        {
-          auth.id ? <button onClick={ logout }>Logout { auth.username }</button>: <SignIn />
-        }
-        {
-          auth.id ? <Link to='/cart'>Cart ({cart.lineItems.length})</Link>: null
-        }
-        {
-          auth.id ? (
-            <Fragment>
-              <Route path='/cart' component={ Cart } />
-            </Fragment>
-          ): null 
-        }
+        {auth.id ? (
+          <div id="main-app">
+            <Route path="/:view?" component={Header} />
+            <div>
+
+              <Route exact path='/' component={ UserCart } />
+              <Route exact path='/products' component={ ProductsView } />
+              <Route exact path='/products/:id' component={ ProductSpecificView } />
+              <Route path='/cart' component={ UserCart } />
+              <Route path='/profile' component={ UserProfile } />
+              <Route path='/profile' component={ UserProfileEdit } />
+              <Route path='/profile' component={ UserCredentialsEdit } />
+              <Route path='/profile' component={ UserCreateForm } />
+              <Route path='/orders/willComplete' component={ WillCompleteOrder} />
+              <Route path='/orders/:id/completed' component={ OrderCompleted } />
+              <Route path='/profile/orders/:id' component={ UserOrdersCompletedDetail } />
+
+              { auth.isAdmin ?
+                <div>
+                  <Route exact path='/products/:id' component={ ProductForm } />
+                  <Route exact path='/products' component={ ProductForm } />
+                  <Route exact path='/users' component={ UsersList } />
+                </div> : null 
+              }
+
+            </div>
+          </div>
+        ) : (
+          <Route exact path="/" component={SignIn} />
+        )}
       </main>
     );
-
   }
 }
-const mapDispatch = (dispatch)=> {
+const mapDispatch = (dispatch) => {
   return {
-    exchangeToken: ()=> dispatch(exchangeToken()),
-    logout: ()=> dispatch(logout()),
-    fetchCart: ()=> dispatch(fetchCart())
+    exchangeToken: () => dispatch(exchangeToken()),
+    loadData: () => {
+      dispatch(fetchProducts());
+      dispatch(fetchCart());
+      dispatch(fetchUserOrders());
+      dispatch(fetchUsers());
+
+    },
   };
 };
-const mapStateToProps = (state)=> {
+const mapStateToProps = (state) => {
   return state;
 };
 export default connect(mapStateToProps, mapDispatch)(App);
